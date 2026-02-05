@@ -916,6 +916,12 @@ let currentMarketRankMobile = 'rise';
 let selectedMarketItemIndexMobile = 0;
 
 function initMarketPriceMobile() {
+    // 检查数据是否可用
+    if (typeof marketPriceData === 'undefined' || typeof rarityColors === 'undefined') {
+        console.warn('交易物价数据未加载');
+        return;
+    }
+    
     updateMarketListMobile();
     drawMarketMiniChartMobile();
     
@@ -1146,5 +1152,11 @@ function drawMarketMiniChartMobile() {
     });
 }
 
-// 初始化
-initMarketPriceMobile();
+// 页面加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+    // 如果当前在工具页，初始化交易物价
+    const toolsPage = document.getElementById('page-tools');
+    if (toolsPage && toolsPage.style.display !== 'none' && window.getComputedStyle(toolsPage).display !== 'none') {
+        initMarketPriceMobile();
+    }
+});
