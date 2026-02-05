@@ -779,6 +779,25 @@ body {
     border-top: 3px solid #a78bfa;
 }
 
+/* 战场模式单卡片样式 */
+.build-card.single {
+    border-top: 3px solid #f39c12;
+}
+
+.build-cards-container.single-build {
+    display: flex;
+    justify-content: center;
+}
+
+.build-cards-container.single-build .build-card.single {
+    max-width: 100%;
+    flex: 1;
+}
+
+.build-type.single-type {
+    color: #f39c12;
+}
+
 /* 复制按钮 */
 .copy-btn {
     position: absolute;
@@ -804,10 +823,37 @@ body {
     padding-right: 40px;
 }
 
+/* 方案标题行：方案名 + 实际价值 */
+.build-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
 .build-type {
     font-size: 11px;
     font-weight: 600;
     white-space: nowrap;
+}
+
+/* 实际价值显示 */
+.build-value {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 10px;
+    color: #fbbf24;
+    font-weight: 500;
+}
+
+.build-value .value-icon {
+    font-size: 9px;
+}
+
+.build-value .value-num {
+    font-family: 'Orbitron', monospace;
+    letter-spacing: -0.5px;
 }
 
 .build-type.budget-type {
@@ -1367,24 +1413,6 @@ body {
     font-size: 12px;
     color: var(--accent-cyan);
     cursor: pointer;
-}
-
-/* 搜索框 */
-.market-search-mobile {
-    padding: 8px 10px;
-    display: flex;
-    gap: 8px;
-}
-
-.market-search-input-mobile {
-    flex: 1;
-    background: var(--bg-card-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 6px 10px;
-    color: var(--text-primary);
-    font-size: 12px;
-    outline: none;
 }
 
 /* 过滤栏 */
@@ -2669,4 +2697,330 @@ body {
     font-size: 12px;
     font-weight: 600;
     color: #000;
+}
+
+/* ============================================
+   物价详情子页面
+   ============================================ */
+.subpage {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-dark);
+    z-index: 200;
+    max-width: 414px;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+.subpage.active {
+    display: flex;
+}
+
+/* 子页面Header */
+.subpage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.subpage-back {
+    font-size: 24px;
+    color: var(--accent-cyan);
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-left: -8px;
+}
+
+.subpage-back:active {
+    opacity: 0.6;
+}
+
+.subpage-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.subpage-action {
+    width: 40px;
+}
+
+/* 搜索框 */
+.market-search-bar {
+    display: flex;
+    align-items: center;
+    margin: 10px 12px;
+    padding: 10px 12px;
+    background: var(--bg-card-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.search-icon {
+    font-size: 14px;
+    margin-right: 8px;
+    opacity: 0.6;
+}
+
+.market-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.market-search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.search-clear {
+    font-size: 14px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    display: none;
+}
+
+.search-clear.visible {
+    display: block;
+}
+
+/* 详情页筛选器 */
+.market-detail-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    flex-shrink: 0;
+}
+
+.market-detail-select {
+    background: var(--bg-card-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 13px;
+    padding: 8px 28px 8px 12px;
+    border-radius: 6px;
+    outline: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%238a9bb0"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    background-size: 16px;
+}
+
+.market-detail-rank-tabs {
+    display: flex;
+    background: var(--bg-card-secondary);
+    padding: 3px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.market-detail-rank-tab {
+    padding: 6px 16px;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+}
+
+.market-detail-rank-tab.active {
+    background: var(--bg-card);
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+/* 列表表头 - 支持排序 */
+.market-detail-list-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.market-detail-header-name {
+    flex: 1;
+    font-size: 12px;
+    color: var(--text-secondary);
+    padding-left: 14px;
+}
+
+.market-detail-header-price,
+.market-detail-header-change {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+.market-detail-header-price {
+    width: 90px;
+}
+
+.market-detail-header-change {
+    width: 80px;
+}
+
+.market-detail-header-price.sortable,
+.market-detail-header-change.sortable {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 4px 8px;
+    margin: -4px -8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.market-detail-header-price.sortable:active,
+.market-detail-header-change.sortable:active {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sort-arrow {
+    font-size: 10px;
+    opacity: 0.5;
+    transition: all 0.2s;
+}
+
+.sortable.sort-asc .sort-arrow {
+    opacity: 1;
+    color: var(--accent-cyan);
+}
+
+.sortable.sort-asc .sort-arrow::after {
+    content: '↑';
+}
+
+.sortable.sort-desc .sort-arrow {
+    opacity: 1;
+    color: var(--accent-cyan);
+}
+
+.sortable.sort-desc .sort-arrow::after {
+    content: '↓';
+}
+
+.sortable.sort-asc .sort-arrow,
+.sortable.sort-desc .sort-arrow {
+    font-size: 0;
+}
+
+.sortable.sort-asc .sort-arrow::after,
+.sortable.sort-desc .sort-arrow::after {
+    font-size: 12px;
+}
+
+.sortable.active {
+    color: var(--accent-cyan);
+}
+
+/* 全量物品列表 */
+.market-detail-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 12px 80px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.market-detail-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.market-detail-item:active {
+    background: var(--bg-card-secondary);
+}
+
+.market-detail-item-rarity {
+    width: 4px;
+    height: 36px;
+    border-radius: 2px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.market-detail-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.market-detail-item-name {
+    font-size: 14px;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+}
+
+.market-detail-item-category {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.market-detail-item-price {
+    width: 80px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.market-detail-item-change {
+    width: 70px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: right;
+}
+
+.market-detail-item-change.positive {
+    color: var(--accent-cyan);
+}
+
+.market-detail-item-change.negative {
+    color: #ef4444;
+}
+
+/* 空状态 */
+.market-detail-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
+.market-detail-empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.3;
+}
+
+.market-detail-empty-text {
+    font-size: 14px;
 }

@@ -331,61 +331,113 @@
             <span class="section-more">更多 ▸</span>
         </div>
         
-        <!-- 枪械选择器 -->
-        <div class="gun-selector">
-            <div class="gun-tab active" data-gun="mp5">
-                <div class="gun-tab-image"></div>
-                <span class="gun-tab-name">MP5</span>
-            </div>
-            <div class="gun-tab" data-gun="ak74">
-                <div class="gun-tab-image"></div>
-                <span class="gun-tab-name">AK-74M</span>
-            </div>
-            <div class="gun-tab" data-gun="m4a1">
-                <div class="gun-tab-image"></div>
-                <span class="gun-tab-name">M4A1</span>
-            </div>
-            <div class="gun-tab" data-gun="scar">
-                <div class="gun-tab-image"></div>
-                <span class="gun-tab-name">SCAR-H</span>
-            </div>
-            <div class="gun-tab" data-gun="vss">
-                <div class="gun-tab-image"></div>
-                <span class="gun-tab-name">VSS</span>
-            </div>
-        </div>
-        
-        <!-- 横版并列方案 -->
-        <div class="build-cards-container">
-            <!-- 性价比改法 -->
-            <div class="build-card budget">
-                <button class="copy-btn">复制</button>
-                <div class="build-header">
-                    <span class="build-type budget-type">💰 85K 性价比</span>
-                    <div class="build-tags">
-                        <span class="build-tag">中近距离</span>
-                        <span class="build-tag">满腰射</span>
-                    </div>
+        <!-- 烽火地带改枪推荐 -->
+        <div id="gun-builds-fenguo-mobile">
+            <!-- 枪械选择器 - 烽火 -->
+            <div class="gun-selector" id="gun-selector-fh-mobile">
+                <div class="gun-tab active" data-gun="mp5">
+                    <div class="gun-tab-image"></div>
+                    <span class="gun-tab-name">MP5</span>
                 </div>
-                <div class="build-gun-preview"></div>
-                <div class="radar-chart-container">
-                    <canvas id="radar-budget"></canvas>
+                <div class="gun-tab" data-gun="ak74">
+                    <div class="gun-tab-image"></div>
+                    <span class="gun-tab-name">AK-74M</span>
+                </div>
+                <div class="gun-tab" data-gun="m4a1">
+                    <div class="gun-tab-image"></div>
+                    <span class="gun-tab-name">M4A1</span>
+                </div>
+                <div class="gun-tab" data-gun="scar">
+                    <div class="gun-tab-image"></div>
+                    <span class="gun-tab-name">SCAR-H</span>
+                </div>
+                <div class="gun-tab" data-gun="vss">
+                    <div class="gun-tab-image"></div>
+                    <span class="gun-tab-name">VSS</span>
                 </div>
             </div>
             
-            <!-- 满改方案 -->
-            <div class="build-card premium">
-                <button class="copy-btn">复制</button>
-                <div class="build-header">
-                    <span class="build-type premium-type">💎 157K 满改</span>
-                    <div class="build-tags">
-                        <span class="build-tag">长距离</span>
-                        <span class="build-tag">高精准</span>
+            <!-- 横版并列方案 - 烽火（两个方案） -->
+            <div class="build-cards-container" id="gun-builds-content-fh-mobile">
+                <!-- 性价比改法 -->
+                <div class="build-card budget">
+                    <button class="copy-btn">复制</button>
+                    <div class="build-header">
+                        <div class="build-title-row">
+                            <span class="build-type budget-type">💰 85K 性价比</span>
+                            <span class="build-value"><span class="value-icon">💎</span><span class="value-num">102,350</span></span>
+                        </div>
+                        <div class="build-tags">
+                            <span class="build-tag">中近距离</span>
+                            <span class="build-tag">满腰射</span>
+                        </div>
+                    </div>
+                    <div class="build-gun-preview"></div>
+                    <div class="radar-chart-container">
+                        <canvas id="radar-budget"></canvas>
                     </div>
                 </div>
-                <div class="build-gun-preview"></div>
-                <div class="radar-chart-container">
-                    <canvas id="radar-premium"></canvas>
+                
+                <!-- 满改方案 -->
+                <div class="build-card premium">
+                    <button class="copy-btn">复制</button>
+                    <div class="build-header">
+                        <span class="build-type premium-type">💎 157K 满改</span>
+                        <div class="build-tags">
+                            <span class="build-tag">长距离</span>
+                            <span class="build-tag">高精准</span>
+                        </div>
+                    </div>
+                    <div class="build-gun-preview"></div>
+                    <div class="radar-chart-container">
+                        <canvas id="radar-premium"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 全面战场改枪推荐（默认隐藏） -->
+        <div id="gun-builds-zhanchang-mobile" style="display: none;">
+            <!-- 枪械选择器 - 战场 -->
+            <div class="gun-selector" id="gun-selector-zc-mobile">
+                <div class="gun-tab active" data-gun="m4a1">
+                    <div class="gun-tab-image"></div>
+                    <span class="gun-tab-name">M4A1</span>
+                </div>
+                <div class="gun-tab" data-gun="ak74">
+                    <div class="gun-tab-image"></div>
+                    <span class="gun-tab-name">AK-74M</span>
+                </div>
+                <div class="gun-tab" data-gun="hk416">
+                    <div class="gun-tab-image"></div>
+                    <span class="gun-tab-name">HK416</span>
+                </div>
+                <div class="gun-tab" data-gun="aug">
+                    <div class="gun-tab-image"></div>
+                    <span class="gun-tab-name">AUG</span>
+                </div>
+                <div class="gun-tab" data-gun="svd">
+                    <div class="gun-tab-image"></div>
+                    <span class="gun-tab-name">SVD</span>
+                </div>
+            </div>
+            
+            <!-- 单方案 - 战场（无价格，单个方案） -->
+            <div class="build-cards-container single-build" id="gun-builds-content-zc-mobile">
+                <div class="build-card single">
+                    <button class="copy-btn">复制</button>
+                    <div class="build-header">
+                        <span class="build-type single-type">🎯 推荐改装方案</span>
+                        <div class="build-tags" id="build-tags-zc-mobile">
+                            <span class="build-tag">中远距离</span>
+                            <span class="build-tag">高稳定</span>
+                            <span class="build-tag">PVP优化</span>
+                        </div>
+                    </div>
+                    <div class="build-gun-preview"></div>
+                    <div class="radar-chart-container">
+                        <canvas id="radar-single"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -447,11 +499,6 @@
                 <div class="market-header-mobile">
                     <span class="market-title-mobile">💹 交易物价</span>
                     <span class="market-more-mobile">更多 ›</span>
-                </div>
-                
-                <!-- 搜索框 -->
-                <div class="market-search-mobile">
-                    <input type="text" class="market-search-input-mobile" placeholder="搜索全服物品...">
                 </div>
                 
                 <!-- 筛选栏 -->
@@ -959,6 +1006,54 @@
             <span class="nav-label">我的</span>
         </div>
     </nav>
+    
+    <!-- ============================================
+         物价详情子页面
+         ============================================ -->
+    <div class="subpage" id="page-market-detail">
+        <!-- 子页面Header -->
+        <header class="subpage-header">
+            <span class="subpage-back" id="market-detail-back">‹</span>
+            <span class="subpage-title">交易物价</span>
+            <span class="subpage-action"></span>
+        </header>
+        
+        <!-- 搜索框 -->
+        <div class="market-search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="market-search-input" id="market-search-input" placeholder="搜索物品名称...">
+            <span class="search-clear" id="market-search-clear">✕</span>
+        </div>
+        
+        <!-- 筛选器 -->
+        <div class="market-detail-filters">
+            <select class="market-detail-select" id="market-detail-category">
+                <option value="all">全部分类</option>
+                <option value="guns">枪械</option>
+                <option value="armor">装备</option>
+                <option value="parts">配件</option>
+                <option value="collect">收集品</option>
+                <option value="medical">医疗品</option>
+                <option value="ammo">弹药</option>
+            </select>
+        </div>
+        
+        <!-- 物品列表表头 - 支持排序 -->
+        <div class="market-detail-list-header">
+            <span class="market-detail-header-name">物品名称</span>
+            <span class="market-detail-header-price sortable" data-sort="price" id="sort-price">
+                价值 <span class="sort-arrow">↕</span>
+            </span>
+            <span class="market-detail-header-change sortable" data-sort="change" id="sort-change">
+                涨跌幅 <span class="sort-arrow">↕</span>
+            </span>
+        </div>
+        
+        <!-- 全量物品列表 -->
+        <div class="market-detail-list" id="market-detail-list">
+            <!-- JS动态填充 -->
+        </div>
+    </div>
     
     <!-- 密码指引弹窗 -->
     <div class="password-modal-overlay" id="password-modal-overlay">

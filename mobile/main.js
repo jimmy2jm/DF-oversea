@@ -128,45 +128,60 @@ document.querySelectorAll('.report-tab').forEach(tab => {
         document.getElementById('report-fh').classList.remove('active');
         document.getElementById('report-zc').classList.remove('active');
         
+        // 获取改枪推荐区域
+        const gunBuildsFenguo = document.getElementById('gun-builds-fenguo-mobile');
+        const gunBuildsZhanchang = document.getElementById('gun-builds-zhanchang-mobile');
+        
         if (reportType === 'fh') {
             document.getElementById('report-fh').classList.add('active');
+            // 切换改枪推荐区域
+            if (gunBuildsFenguo) gunBuildsFenguo.style.display = 'block';
+            if (gunBuildsZhanchang) gunBuildsZhanchang.style.display = 'none';
         } else {
             document.getElementById('report-zc').classList.add('active');
+            // 切换改枪推荐区域
+            if (gunBuildsFenguo) gunBuildsFenguo.style.display = 'none';
+            if (gunBuildsZhanchang) {
+                gunBuildsZhanchang.style.display = 'block';
+                // 首次显示时初始化战场模式雷达图
+                initZhanchangGunSelectorMobile();
+            }
         }
     });
 });
 
-// 枪械选择器切换
-document.querySelectorAll('.gun-tab').forEach(tab => {
+// 枪械选择器切换 - 烽火地带
+document.querySelectorAll('#gun-selector-fh-mobile .gun-tab').forEach(tab => {
     tab.addEventListener('click', function() {
-        document.querySelectorAll('.gun-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('#gun-selector-fh-mobile .gun-tab').forEach(t => t.classList.remove('active'));
         this.classList.add('active');
         // 重绘雷达图（可以根据不同枪械显示不同数据）
         drawRadarCharts();
     });
 });
 
-// 五维雷达图绘制
+// 五维雷达图绘制 - 烽火地带数据
+// 维度：后坐力、操控速度、射程优势、持枪稳定性、射速
 const gunStatsData = {
     mp5: {
-        budget: { damage: 55, firerate: 85, accuracy: 70, mobility: 90, control: 75 },
-        premium: { damage: 60, firerate: 90, accuracy: 85, mobility: 85, control: 88 }
+        budget: { recoil: 72, handling: 60, range: 45, stability: 55, fireRate: 30 },
+        premium: { recoil: 85, handling: 75, range: 55, stability: 70, fireRate: 35 }
     },
     ak74: {
-        budget: { damage: 72, firerate: 60, accuracy: 65, mobility: 70, control: 60 },
-        premium: { damage: 78, firerate: 65, accuracy: 82, mobility: 68, control: 78 }
+        budget: { recoil: 55, handling: 50, range: 65, stability: 45, fireRate: 60 },
+        premium: { recoil: 70, handling: 65, range: 75, stability: 60, fireRate: 65 }
     },
     m4a1: {
-        budget: { damage: 65, firerate: 75, accuracy: 72, mobility: 75, control: 70 },
-        premium: { damage: 70, firerate: 80, accuracy: 88, mobility: 72, control: 85 }
+        budget: { recoil: 68, handling: 58, range: 60, stability: 52, fireRate: 55 },
+        premium: { recoil: 80, handling: 72, range: 70, stability: 68, fireRate: 60 }
     },
     scar: {
-        budget: { damage: 80, firerate: 55, accuracy: 70, mobility: 60, control: 65 },
-        premium: { damage: 88, firerate: 60, accuracy: 85, mobility: 58, control: 80 }
+        budget: { recoil: 50, handling: 45, range: 75, stability: 40, fireRate: 45 },
+        premium: { recoil: 65, handling: 58, range: 85, stability: 55, fireRate: 50 }
     },
     vss: {
-        budget: { damage: 50, firerate: 70, accuracy: 75, mobility: 85, control: 80 },
-        premium: { damage: 55, firerate: 75, accuracy: 90, mobility: 82, control: 92 }
+        budget: { recoil: 78, handling: 70, range: 55, stability: 65, fireRate: 40 },
+        premium: { recoil: 88, handling: 82, range: 65, stability: 78, fireRate: 45 }
     }
 };
 
@@ -188,8 +203,8 @@ function drawRadarChart(canvasId, stats, color, fillColor) {
     const centerY = height / 2;
     const radius = Math.min(width, height) / 2 - 20;
     
-    const labels = ['伤害', '射速', '精准', '机动', '控制'];
-    const values = [stats.damage, stats.firerate, stats.accuracy, stats.mobility, stats.control];
+    const labels = ['后坐力控制', '操控速度', '射程优势', '持枪稳定性', '射速'];
+    const values = [stats.recoil, stats.handling, stats.range, stats.stability, stats.fireRate];
     const numSides = 5;
     const angleStep = (Math.PI * 2) / numSides;
     const startAngle = -Math.PI / 2; // 从顶部开始
@@ -269,7 +284,7 @@ function drawRadarChart(canvasId, stats, color, fillColor) {
 }
 
 function drawRadarCharts() {
-    const activeGun = document.querySelector('.gun-tab.active');
+    const activeGun = document.querySelector('#gun-selector-fh-mobile .gun-tab.active');
     const gunType = activeGun ? activeGun.dataset.gun : 'mp5';
     const gunData = gunStatsData[gunType] || gunStatsData.mp5;
     
@@ -278,6 +293,74 @@ function drawRadarCharts() {
     
     // 绘制满改方案雷达图（紫色）
     drawRadarChart('radar-premium', gunData.premium, '#a78bfa', 'rgba(167, 139, 250, 0.2)');
+}
+
+// 全面战场枪械数据（单方案）- 维度：后坐力、操控速度、射程优势、持枪稳定性、射速
+const gunStatsDataZC = {
+    m4a1: {
+        stats: { recoil: 75, handling: 68, range: 65, stability: 62, fireRate: 58 },
+        tags: ['中远距离', '高稳定', 'PVP优化']
+    },
+    ak74: {
+        stats: { recoil: 58, handling: 52, range: 70, stability: 48, fireRate: 62 },
+        tags: ['中距离', '高伤害', '压枪要求高']
+    },
+    hk416: {
+        stats: { recoil: 72, handling: 65, range: 68, stability: 58, fireRate: 55 },
+        tags: ['全能型', '均衡', '新手友好']
+    },
+    aug: {
+        stats: { recoil: 80, handling: 60, range: 78, stability: 72, fireRate: 48 },
+        tags: ['远距离', '高精准', '自带瞄具']
+    },
+    svd: {
+        stats: { recoil: 65, handling: 45, range: 92, stability: 55, fireRate: 25 },
+        tags: ['狙击', '一击必杀', '远距离']
+    }
+};
+
+// 战场模式枪械选择器是否已初始化
+let zhanchangGunSelectorInitialized = false;
+
+// 初始化战场模式枪械选择器
+function initZhanchangGunSelectorMobile() {
+    if (zhanchangGunSelectorInitialized) return;
+    
+    const gunTabs = document.querySelectorAll('#gun-selector-zc-mobile .gun-tab');
+    if (!gunTabs.length) return;
+    
+    // 初始绘制第一把枪的雷达图
+    const firstGun = gunTabs[0]?.dataset.gun;
+    if (firstGun && gunStatsDataZC[firstGun]) {
+        drawRadarChart('radar-single', gunStatsDataZC[firstGun].stats, '#f39c12', 'rgba(243, 156, 18, 0.2)');
+        updateZhanchangTagsMobile(gunStatsDataZC[firstGun].tags);
+    }
+    
+    // 绑定枪械切换事件
+    gunTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            gunTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            const gunType = this.dataset.gun;
+            const gunData = gunStatsDataZC[gunType];
+            
+            if (gunData) {
+                drawRadarChart('radar-single', gunData.stats, '#f39c12', 'rgba(243, 156, 18, 0.2)');
+                updateZhanchangTagsMobile(gunData.tags);
+            }
+        });
+    });
+    
+    zhanchangGunSelectorInitialized = true;
+}
+
+// 更新战场模式的标签
+function updateZhanchangTagsMobile(tags) {
+    const tagsContainer = document.getElementById('build-tags-zc-mobile');
+    if (tagsContainer && tags) {
+        tagsContainer.innerHTML = tags.map(tag => `<span class="build-tag">${tag}</span>`).join('');
+    }
 }
 
 // 初始化雷达图
@@ -947,15 +1030,6 @@ function initMarketPriceMobile() {
             drawMarketMiniChartMobile();
         });
     });
-    
-    // 搜索框
-    const searchInput = document.querySelector('.market-search-input-mobile');
-    if (searchInput) {
-        searchInput.addEventListener('input', function() {
-            const keyword = this.value.trim().toLowerCase();
-            filterMarketListMobile(keyword);
-        });
-    }
 }
 
 function updateMarketListMobile() {
@@ -977,53 +1051,6 @@ function updateMarketListMobile() {
     `).join('');
     
     // 绑定点击事件
-    container.querySelectorAll('.market-item-mobile').forEach(itemEl => {
-        itemEl.addEventListener('click', function() {
-            selectedMarketItemIndexMobile = parseInt(this.dataset.index);
-            drawMarketMiniChartMobile();
-        });
-    });
-}
-
-function filterMarketListMobile(keyword) {
-    const container = document.getElementById('market-list-mobile');
-    if (!container || typeof marketPriceData === 'undefined') return;
-    
-    if (!keyword) {
-        updateMarketListMobile();
-        return;
-    }
-    
-    // 搜索逻辑
-    let allItems = [];
-    Object.keys(marketPriceData).forEach(key => {
-        marketPriceData[key].forEach(item => {
-            if (item.name.toLowerCase().includes(keyword)) {
-                allItems.push(item);
-            }
-        });
-    });
-    
-    // 去重并限制数量
-    const uniqueItems = allItems.filter((item, index, self) => 
-        index === self.findIndex(t => t.name === item.name)
-    ).slice(0, 5);
-    
-    container.innerHTML = uniqueItems.map((item, index) => `
-        <div class="market-item-mobile" data-index="${index}">
-            <span class="market-item-rarity-mobile" style="background-color: ${rarityColors[item.rarity] || '#9ca3af'}"></span>
-            <span class="market-item-name-mobile">${item.name}</span>
-            <span class="market-item-price-mobile">${item.price.toLocaleString()}</span>
-            <span class="market-item-change-mobile ${item.positive ? 'positive' : 'negative'}">
-                ${item.positive ? '+' : ''}${item.change}%${item.positive ? '↑' : '↓'}
-            </span>
-        </div>
-    `).join('');
-    
-    selectedMarketItemIndexMobile = 0;
-    drawMarketMiniChartMobile();
-    
-    // 绑定事件
     container.querySelectorAll('.market-item-mobile').forEach(itemEl => {
         itemEl.addEventListener('click', function() {
             selectedMarketItemIndexMobile = parseInt(this.dataset.index);
@@ -1159,4 +1186,235 @@ document.addEventListener('DOMContentLoaded', function() {
     if (toolsPage && toolsPage.style.display !== 'none' && window.getComputedStyle(toolsPage).display !== 'none') {
         initMarketPriceMobile();
     }
+});
+
+/* ============================================
+   物价详情子页面 - 交互逻辑
+   ============================================ */
+// 物价详情页状态
+let marketDetailState = {
+    category: 'all',
+    sortField: null,      // 'price' | 'change' | null
+    sortOrder: null,      // 'asc' | 'desc' | null
+    searchQuery: '',
+    allItems: []          // 所有物品数据
+};
+
+// 打开物价详情页
+function openMarketDetailPage() {
+    const page = document.getElementById('page-market-detail');
+    if (page) {
+        page.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        initMarketDetailPage();
+    }
+}
+
+// 关闭物价详情页
+function closeMarketDetailPage() {
+    const page = document.getElementById('page-market-detail');
+    if (page) {
+        page.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// 初始化物价详情页
+function initMarketDetailPage() {
+    // 重置状态
+    marketDetailState.sortField = null;
+    marketDetailState.sortOrder = null;
+    marketDetailState.searchQuery = '';
+    
+    // 清空搜索框
+    const searchInput = document.getElementById('market-search-input');
+    const searchClear = document.getElementById('market-search-clear');
+    if (searchInput) searchInput.value = '';
+    if (searchClear) searchClear.classList.remove('visible');
+    
+    // 重置排序箭头
+    document.querySelectorAll('.market-detail-list-header .sortable').forEach(el => {
+        el.classList.remove('sort-asc', 'sort-desc', 'active');
+    });
+    
+    // 加载数据
+    loadMarketDetailData();
+}
+
+// 加载物价详情数据
+function loadMarketDetailData() {
+    if (typeof marketPriceDataFull === 'undefined') {
+        console.warn('物价数据未加载');
+        return;
+    }
+    
+    // 使用全量数据
+    const items = marketPriceDataFull[marketDetailState.category] || [];
+    
+    marketDetailState.allItems = [...items];
+    
+    // 重置排序状态
+    marketDetailState.sortField = null;
+    marketDetailState.sortOrder = null;
+    document.querySelectorAll('.market-detail-list-header .sortable').forEach(el => {
+        el.classList.remove('sort-asc', 'sort-desc', 'active');
+    });
+    
+    renderMarketDetailList();
+}
+
+// 渲染物价列表
+function renderMarketDetailList() {
+    const container = document.getElementById('market-detail-list');
+    if (!container) return;
+    
+    let items = [...marketDetailState.allItems];
+    
+    // 搜索过滤
+    if (marketDetailState.searchQuery) {
+        const query = marketDetailState.searchQuery.toLowerCase();
+        items = items.filter(item => item.name.toLowerCase().includes(query));
+    }
+    
+    // 排序
+    if (marketDetailState.sortField && marketDetailState.sortOrder) {
+        items.sort((a, b) => {
+            let valA, valB;
+            if (marketDetailState.sortField === 'price') {
+                valA = a.price;
+                valB = b.price;
+            } else if (marketDetailState.sortField === 'change') {
+                valA = Math.abs(a.change);
+                valB = Math.abs(b.change);
+            }
+            
+            if (marketDetailState.sortOrder === 'asc') {
+                return valA - valB;
+            } else {
+                return valB - valA;
+            }
+        });
+    }
+    
+    // 空状态
+    if (items.length === 0) {
+        container.innerHTML = `
+            <div class="market-detail-empty">
+                <div class="market-detail-empty-icon">📦</div>
+                <div class="market-detail-empty-text">暂无匹配的物品</div>
+            </div>
+        `;
+        return;
+    }
+    
+    // 渲染列表
+    container.innerHTML = items.map((item, index) => `
+        <div class="market-detail-item" data-index="${index}">
+            <div class="market-detail-item-rarity" style="background-color: ${rarityColors[item.rarity] || '#9ca3af'}"></div>
+            <div class="market-detail-item-info">
+                <div class="market-detail-item-name">${item.name}</div>
+            </div>
+            <div class="market-detail-item-price">${item.price.toLocaleString()}</div>
+            <div class="market-detail-item-change ${item.positive ? 'positive' : 'negative'}">
+                ${item.positive ? '+' : ''}${item.change}%${item.positive ? '↑' : '↓'}
+            </div>
+        </div>
+    `).join('');
+}
+
+// 绑定物价详情页事件
+function bindMarketDetailEvents() {
+    // 返回按钮
+    const backBtn = document.getElementById('market-detail-back');
+    if (backBtn) {
+        backBtn.addEventListener('click', closeMarketDetailPage);
+    }
+    
+    // 搜索框输入
+    const searchInput = document.getElementById('market-search-input');
+    const searchClear = document.getElementById('market-search-clear');
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            marketDetailState.searchQuery = this.value;
+            if (searchClear) {
+                searchClear.classList.toggle('visible', this.value.length > 0);
+            }
+            renderMarketDetailList();
+        });
+    }
+    
+    if (searchClear) {
+        searchClear.addEventListener('click', function() {
+            if (searchInput) searchInput.value = '';
+            marketDetailState.searchQuery = '';
+            this.classList.remove('visible');
+            renderMarketDetailList();
+        });
+    }
+    
+    // 分类选择
+    const categorySelect = document.getElementById('market-detail-category');
+    if (categorySelect) {
+        categorySelect.addEventListener('change', function() {
+            marketDetailState.category = this.value;
+            loadMarketDetailData();
+        });
+    }
+    
+    // 排序按钮
+    const sortPrice = document.getElementById('sort-price');
+    const sortChange = document.getElementById('sort-change');
+    
+    if (sortPrice) {
+        sortPrice.addEventListener('click', function() {
+            handleSort('price', this);
+        });
+    }
+    
+    if (sortChange) {
+        sortChange.addEventListener('click', function() {
+            handleSort('change', this);
+        });
+    }
+    
+    // "更多"按钮点击打开详情页
+    const marketMore = document.querySelector('.market-more-mobile');
+    if (marketMore) {
+        marketMore.addEventListener('click', openMarketDetailPage);
+    }
+}
+
+// 处理排序
+function handleSort(field, element) {
+    const allSortables = document.querySelectorAll('.market-detail-list-header .sortable');
+    
+    // 如果点击的是当前排序字段，切换排序方向
+    if (marketDetailState.sortField === field) {
+        if (marketDetailState.sortOrder === 'desc') {
+            marketDetailState.sortOrder = 'asc';
+            element.classList.remove('sort-desc');
+            element.classList.add('sort-asc');
+        } else if (marketDetailState.sortOrder === 'asc') {
+            // 取消排序
+            marketDetailState.sortField = null;
+            marketDetailState.sortOrder = null;
+            element.classList.remove('sort-asc', 'sort-desc', 'active');
+        }
+    } else {
+        // 点击新字段，设置为降序
+        allSortables.forEach(el => {
+            el.classList.remove('sort-asc', 'sort-desc', 'active');
+        });
+        marketDetailState.sortField = field;
+        marketDetailState.sortOrder = 'desc';
+        element.classList.add('sort-desc', 'active');
+    }
+    
+    renderMarketDetailList();
+}
+
+// 页面加载完成后绑定事件
+document.addEventListener('DOMContentLoaded', function() {
+    bindMarketDetailEvents();
 });

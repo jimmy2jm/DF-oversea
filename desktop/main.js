@@ -97,7 +97,119 @@ function initCopyButtons() {
         });
     });
     
-    // Copy all codes
+    // 密码房指引按钮
+    const passwordGuideBtn = document.getElementById('password-guide-btn');
+    const passwordGuideModal = document.getElementById('password-guide-modal');
+    const passwordGuideOverlay = document.getElementById('password-guide-overlay');
+    const passwordGuideClose = document.getElementById('password-guide-close');
+    
+    if (passwordGuideBtn && passwordGuideModal) {
+        passwordGuideBtn.addEventListener('click', () => {
+            passwordGuideModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        const closeModal = () => {
+            passwordGuideModal.classList.remove('show');
+            document.body.style.overflow = '';
+        };
+        
+        if (passwordGuideOverlay) {
+            passwordGuideOverlay.addEventListener('click', closeModal);
+        }
+        
+        if (passwordGuideClose) {
+            passwordGuideClose.addEventListener('click', closeModal);
+        }
+        
+        // ESC 键关闭弹窗
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && passwordGuideModal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+        
+        // Tab 切换功能
+        const tabBtns = passwordGuideModal.querySelectorAll('.guide-tab-btn');
+        const tabContents = passwordGuideModal.querySelectorAll('.guide-tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // 移除所有 active 状态
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // 激活当前 tab
+                btn.classList.add('active');
+                const targetContent = document.getElementById(`tab-${tabId}`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+        
+        // 轮播切换功能
+        const carouselIds = ['daba', 'xigu', 'bakeshi', 'hangtian', 'jianyu'];
+        
+        carouselIds.forEach(carouselId => {
+            const container = document.getElementById(`carousel-${carouselId}`);
+            if (!container) return;
+            
+            const slides = container.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelector(`.carousel-indicators[data-carousel="${carouselId}"]`);
+            const prevBtn = document.querySelector(`.carousel-prev[data-carousel="${carouselId}"]`);
+            const nextBtn = document.querySelector(`.carousel-next[data-carousel="${carouselId}"]`);
+            
+            let currentIndex = 0;
+            
+            const updateCarousel = (index) => {
+                // 边界检查
+                if (index < 0) index = slides.length - 1;
+                if (index >= slides.length) index = 0;
+                currentIndex = index;
+                
+                // 更新slides
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === currentIndex);
+                });
+                
+                // 更新指示器
+                if (indicators) {
+                    indicators.querySelectorAll('.indicator').forEach((ind, i) => {
+                        ind.classList.toggle('active', i === currentIndex);
+                    });
+                }
+            };
+            
+            // 上一张按钮
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    updateCarousel(currentIndex - 1);
+                });
+            }
+            
+            // 下一张按钮
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    updateCarousel(currentIndex + 1);
+                });
+            }
+            
+            // 指示器点击
+            if (indicators) {
+                indicators.querySelectorAll('.indicator').forEach(ind => {
+                    ind.addEventListener('click', () => {
+                        const index = parseInt(ind.getAttribute('data-index'));
+                        updateCarousel(index);
+                    });
+                });
+            }
+        });
+    }
+    
+    // Copy all codes (保留原有功能，但按钮已被替换)
     const copyAllBtn = document.querySelector('.copy-all-btn');
     if (copyAllBtn) {
         copyAllBtn.addEventListener('click', () => {
@@ -149,90 +261,90 @@ function initCopyButtons() {
  * Gun Selector - 枪械选择切换
  */
 function initGunSelector() {
-    // 烽火地带枪械数据
+    // 烽火地带枪械数据 - 维度：后坐力、操控速度、射程优势、持枪稳定性、射速
     const gunBuildsDataFH = {
         mp5: {
             budget: { 
                 price: '85,000',
                 priceShort: '85K',
-                stats: { damage: 55, fireRate: 85, accuracy: 70, mobility: 90, control: 75 }
+                stats: { recoil: 72, handling: 60, range: 45, stability: 55, fireRate: 30 }
             },
             premium: { 
                 price: '156,800',
                 priceShort: '157K',
-                stats: { damage: 60, fireRate: 90, accuracy: 85, mobility: 85, control: 88 }
+                stats: { recoil: 85, handling: 75, range: 55, stability: 70, fireRate: 35 }
             }
         },
         ak74: {
             budget: { 
                 price: '92,000',
                 priceShort: '92K',
-                stats: { damage: 75, fireRate: 65, accuracy: 60, mobility: 70, control: 55 }
+                stats: { recoil: 55, handling: 50, range: 65, stability: 45, fireRate: 60 }
             },
             premium: { 
                 price: '198,500',
                 priceShort: '199K',
-                stats: { damage: 80, fireRate: 70, accuracy: 80, mobility: 65, control: 75 }
+                stats: { recoil: 70, handling: 65, range: 75, stability: 60, fireRate: 65 }
             }
         },
         m4a1: {
             budget: { 
                 price: '78,000',
                 priceShort: '78K',
-                stats: { damage: 65, fireRate: 75, accuracy: 70, mobility: 80, control: 70 }
+                stats: { recoil: 68, handling: 58, range: 60, stability: 52, fireRate: 55 }
             },
             premium: { 
                 price: '185,000',
                 priceShort: '185K',
-                stats: { damage: 70, fireRate: 85, accuracy: 88, mobility: 75, control: 85 }
+                stats: { recoil: 80, handling: 72, range: 70, stability: 68, fireRate: 60 }
             }
         },
         scar: {
             budget: { 
                 price: '105,000',
                 priceShort: '105K',
-                stats: { damage: 85, fireRate: 55, accuracy: 65, mobility: 60, control: 50 }
+                stats: { recoil: 50, handling: 45, range: 75, stability: 40, fireRate: 45 }
             },
             premium: { 
                 price: '225,000',
                 priceShort: '225K',
-                stats: { damage: 92, fireRate: 60, accuracy: 82, mobility: 55, control: 70 }
+                stats: { recoil: 65, handling: 58, range: 85, stability: 55, fireRate: 50 }
             }
         },
         vss: {
             budget: { 
                 price: '65,000',
                 priceShort: '65K',
-                stats: { damage: 50, fireRate: 70, accuracy: 75, mobility: 95, control: 80 }
+                stats: { recoil: 78, handling: 70, range: 55, stability: 65, fireRate: 40 }
             },
             premium: { 
                 price: '142,000',
                 priceShort: '142K',
-                stats: { damage: 58, fireRate: 75, accuracy: 90, mobility: 90, control: 92 }
+                stats: { recoil: 88, handling: 82, range: 65, stability: 78, fireRate: 45 }
             }
         }
     };
     
-    // 全面战场枪械数据（单方案）
+    // 全面战场枪械数据（单方案）- 维度：后坐力、操控速度、射程优势、持枪稳定性、射速
     const gunBuildsDataZC = {
         m4a1: {
-            stats: { damage: 68, fireRate: 80, accuracy: 85, mobility: 78, control: 82 },
+            stats: { recoil: 75, handling: 68, range: 65, stability: 62, fireRate: 58 },
             tags: ['中远距离', '高稳定', 'PVP优化']
         },
         ak74: {
-            stats: { damage: 78, fireRate: 68, accuracy: 72, mobility: 68, control: 65 },
+            stats: { recoil: 58, handling: 52, range: 70, stability: 48, fireRate: 62 },
             tags: ['中距离', '高伤害', '压枪要求高']
         },
         hk416: {
-            stats: { damage: 70, fireRate: 78, accuracy: 80, mobility: 75, control: 78 },
+            stats: { recoil: 72, handling: 65, range: 68, stability: 58, fireRate: 55 },
             tags: ['全能型', '均衡', '新手友好']
         },
         aug: {
-            stats: { damage: 65, fireRate: 72, accuracy: 88, mobility: 70, control: 85 },
+            stats: { recoil: 80, handling: 60, range: 78, stability: 72, fireRate: 48 },
             tags: ['远距离', '高精准', '自带瞄具']
         },
         svd: {
-            stats: { damage: 95, fireRate: 35, accuracy: 92, mobility: 55, control: 70 },
+            stats: { recoil: 65, handling: 45, range: 92, stability: 55, fireRate: 25 },
             tags: ['狙击', '一击必杀', '远距离']
         }
     };
@@ -1083,7 +1195,7 @@ function bindSchemeCopyButtons(mode) {
  */
 function generateRadarSVG(seedIndex) {
     const cx = 70, cy = 60, r = 45;
-    const labels = ['伤害', '射速', '精准', '机动', '控制'];
+    const labels = ['后坐力控制', '操控速度', '射程优势', '持枪稳定性', '射速'];
     const angles = [-90, -18, 54, 126, 198].map(a => a * Math.PI / 180);
     
     // 模拟不同方案的属性值（0-1）
@@ -1197,13 +1309,13 @@ function drawRadarChart(canvasId, stats, color) {
     const centerY = size / 2;
     const radius = 45;
     
-    // 五个维度的值 (0-100)
+    // 五个维度的值 (0-100)：后坐力、操控速度、射程优势、持枪稳定性、射速
     const values = [
-        stats.damage / 100,
-        stats.fireRate / 100,
-        stats.accuracy / 100,
-        stats.mobility / 100,
-        stats.control / 100
+        stats.recoil / 100,
+        stats.handling / 100,
+        stats.range / 100,
+        stats.stability / 100,
+        stats.fireRate / 100
     ];
     
     // 清空画布
@@ -1417,6 +1529,33 @@ function showToast(message, duration = 2000) {
 console.log('Delta Force Home initialized');
 
 // ============================================
+// 制造推荐 - 主Tab切换（制造详情/制造推荐）
+// ============================================
+document.querySelectorAll('.craft-main-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        document.querySelectorAll('.craft-main-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        const mainTab = this.dataset.mainTab;
+        const detailContent = document.getElementById('craft-detail-content-desktop');
+        const recommendContent = document.getElementById('craft-recommend-content-desktop');
+        
+        if (mainTab === 'detail') {
+            detailContent.classList.remove('hidden');
+            recommendContent.classList.add('hidden');
+        } else {
+            detailContent.classList.add('hidden');
+            recommendContent.classList.remove('hidden');
+            // 切换到推荐页时刷新数据和图表
+            setTimeout(() => {
+                updateCraftItems(currentCraftTab);
+                drawCraftPriceChart(currentCraftTab, selectedCraftItemIndex);
+            }, 50);
+        }
+    });
+});
+
+// ============================================
 // 制造推荐 - 数据定义
 // ============================================
 const craftData = {
@@ -1449,9 +1588,9 @@ let currentCraftTab = 'tech';
 // ============================================
 // 制造推荐 - Tab 切换
 // ============================================
-document.querySelectorAll('.craft-tab').forEach(tab => {
+document.querySelectorAll('#craft-recommend-content-desktop .craft-tab').forEach(tab => {
     tab.addEventListener('click', function() {
-        document.querySelectorAll('.craft-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('#craft-recommend-content-desktop .craft-tab').forEach(t => t.classList.remove('active'));
         this.classList.add('active');
         
         currentCraftTab = this.dataset.craft;
@@ -1466,7 +1605,7 @@ document.querySelectorAll('.craft-tab').forEach(tab => {
 // ============================================
 function updateCraftItems(tabType) {
     const items = craftData[tabType];
-    const container = document.querySelector('.craft-items');
+    const container = document.querySelector('#craft-recommend-content-desktop .craft-items');
     if (!container || !items) return;
     
     container.innerHTML = items.map((item, index) => `
@@ -1713,15 +1852,6 @@ function initMarketPrice() {
             drawMarketMiniChart();
         });
     });
-    
-    // 搜索框
-    const searchInput = document.querySelector('.market-search-input');
-    if (searchInput) {
-        searchInput.addEventListener('input', function() {
-            const keyword = this.value.trim().toLowerCase();
-            filterMarketList(keyword);
-        });
-    }
 }
 
 function updateMarketList() {
@@ -1739,53 +1869,6 @@ function updateMarketList() {
             <span class="market-item-change ${item.positive ? 'positive' : 'negative'}">${item.positive ? '+' : ''}${item.change}%${item.positive ? '↑' : '↓'}</span>
         </div>
     `).join('');
-    
-    // 绑定点击事件
-    container.querySelectorAll('.market-item').forEach(itemEl => {
-        itemEl.addEventListener('click', function() {
-            container.querySelectorAll('.market-item').forEach(el => el.classList.remove('selected'));
-            this.classList.add('selected');
-            selectedMarketItemIndex = parseInt(this.dataset.index);
-            drawMarketMiniChart();
-        });
-    });
-}
-
-function filterMarketList(keyword) {
-    const container = document.getElementById('market-list');
-    if (!container || typeof marketPriceData === 'undefined') return;
-    
-    if (!keyword) {
-        updateMarketList();
-        return;
-    }
-    
-    // 搜索所有分类
-    let allItems = [];
-    Object.keys(marketPriceData).forEach(key => {
-        marketPriceData[key].forEach(item => {
-            if (item.name.toLowerCase().includes(keyword)) {
-                allItems.push(item);
-            }
-        });
-    });
-    
-    // 去重
-    const uniqueItems = allItems.filter((item, index, self) => 
-        index === self.findIndex(t => t.name === item.name)
-    ).slice(0, 5);
-    
-    container.innerHTML = uniqueItems.map((item, index) => `
-        <div class="market-item ${index === 0 ? 'selected' : ''}" data-index="${index}">
-            <span class="market-item-rarity" style="background-color: ${rarityColors[item.rarity] || '#9ca3af'}"></span>
-            <span class="market-item-name">${item.name}</span>
-            <span class="market-item-price">${item.price.toLocaleString()}</span>
-            <span class="market-item-change ${item.positive ? 'positive' : 'negative'}">${item.positive ? '+' : ''}${item.change}%${item.positive ? '↑' : '↓'}</span>
-        </div>
-    `).join('');
-    
-    selectedMarketItemIndex = 0;
-    drawMarketMiniChart();
     
     // 绑定点击事件
     container.querySelectorAll('.market-item').forEach(itemEl => {

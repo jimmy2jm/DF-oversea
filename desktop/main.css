@@ -456,6 +456,431 @@ body {
     color: var(--bg-dark);
 }
 
+/* 密码房指引按钮 */
+.codes-bar .password-guide-btn {
+    padding: 0.375rem 1rem;
+    background: transparent;
+    border: 1px solid var(--accent-orange);
+    color: var(--accent-orange);
+    font-size: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.codes-bar .password-guide-btn:hover {
+    background: var(--accent-orange);
+    color: var(--bg-dark);
+}
+
+/* ============================================
+   密码房指引弹窗
+   ============================================ */
+.password-guide-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-guide-modal.show {
+    display: flex;
+}
+
+.password-guide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.password-guide-content {
+    position: relative;
+    width: calc(100% - 4rem);
+    max-width: 1200px;
+    height: 80vh;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.password-guide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.password-guide-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.password-guide-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.password-guide-close:hover {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Tab 导航栏 */
+.guide-tabs-nav {
+    display: flex;
+    gap: 0;
+    padding: 0;
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    overflow-x: auto;
+}
+
+.guide-tab-btn {
+    flex: 1;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 1rem 0.75rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.guide-tab-btn::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: var(--border-color);
+}
+
+.guide-tab-btn:last-child::after {
+    display: none;
+}
+
+.guide-tab-btn:hover {
+    background: rgba(0, 255, 204, 0.05);
+}
+
+.guide-tab-btn.active {
+    background: rgba(0, 255, 204, 0.1);
+    border-bottom-color: var(--accent-cyan);
+}
+
+.guide-tab-btn .tab-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.guide-tab-btn .tab-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.guide-tab-btn.active .tab-name {
+    color: var(--text-primary);
+}
+
+.guide-tab-btn .tab-code {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent-orange);
+    letter-spacing: 1px;
+}
+
+.password-guide-body {
+    flex: 1;
+    padding: 0;
+    overflow-y: auto;
+}
+
+/* Tab 内容区域 */
+.guide-tab-content {
+    display: none;
+    padding: 1.5rem;
+    animation: tabFadeIn 0.3s ease;
+}
+
+.guide-tab-content.active {
+    display: block;
+}
+
+@keyframes tabFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 地图详情页面 */
+.guide-map-detail {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.guide-map-title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: rgba(0, 255, 204, 0.05);
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.guide-map-name-large {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.guide-map-code-large {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.guide-map-code-large strong {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    color: var(--accent-orange);
+    letter-spacing: 3px;
+}
+
+/* 图片轮播区域 */
+.guide-carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.carousel-btn {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    background: rgba(0, 255, 204, 0.1);
+}
+
+.carousel-container {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+}
+
+.carousel-slides {
+    display: flex;
+    transition: transform 0.4s ease;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    display: none;
+    flex-direction: column;
+}
+
+.carousel-slide.active {
+    display: flex;
+}
+
+/* 横版图片 */
+.guide-map-image-wide {
+    width: 100%;
+    height: 380px;
+    background: var(--bg-card);
+    overflow: hidden;
+}
+
+.map-placeholder-wide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.125rem;
+    background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+}
+
+/* 步骤指引信息 - 图片底部 */
+.carousel-step-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+}
+
+.carousel-step-info .step-number {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-cyan);
+    color: var(--bg-dark);
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.carousel-step-info .step-text {
+    font-size: 1rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* 轮播指示器 */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.carousel-indicators .indicator {
+    width: 10px;
+    height: 10px;
+    background: var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.carousel-indicators .indicator:hover {
+    background: var(--text-muted);
+}
+
+.carousel-indicators .indicator.active {
+    background: var(--accent-cyan);
+    width: 24px;
+    border-radius: 5px;
+}
+
+/* 响应式适配 - 密码房指引弹窗 */
+@media (max-width: 768px) {
+    .password-guide-content {
+        width: calc(100% - 2rem);
+        height: 85vh;
+    }
+    
+    .guide-tabs-nav {
+        overflow-x: auto;
+    }
+    
+    .guide-tab-btn {
+        min-width: 100px;
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .guide-tab-btn .tab-name {
+        font-size: 0.7rem;
+    }
+    
+    .guide-tab-btn .tab-code {
+        font-size: 0.75rem;
+    }
+    
+    .guide-carousel {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+    
+    .guide-map-image-wide {
+        height: 220px;
+    }
+    
+    .carousel-step-info {
+        padding: 1rem;
+    }
+    
+    .carousel-step-info .step-text {
+        font-size: 0.9rem;
+    }
+}
+
 /* Support Card - Full Height (战场日报) */
 .support-card {
     display: flex;
@@ -1021,43 +1446,6 @@ body {
    交易物价模块
    ============================================ */
 
-/* 搜索框 - 独立一行 */
-.market-search {
-    position: relative;
-    width: 100%;
-    margin-bottom: 0.5rem;
-}
-
-.market-search-input {
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    padding-right: 2rem;
-    background: var(--bg-dark);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    color: var(--text-primary);
-    font-size: 0.8rem;
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-.market-search-input:focus {
-    border-color: var(--accent-cyan);
-}
-
-.market-search-input::placeholder {
-    color: var(--text-muted);
-}
-
-.search-icon {
-    position: absolute;
-    right: 0.6rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.75rem;
-    pointer-events: none;
-}
-
 /* 筛选栏 */
 .market-filter-bar {
     display: flex;
@@ -1191,6 +1579,297 @@ body {
 /* ============================================
    制造推荐模块
    ============================================ */
+
+/* 主Tab切换栏 - 制造详情/制造推荐 */
+.craft-main-tabs {
+    display: flex;
+    gap: 0;
+    background: var(--bg-dark);
+    border-radius: 8px;
+    padding: 3px;
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--border-color);
+}
+
+.craft-main-tab {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.craft-main-tab:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.craft-main-tab.active {
+    background: var(--accent-green);
+    color: #000;
+    font-weight: 600;
+}
+
+/* 主内容区 */
+.craft-main-content {
+    animation: fadeIn 0.3s ease;
+}
+
+.craft-main-content.hidden {
+    display: none;
+}
+
+/* 制造动态 - 四个工作台网格 */
+.craft-stations-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.craft-station-item {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.craft-station-item:hover {
+    border-color: var(--accent-cyan);
+}
+
+.craft-station-item.working {
+    border-color: var(--accent-orange);
+}
+
+.station-header {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.station-icon {
+    font-size: 0.75rem;
+}
+
+.station-name {
+    font-size: 0.65rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.station-badge {
+    margin-left: auto;
+    font-size: 0.65rem;
+}
+
+.station-preview {
+    width: 100%;
+    height: 50px;
+    background: #3a4a5a;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-color);
+}
+
+.station-preview.idle {
+    background: #3a4a5a;
+}
+
+.station-preview.working {
+    background: #3a4a5a;
+    border-color: var(--accent-orange);
+}
+
+.station-preview-icon {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.station-preview-image {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #4a5a6a, #3a4a5a);
+    border-radius: 4px;
+}
+
+.station-item-name {
+    font-size: 0.6rem;
+    color: var(--accent-red);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.station-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    font-size: 0.6rem;
+}
+
+.station-status.idle .status-text {
+    color: var(--accent-green);
+}
+
+.station-status.idle .status-indicator {
+    width: 6px;
+    height: 10px;
+    background: var(--accent-green);
+    border-radius: 1px;
+}
+
+.station-status.working .status-time {
+    color: var(--accent-cyan);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+/* 推荐制作分隔线 */
+.craft-recommend-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0;
+    margin: 0.25rem 0;
+}
+
+.divider-text {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    padding: 0 0.5rem;
+    background: var(--bg-card);
+}
+
+/* 最优制作推荐 */
+.craft-best-recommend {
+    margin-top: 0.25rem;
+}
+
+.best-recommend-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.best-recommend-item {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.best-recommend-item:hover {
+    border-color: var(--accent-cyan);
+}
+
+.recommend-station-header {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.recommend-station-icon {
+    font-size: 0.7rem;
+}
+
+.recommend-station-name {
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+}
+
+.recommend-item-preview {
+    width: 100%;
+    height: 50px;
+    border-radius: 6px;
+    border: 2px solid var(--border-color);
+}
+
+.recommend-item-preview.green {
+    background: #2d5a3d;
+}
+
+.recommend-item-preview.brown {
+    background: #6b5a3a;
+}
+
+.recommend-item-preview.purple {
+    background: #5a3a6b;
+}
+
+.recommend-item-preview.gray {
+    background: #4a5a5a;
+}
+
+.recommend-item-name {
+    font-size: 0.6rem;
+    color: var(--text-primary);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recommend-item-profit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    font-size: 0.65rem;
+}
+
+.profit-icon {
+    font-size: 0.6rem;
+}
+
+.profit-value {
+    color: var(--accent-orange);
+    font-weight: 600;
+}
+
+/* 底部说明文字 */
+.craft-footer-tip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.6rem 0.75rem;
+    margin-top: 0.75rem;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 8px;
+}
+
+.craft-footer-tip .tip-icon {
+    font-size: 0.8rem;
+}
+
+.craft-footer-tip .tip-text {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
 
 /* Tab 切换栏 */
 .craft-tabs {

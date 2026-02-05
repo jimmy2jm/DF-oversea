@@ -910,6 +910,153 @@
             color: var(--accent-red);
         }
         
+        /* 三列数据布局 */
+        .stats-three-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+        
+        .stats-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem;
+            position: relative;
+        }
+        
+        /* 列之间的分隔线 */
+        .stats-column:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0.5rem;
+            bottom: 0.5rem;
+            width: 1px;
+            background: linear-gradient(180deg, transparent 0%, var(--border-color) 20%, var(--border-color) 80%, transparent 100%);
+        }
+        
+        /* 每列的标题区域 */
+        .stats-column-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .stats-column-header .column-icon {
+            font-size: 1rem;
+        }
+        
+        .stats-column-header .column-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* 第一列 - 经济主题（橙色） */
+        .stats-column.economy .stats-column-header {
+            border-bottom-color: rgba(251, 146, 60, 0.3);
+        }
+        .stats-column.economy .column-title {
+            color: var(--accent-orange);
+        }
+        
+        /* 第二列 - 战斗主题（青色） */
+        .stats-column.combat .stats-column-header {
+            border-bottom-color: rgba(0, 255, 204, 0.3);
+        }
+        .stats-column.combat .column-title {
+            color: var(--accent-cyan);
+        }
+        
+        /* 第三列 - 团队主题（绿色） */
+        .stats-column.team .stats-column-header {
+            border-bottom-color: rgba(74, 222, 128, 0.3);
+        }
+        .stats-column.team .column-title {
+            color: var(--accent-green);
+        }
+        
+        .stat-column-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.6rem 0.5rem;
+            background: var(--bg-dark);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+        
+        .stat-column-item:hover {
+            border-color: var(--accent-cyan);
+        }
+        
+        /* 每列第一条数据 - 更突出 */
+        .stat-column-item.primary {
+            padding: 1rem 0.5rem;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, rgba(0, 255, 204, 0.05) 100%);
+            border-color: rgba(0, 255, 204, 0.3);
+        }
+        
+        /* 经济列的主数据 */
+        .stats-column.economy .stat-column-item.primary {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, rgba(251, 146, 60, 0.08) 100%);
+            border-color: rgba(251, 146, 60, 0.4);
+        }
+        
+        /* 战斗列的主数据 */
+        .stats-column.combat .stat-column-item.primary {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, rgba(0, 255, 204, 0.08) 100%);
+            border-color: rgba(0, 255, 204, 0.4);
+        }
+        
+        /* 团队列的主数据 */
+        .stats-column.team .stat-column-item.primary {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, rgba(74, 222, 128, 0.08) 100%);
+            border-color: rgba(74, 222, 128, 0.4);
+        }
+        
+        .stat-column-item.primary .stat-column-value {
+            font-size: 1.75rem;
+        }
+        
+        .stat-column-item.primary .stat-column-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .stat-column-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.15rem;
+        }
+        
+        .stat-column-value.cyan {
+            color: var(--accent-cyan);
+        }
+        
+        .stat-column-value.green {
+            color: var(--accent-green);
+        }
+        
+        .stat-column-value.orange {
+            color: var(--accent-orange);
+        }
+        
+        .stat-column-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
         /* 次要数据网格 */
         .stats-secondary-grid {
             display: grid;
@@ -1125,6 +1272,100 @@
             font-size: 1rem;
         }
         
+        /* 全面战场对局记录样式 */
+        .battle-record-item.win,
+        .battle-record-item.lose {
+            display: flex;
+            align-items: center;
+            background: var(--bg-dark);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            gap: 1rem;
+        }
+        
+        .battle-record-item.win {
+            border-left: 3px solid var(--accent-green);
+        }
+        
+        .battle-record-item.lose {
+            border-left: 3px solid var(--accent-red);
+        }
+        
+        .record-result {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-width: 80px;
+        }
+        
+        .result-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .result-tag.win {
+            background: rgba(74, 222, 128, 0.2);
+            color: var(--accent-green);
+        }
+        
+        .result-tag.lose {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+        }
+        
+        .result-mode {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        
+        .record-stats {
+            display: flex;
+            gap: 1.5rem;
+            flex: 1;
+        }
+        
+        .record-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.15rem;
+        }
+        
+        .record-stat .stat-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .record-stat .stat-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+        
+        .record-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.25rem;
+            min-width: 100px;
+        }
+        
+        .record-map {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        
+        .record-time {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+        
         /* Placeholder Content */
         .placeholder-content {
             padding: 4rem 2rem;
@@ -1254,7 +1495,7 @@
                     <div class="rank-card">
                         <div class="rank-card-header">
                             <span class="rank-card-title">当前段位</span>
-                            <span class="rank-card-badge">S2 赛季</span>
+                            <span class="rank-card-badge">S8赛季</span>
                         </div>
                         
                         <!-- 当前段位 -->
@@ -1262,22 +1503,6 @@
                             <div class="rank-icon">🏆</div>
                             <div class="rank-info">
                                 <div class="rank-tier">黄金 III</div>
-                                <div class="rank-points">
-                                    <span class="rank-points-value">1,850</span>
-                                    <span class="rank-points-label">积分</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 段位进度 -->
-                        <div class="rank-progress">
-                            <div class="rank-progress-bar">
-                                <div class="rank-progress-fill" style="width: 70%;"></div>
-                            </div>
-                            <div class="rank-progress-text">
-                                <span>黄金 III</span>
-                                <span>150 分升段</span>
-                                <span>黄金 II</span>
                             </div>
                         </div>
                         
@@ -1286,7 +1511,7 @@
                             <div class="peak-rank-icon">⭐</div>
                             <div class="peak-rank-info">
                                 <div class="peak-rank-label">历史最高</div>
-                                <div class="peak-rank-value">铂金 I · 2,340分</div>
+                                <div class="peak-rank-value">铂金 I</div>
                             </div>
                             <div class="peak-rank-season">S1</div>
                         </div>
@@ -1313,67 +1538,77 @@
                             <span class="stats-card-meta">总计 1,932 场对局</span>
                         </div>
                         
-                        <!-- 核心数据 - 突出显示 -->
-                        <div class="stats-highlight-row">
-                            <div class="stat-highlight-item">
-                                <div class="stat-highlight-value cyan">152.3M</div>
-                                <div class="stat-highlight-label">带出总价值</div>
-                                <div class="stat-highlight-sub">↑ 12.5%</div>
-                            </div>
-                            <div class="stat-highlight-item">
-                                <div class="stat-highlight-value green">42%</div>
-                                <div class="stat-highlight-label">撤离率</div>
-                                <div class="stat-highlight-sub">↑ 3%</div>
-                            </div>
-                            <div class="stat-highlight-item">
-                                <div class="stat-highlight-value">1,932</div>
-                                <div class="stat-highlight-label">总场数</div>
-                                <div class="stat-highlight-sub">↑ 156</div>
-                            </div>
-                            <div class="stat-highlight-item">
-                                <div class="stat-highlight-value orange">1.35M</div>
-                                <div class="stat-highlight-label">赚损比</div>
-                                <div class="stat-highlight-sub negative">↓ 0.05</div>
-                            </div>
-                        </div>
-                        
-                        <!-- 次要数据网格 -->
-                        <div class="stats-secondary-grid">
-                            <div class="stat-secondary-item">
-                                <div class="stat-secondary-value">4,521</div>
-                                <div class="stat-secondary-label">击败干员数</div>
-                            </div>
-                            <div class="stat-secondary-item">
-                                <div class="stat-secondary-value">5/2/1</div>
-                                <div class="stat-secondary-label">K/D</div>
-                            </div>
-                            <div class="stat-secondary-item">
-                                <div class="stat-secondary-value">486h</div>
-                                <div class="stat-secondary-label">游戏时长</div>
-                            </div>
-                        </div>
-                        
-                        <!-- 附加信息 -->
-                        <div class="stats-extra-row">
-                            <div class="stat-extra-item">
-                                <div class="stat-extra-icon">🎯</div>
-                                <div class="stat-extra-info">
-                                    <span class="stat-extra-value">28.5%</span>
-                                    <span class="stat-extra-label">爆头率</span>
+                        <!-- 三列数据布局 -->
+                        <div class="stats-three-columns">
+                            <!-- 第一列：经济数据 -->
+                            <div class="stats-column economy">
+                                <div class="stats-column-header">
+                                    <span class="column-icon">💰</span>
+                                    <span class="column-title">经济数据</span>
+                                </div>
+                                <div class="stat-column-item primary">
+                                    <div class="stat-column-value orange">1.35</div>
+                                    <div class="stat-column-label">赚损比</div>
+                                </div>
+                                <div class="stat-column-item">
+                                    <div class="stat-column-value">152.3M</div>
+                                    <div class="stat-column-label">带出价值</div>
+                                </div>
+                                <div class="stat-column-item">
+                                    <div class="stat-column-value">89.7M</div>
+                                    <div class="stat-column-label">累计行动报酬</div>
+                                </div>
+                                <div class="stat-column-item">
+                                    <div class="stat-column-value">2,847</div>
+                                    <div class="stat-column-label">累计破译曼德尔砖</div>
                                 </div>
                             </div>
-                            <div class="stat-extra-item">
-                                <div class="stat-extra-icon">💰</div>
-                                <div class="stat-extra-info">
-                                    <span class="stat-extra-value">78.9K</span>
-                                    <span class="stat-extra-label">场均收益</span>
+                            
+                            <!-- 第二列：战斗数据 -->
+                            <div class="stats-column combat">
+                                <div class="stats-column-header">
+                                    <span class="column-icon">⚔️</span>
+                                    <span class="column-title">战斗数据</span>
+                                </div>
+                                <div class="stat-column-item primary">
+                                    <div class="stat-column-value cyan">2.34</div>
+                                    <div class="stat-column-label">战损比</div>
+                                </div>
+                                <div class="stat-column-item">
+                                    <div class="stat-column-value">4,521</div>
+                                    <div class="stat-column-label">击败干员数</div>
+                                </div>
+                                <div class="stat-column-item">
+                                    <div class="stat-column-value">32.5%</div>
+                                    <div class="stat-column-label">命中率</div>
+                                </div>
+                                <div class="stat-column-item">
+                                    <div class="stat-column-value">28.5%</div>
+                                    <div class="stat-column-label">精准击败率</div>
                                 </div>
                             </div>
-                            <div class="stat-extra-item">
-                                <div class="stat-extra-icon">⚔️</div>
-                                <div class="stat-extra-info">
-                                    <span class="stat-extra-value">2.3</span>
-                                    <span class="stat-extra-label">场均击杀</span>
+                            
+                            <!-- 第三列：团队数据 -->
+                            <div class="stats-column team">
+                                <div class="stats-column-header">
+                                    <span class="column-icon">🤝</span>
+                                    <span class="column-title">团队数据</span>
+                                </div>
+                                <div class="stat-column-item primary">
+                                    <div class="stat-column-value green">42%</div>
+                                    <div class="stat-column-label">撤离率</div>
+                                </div>
+                                <div class="stat-column-item">
+                                    <div class="stat-column-value">45.8M</div>
+                                    <div class="stat-column-label">带出队友价值</div>
+                                </div>
+                                <div class="stat-column-item">
+                                    <div class="stat-column-value">156</div>
+                                    <div class="stat-column-label">救助队友</div>
+                                </div>
+                                <div class="stat-column-item">
+                                    <div class="stat-column-value">89</div>
+                                    <div class="stat-column-label">复活队友</div>
                                 </div>
                             </div>
                         </div>
@@ -1550,7 +1785,7 @@
                         <div class="rank-card">
                             <div class="rank-card-header">
                                 <span class="rank-card-title">当前段位</span>
-                                <span class="rank-card-badge">S2 赛季</span>
+                                <span class="rank-card-badge">S8赛季</span>
                             </div>
                             
                             <!-- 当前段位 -->
@@ -1558,22 +1793,6 @@
                                 <div class="rank-icon">🎖️</div>
                                 <div class="rank-info">
                                     <div class="rank-tier">白银 II</div>
-                                    <div class="rank-points">
-                                        <span class="rank-points-value">1,120</span>
-                                        <span class="rank-points-label">积分</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- 段位进度 -->
-                            <div class="rank-progress">
-                                <div class="rank-progress-bar">
-                                    <div class="rank-progress-fill" style="width: 45%;"></div>
-                                </div>
-                                <div class="rank-progress-text">
-                                    <span>白银 II</span>
-                                    <span>180 分升段</span>
-                                    <span>白银 I</span>
                                 </div>
                             </div>
                             
@@ -1582,7 +1801,7 @@
                                 <div class="peak-rank-icon">⭐</div>
                                 <div class="peak-rank-info">
                                     <div class="peak-rank-label">历史最高</div>
-                                    <div class="peak-rank-value">黄金 III · 1,540分</div>
+                                    <div class="peak-rank-value">黄金 III</div>
                                 </div>
                                 <div class="peak-rank-season">S1</div>
                             </div>
@@ -1610,53 +1829,78 @@
                                 <span class="stats-card-meta">总计 526 场对局</span>
                             </div>
                             
-                            <!-- 核心数据 - 突出显示 -->
-                            <div class="stats-highlight-row">
-                                <div class="stat-highlight-item">
-                                    <div class="stat-highlight-value cyan">68.5%</div>
-                                    <div class="stat-highlight-label">胜率</div>
-                                    <div class="stat-highlight-sub">↑ 5.2%</div>
+                            <!-- 三列数据布局 -->
+                            <div class="stats-three-columns">
+                                <!-- 第一列：战场表现 -->
+                                <div class="stats-column economy">
+                                    <div class="stats-column-header">
+                                        <span class="column-icon">🏆</span>
+                                        <span class="column-title">战场表现</span>
+                                    </div>
+                                    <div class="stat-column-item primary">
+                                        <div class="stat-column-value orange">285</div>
+                                        <div class="stat-column-label">每分钟得分</div>
+                                    </div>
+                                    <div class="stat-column-item">
+                                        <div class="stat-column-value">68.5%</div>
+                                        <div class="stat-column-label">胜率</div>
+                                    </div>
+                                    <div class="stat-column-item">
+                                        <div class="stat-column-value">1,247</div>
+                                        <div class="stat-column-label">占点数</div>
+                                    </div>
+                                    <div class="stat-column-item">
+                                        <div class="stat-column-value">356</div>
+                                        <div class="stat-column-label">救援数</div>
+                                    </div>
                                 </div>
-                                <div class="stat-highlight-item">
-                                    <div class="stat-highlight-value green">2.85</div>
-                                    <div class="stat-highlight-label">K/D</div>
-                                    <div class="stat-highlight-sub">2.4 / 2.9 / 3.1</div>
+                                
+                                <!-- 第二列：战斗数据 -->
+                                <div class="stats-column combat">
+                                    <div class="stats-column-header">
+                                        <span class="column-icon">⚔️</span>
+                                        <span class="column-title">战斗数据</span>
+                                    </div>
+                                    <div class="stat-column-item primary">
+                                        <div class="stat-column-value cyan">0.85</div>
+                                        <div class="stat-column-label">每分钟击败</div>
+                                    </div>
+                                    <div class="stat-column-item">
+                                        <div class="stat-column-value">847</div>
+                                        <div class="stat-column-label">击败干员</div>
+                                    </div>
+                                    <div class="stat-column-item">
+                                        <div class="stat-column-value">32.5%</div>
+                                        <div class="stat-column-label">命中率</div>
+                                    </div>
+                                    <div class="stat-column-item">
+                                        <div class="stat-column-value">28.3%</div>
+                                        <div class="stat-column-label">精确击败率</div>
+                                    </div>
                                 </div>
-                                <div class="stat-highlight-item">
-                                    <div class="stat-highlight-value orange">847</div>
-                                    <div class="stat-highlight-label">总击杀</div>
-                                    <div class="stat-highlight-sub">爆头率 32%</div>
-                                </div>
-                            </div>
-                            
-                            <!-- 次级数据 -->
-                            <div class="stats-secondary-row">
-                                <div class="stat-secondary-item">
-                                    <span class="stat-secondary-label">场均击杀</span>
-                                    <span class="stat-secondary-value">1.61</span>
-                                </div>
-                                <div class="stat-secondary-item">
-                                    <span class="stat-secondary-label">场均助攻</span>
-                                    <span class="stat-secondary-value">2.3</span>
-                                </div>
-                                <div class="stat-secondary-item">
-                                    <span class="stat-secondary-label">场均伤害</span>
-                                    <span class="stat-secondary-value">458</span>
-                                </div>
-                            </div>
-                            
-                            <div class="stats-secondary-row">
-                                <div class="stat-secondary-item">
-                                    <span class="stat-secondary-label">MVP次数</span>
-                                    <span class="stat-secondary-value">89</span>
-                                </div>
-                                <div class="stat-secondary-item">
-                                    <span class="stat-secondary-label">最高连杀</span>
-                                    <span class="stat-secondary-value">7</span>
-                                </div>
-                                <div class="stat-secondary-item">
-                                    <span class="stat-secondary-label">游戏时长</span>
-                                    <span class="stat-secondary-value">186h</span>
+                                
+                                <!-- 第三列：载具数据 -->
+                                <div class="stats-column team">
+                                    <div class="stats-column-header">
+                                        <span class="column-icon">🚗</span>
+                                        <span class="column-title">载具数据</span>
+                                    </div>
+                                    <div class="stat-column-item primary">
+                                        <div class="stat-column-value green">18.5h</div>
+                                        <div class="stat-column-label">驾驶载具时长</div>
+                                    </div>
+                                    <div class="stat-column-item">
+                                        <div class="stat-column-value">127</div>
+                                        <div class="stat-column-label">使用载具击败</div>
+                                    </div>
+                                    <div class="stat-column-item">
+                                        <div class="stat-column-value">458K</div>
+                                        <div class="stat-column-label">对载具造成伤害</div>
+                                    </div>
+                                    <div class="stat-column-item">
+                                        <div class="stat-column-value">89</div>
+                                        <div class="stat-column-label">摧毁载具</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
