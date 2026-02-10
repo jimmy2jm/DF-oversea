@@ -257,12 +257,17 @@ body {
 .craft-modal {
     width: 90%;
     max-width: 380px;
-    height: 70vh;
+    max-height: 80vh;
     background: var(--bg-card);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     animation: fadeIn 0.2s ease-out;
+}
+
+/* 忙碌状态弹窗需要更多高度 */
+.craft-modal.modal-working {
+    max-height: 85vh;
 }
 
 .craft-modal-header {
@@ -291,9 +296,337 @@ body {
 }
 
 .craft-modal-content {
-    flex: 1;
     padding: 16px;
     overflow-y: auto;
+}
+
+/* 忙碌状态时内容区域需要滚动 */
+.craft-modal.modal-working .craft-modal-content {
+    flex: 1;
+    min-height: 0;
+}
+
+/* ============================================
+   制造弹窗内部样式
+   ============================================ */
+/* 空闲状态弹窗 */
+.craft-modal-idle {
+    text-align: center;
+}
+
+.craft-modal-idle .idle-tip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.craft-modal-idle .idle-tip-icon {
+    font-size: 18px;
+}
+
+.craft-modal-idle .idle-tip-text {
+    font-size: 12px;
+    color: #4ade80;
+    line-height: 1.5;
+}
+
+.craft-modal-idle .recommend-title {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.craft-modal-idle .recommend-item {
+    display: flex;
+    align-items: center;
+    background: var(--bg-card-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+.craft-modal-idle .recommend-item-image {
+    width: 80px;
+    height: 60px;
+    background: linear-gradient(135deg, #3a4a5a 0%, #2a3540 100%);
+    border-radius: 8px;
+    margin-right: 14px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.craft-modal-idle .recommend-item-info {
+    flex: 1;
+}
+
+.craft-modal-idle .recommend-item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.craft-modal-idle .recommend-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.craft-modal-idle .recommend-stat {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.craft-modal-idle .recommend-stat-label {
+    color: var(--text-secondary);
+}
+
+.craft-modal-idle .recommend-stat-value {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+.craft-modal-idle .recommend-stat-value.highlight {
+    color: #fbbf24;
+}
+
+.craft-modal-idle .open-game-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--accent-cyan) 0%, #00a080 100%);
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.craft-modal-idle .open-game-btn:active {
+    opacity: 0.85;
+}
+
+/* 忙碌状态弹窗 */
+.craft-modal-working {
+    padding-bottom: 16px;
+}
+
+.craft-modal-working .working-header {
+    text-align: center;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.craft-modal-working .working-item-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.craft-modal-working .working-item-image {
+    width: 100px;
+    height: 75px;
+    background: linear-gradient(135deg, #3a4a5a 0%, #2a3540 100%);
+    border-radius: 8px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+
+.craft-modal-working .working-item-info {
+    flex: 1;
+}
+
+.craft-modal-working .working-item-name {
+    font-size: 13px;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.craft-modal-working .profit-formula {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.craft-modal-working .profit-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+}
+
+.craft-modal-working .profit-row-label {
+    color: var(--text-secondary);
+}
+
+.craft-modal-working .profit-row-value {
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.craft-modal-working .profit-row-value .coin-icon {
+    font-size: 10px;
+}
+
+.craft-modal-working .profit-row.total {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.craft-modal-working .profit-row.total .profit-row-label {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+.craft-modal-working .profit-row.total .profit-row-value {
+    color: #4ade80;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.craft-modal-working .profit-row.hourly .profit-row-value {
+    color: #fbbf24;
+    font-weight: 600;
+}
+
+/* 价格波动图 */
+.craft-modal-working .price-chart-section {
+    margin-bottom: 16px;
+}
+
+.craft-modal-working .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.craft-modal-working .section-title-text {
+    font-size: 12px;
+    color: var(--accent-cyan);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.craft-modal-working .section-title-time {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.craft-modal-working .price-chart-container {
+    background: var(--bg-card-secondary);
+    border-radius: 8px;
+    padding: 12px;
+    height: 140px;
+    position: relative;
+}
+
+.craft-modal-working .price-chart-container canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.craft-modal-working .price-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* 材料列表 */
+.craft-modal-working .materials-section {
+    margin-top: 16px;
+}
+
+.craft-modal-working .materials-title {
+    font-size: 12px;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.craft-modal-working .material-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.craft-modal-working .material-item {
+    display: flex;
+    align-items: center;
+    background: var(--bg-card-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.craft-modal-working .material-image {
+    width: 44px;
+    height: 34px;
+    background: linear-gradient(135deg, #2a3a4a 0%, #1a2530 100%);
+    border-radius: 6px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.craft-modal-working .material-name {
+    flex: 1;
+    font-size: 12px;
+    color: var(--text-primary);
+}
+
+.craft-modal-working .material-price {
+    text-align: right;
+}
+
+.craft-modal-working .material-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    font-size: 11px;
+}
+
+.craft-modal-working .material-price-label {
+    color: var(--text-secondary);
+}
+
+.craft-modal-working .material-price-value {
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.craft-modal-working .material-price-value .coin-icon {
+    font-size: 10px;
 }
 
 /* 昨日收益区域 */

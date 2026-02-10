@@ -65,6 +65,60 @@ document.querySelectorAll('.craft-station-card[data-station]').forEach(card => {
     });
 });
 
+// 制造推荐数据 - 用于空闲状态弹窗
+const craftRecommendData = {
+    '技术中心': {
+        itemName: 'OLIGHT Baldr Pro R手电',
+        itemIcon: '🔦',
+        totalProfit: 18578,
+        hourlyProfit: 1857,
+        craftTime: '10h'
+    },
+    '工作台': {
+        itemName: 'PMAG D-60弹鼓',
+        itemIcon: '🎯',
+        totalProfit: 15230,
+        hourlyProfit: 1523,
+        craftTime: '10h'
+    },
+    '制药台': {
+        itemName: '军用急救包',
+        itemIcon: '💊',
+        totalProfit: 12450,
+        hourlyProfit: 1245,
+        craftTime: '10h'
+    },
+    '防具台': {
+        itemName: '6级防弹插板',
+        itemIcon: '🛡️',
+        totalProfit: 22340,
+        hourlyProfit: 2234,
+        craftTime: '10h'
+    }
+};
+
+// 制作中物品数据 - 用于忙碌状态弹窗
+const craftWorkingData = {
+    'DAR突击手胸挂': {
+        itemIcon: '🎽',
+        sellPrice: 125000,
+        craftCost: 78500,
+        fee: 6250,      // 手续费 5%
+        deposit: 12500, // 保证金 10%
+        totalTime: '08:45:00',
+        remainTime: '02:22:45',
+        totalProfit: 27750,
+        hourlyProfit: 3171,
+        materials: [
+            { name: '凯夫拉纤维', icon: '📦', price: 32000, count: 2 },
+            { name: '钛合金板', icon: '🔩', price: 18500, count: 1 },
+            { name: '尼龙织带', icon: '🧵', price: 8500, count: 3 },
+            { name: '防弹陶瓷片', icon: '🧱', price: 19500, count: 1 }
+        ],
+        priceHistory: [112, 115, 118, 120, 122, 125, 123] // 近7天价格（K）
+    }
+};
+
 // 打开制造弹窗
 function openCraftModal(stationName, status, itemName, time) {
     craftModalTitle.textContent = stationName;
@@ -72,30 +126,274 @@ function openCraftModal(stationName, status, itemName, time) {
     let contentHtml = '';
     
     if (status === 'working') {
-        // 制作中状态
+        // 制作中状态 - 显示物品详情、收益公式、价格波动图、材料列表
+        const workingItem = craftWorkingData[itemName] || {
+            itemIcon: '📦',
+            sellPrice: 100000,
+            craftCost: 65000,
+            fee: 5000,
+            deposit: 10000,
+            totalTime: '08:00:00',
+            remainTime: time,
+            totalProfit: 20000,
+            hourlyProfit: 2500,
+            materials: [
+                { name: '基础材料A', icon: '📦', price: 20000, count: 2 },
+                { name: '基础材料B', icon: '🔩', price: 25000, count: 1 }
+            ],
+            priceHistory: [95, 98, 100, 102, 100, 98, 100]
+        };
+        
         contentHtml = `
-            <div style="text-align: center; color: var(--text-secondary); padding-top: 80px;">
-                <div style="font-size: 40px; margin-bottom: 16px;">🔧</div>
-                <p style="color: var(--accent-cyan); font-size: 18px; margin-bottom: 8px;">制作中</p>
-                <p style="font-size: 14px;">正在制作：${itemName}</p>
-                <p style="font-size: 14px;">剩余时间：${time}</p>
-                <p style="margin-top: 40px; font-size: 12px; opacity: 0.6;">（制作中状态内容待填充）</p>
+            <div class="craft-modal-working">
+                <!-- 物品图片和收益公式 -->
+                <div class="working-item-section">
+                    <div class="working-item-image">${workingItem.itemIcon}</div>
+                    <div class="working-item-info">
+                        <div class="working-item-name">${itemName}</div>
+                        <div class="profit-formula">
+                            <div class="profit-row">
+                                <span class="profit-row-label">出售总价</span>
+                                <span class="profit-row-value"><span class="coin-icon">💰</span>${workingItem.sellPrice.toLocaleString()}</span>
+                            </div>
+                            <div class="profit-row">
+                                <span class="profit-row-label">制造成本</span>
+                                <span class="profit-row-value"><span class="coin-icon">💰</span>-${workingItem.craftCost.toLocaleString()}</span>
+                            </div>
+                            <div class="profit-row">
+                                <span class="profit-row-label">手续费(5%)</span>
+                                <span class="profit-row-value"><span class="coin-icon">💰</span>-${workingItem.fee.toLocaleString()}</span>
+                            </div>
+                            <div class="profit-row">
+                                <span class="profit-row-label">保证金(10%)</span>
+                                <span class="profit-row-value"><span class="coin-icon">💰</span>-${workingItem.deposit.toLocaleString()}</span>
+                            </div>
+                            <div class="profit-row">
+                                <span class="profit-row-label">总耗时</span>
+                                <span class="profit-row-value">${workingItem.totalTime}</span>
+                            </div>
+                            <div class="profit-row total">
+                                <span class="profit-row-label">总收益</span>
+                                <span class="profit-row-value"><span class="coin-icon">💰</span>+${workingItem.totalProfit.toLocaleString()}</span>
+                            </div>
+                            <div class="profit-row hourly">
+                                <span class="profit-row-label">每小时收益</span>
+                                <span class="profit-row-value">${workingItem.hourlyProfit.toLocaleString()}/h</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 售价波动图 -->
+                <div class="price-chart-section">
+                    <div class="section-title">
+                        <span class="section-title-text">📈 售价波动</span>
+                        <span class="section-title-time">近7天</span>
+                    </div>
+                    <div class="price-chart-container">
+                        <canvas id="craft-price-chart-modal"></canvas>
+                    </div>
+                </div>
+                
+                <!-- 制造所需材料 -->
+                <div class="materials-section">
+                    <div class="materials-title">制造所需材料</div>
+                    <div class="material-list">
+                        ${workingItem.materials.map(m => `
+                            <div class="material-item">
+                                <div class="material-image">${m.icon}</div>
+                                <div class="material-name">${m.name} ×${m.count}</div>
+                                <div class="material-price">
+                                    <div class="material-price-row">
+                                        <span class="material-price-label">单价</span>
+                                        <span class="material-price-value"><span class="coin-icon">💰</span>${m.price.toLocaleString()}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
             </div>
         `;
+        
+        // 先设置HTML，再绘制图表
+        craftModalContent.innerHTML = contentHtml;
+        // 为弹窗添加忙碌状态class
+        const craftModalBox = craftModal.querySelector('.craft-modal');
+        craftModalBox.classList.add('modal-working');
+        craftModal.classList.add('active');
+        
+        // 延迟绘制价格波动图
+        setTimeout(() => {
+            drawCraftPriceChartModal(workingItem.priceHistory);
+        }, 100);
+        
+        return; // 提前返回，避免重复设置
+        
     } else {
-        // 空闲状态
+        // 空闲状态 - 显示推荐物品、收益信息、打开游戏按钮
+        const recommend = craftRecommendData[stationName] || {
+            itemName: '推荐物品',
+            itemIcon: '📦',
+            totalProfit: 10000,
+            hourlyProfit: 1000,
+            craftTime: '10h'
+        };
+        
         contentHtml = `
-            <div style="text-align: center; color: var(--text-secondary); padding-top: 80px;">
-                <div style="font-size: 40px; margin-bottom: 16px;">💤</div>
-                <p style="color: #4ade80; font-size: 18px; margin-bottom: 8px;">空闲中</p>
-                <p style="font-size: 14px;">当前无制作任务</p>
-                <p style="margin-top: 40px; font-size: 12px; opacity: 0.6;">（空闲状态内容待填充）</p>
+            <div class="craft-modal-idle">
+                <!-- 提示信息 -->
+                <div class="idle-tip">
+                    <span class="idle-tip-icon">💡</span>
+                    <span class="idle-tip-text">特勤处-${stationName}闲置中，可以打开游戏制造商品以获取收益</span>
+                </div>
+                
+                <!-- 推荐物品标题 -->
+                <div class="recommend-title">📌 推荐制造物品</div>
+                
+                <!-- 推荐物品卡片 -->
+                <div class="recommend-item">
+                    <div class="recommend-item-image">${recommend.itemIcon}</div>
+                    <div class="recommend-item-info">
+                        <div class="recommend-item-name">${recommend.itemName}</div>
+                        <div class="recommend-stats">
+                            <div class="recommend-stat">
+                                <span class="recommend-stat-label">总收益</span>
+                                <span class="recommend-stat-value">💰 ${recommend.totalProfit.toLocaleString()}</span>
+                            </div>
+                            <div class="recommend-stat">
+                                <span class="recommend-stat-label">每小时收益</span>
+                                <span class="recommend-stat-value highlight">${recommend.hourlyProfit.toLocaleString()}/h</span>
+                            </div>
+                            <div class="recommend-stat">
+                                <span class="recommend-stat-label">制作时间</span>
+                                <span class="recommend-stat-value">${recommend.craftTime}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 打开游戏按钮 -->
+                <button class="open-game-btn" onclick="window.open('deltaforcegame://', '_blank')">
+                    🎮 打开游戏
+                </button>
             </div>
         `;
     }
     
     craftModalContent.innerHTML = contentHtml;
+    // 空闲状态时移除忙碌状态class
+    const craftModalBox = craftModal.querySelector('.craft-modal');
+    craftModalBox.classList.remove('modal-working');
     craftModal.classList.add('active');
+}
+
+// 绘制制造弹窗内的价格波动图
+function drawCraftPriceChartModal(priceHistory) {
+    const canvas = document.getElementById('craft-price-chart-modal');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const container = canvas.parentElement;
+    const rect = container.getBoundingClientRect();
+    
+    // 设置canvas尺寸
+    canvas.width = rect.width * 2;
+    canvas.height = rect.height * 2;
+    ctx.scale(2, 2);
+    
+    const width = rect.width;
+    const height = rect.height;
+    const padding = { top: 12, right: 10, bottom: 20, left: 32 };
+    const chartWidth = width - padding.left - padding.right;
+    const chartHeight = height - padding.top - padding.bottom;
+    
+    // 数据处理
+    const data = priceHistory || [100, 102, 98, 105, 103, 108, 110];
+    const labels = ['1日', '2日', '3日', '4日', '5日', '6日', '7日'];
+    
+    const minVal = Math.min(...data);
+    const maxVal = Math.max(...data);
+    const range = maxVal - minVal || 10;
+    const minY = minVal - range * 0.15;
+    const maxY = maxVal + range * 0.15;
+    const yRange = maxY - minY;
+    
+    // 判断趋势
+    const isRising = data[data.length - 1] > data[0];
+    const lineColor = isRising ? '#00d4aa' : '#ef4444';
+    const fillColor = isRising ? 'rgba(0, 212, 170, 0.15)' : 'rgba(239, 68, 68, 0.15)';
+    
+    ctx.clearRect(0, 0, width * 2, height * 2);
+    
+    // 绘制网格线
+    ctx.strokeStyle = '#2a3a4a';
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i <= 4; i++) {
+        const val = minY + (yRange / 4) * i;
+        const y = padding.top + chartHeight - ((val - minY) / yRange) * chartHeight;
+        ctx.beginPath();
+        ctx.moveTo(padding.left, y);
+        ctx.lineTo(width - padding.right, y);
+        ctx.stroke();
+        
+        // Y轴标签
+        ctx.fillStyle = '#8a9bb0';
+        ctx.font = '9px sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText(val.toFixed(0) + 'K', padding.left - 4, y + 3);
+    }
+    
+    // 绘制填充区域
+    ctx.beginPath();
+    data.forEach((val, index) => {
+        const x = padding.left + (index / (data.length - 1)) * chartWidth;
+        const y = padding.top + chartHeight - ((val - minY) / yRange) * chartHeight;
+        if (index === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    });
+    ctx.lineTo(padding.left + chartWidth, padding.top + chartHeight);
+    ctx.lineTo(padding.left, padding.top + chartHeight);
+    ctx.closePath();
+    ctx.fillStyle = fillColor;
+    ctx.fill();
+    
+    // 绘制曲线
+    ctx.beginPath();
+    data.forEach((val, index) => {
+        const x = padding.left + (index / (data.length - 1)) * chartWidth;
+        const y = padding.top + chartHeight - ((val - minY) / yRange) * chartHeight;
+        if (index === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    });
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    
+    // 绘制数据点
+    data.forEach((val, index) => {
+        const x = padding.left + (index / (data.length - 1)) * chartWidth;
+        const y = padding.top + chartHeight - ((val - minY) / yRange) * chartHeight;
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = lineColor;
+        ctx.fill();
+    });
+    
+    // X轴标签
+    ctx.fillStyle = '#8a9bb0';
+    ctx.font = '8px sans-serif';
+    ctx.textAlign = 'center';
+    [0, 3, 6].forEach(index => {
+        const x = padding.left + (index / (data.length - 1)) * chartWidth;
+        ctx.fillText(labels[index], x, height - 5);
+    });
 }
 
 // 关闭制造弹窗

@@ -1382,6 +1382,308 @@
         .placeholder-text {
             font-size: 1rem;
         }
+        
+        /* ============================================
+           战绩页样式
+           ============================================ */
+        .matches-filter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .filter-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .filter-select {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            min-width: 160px;
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+        }
+        
+        .filter-select:hover,
+        .filter-select:focus {
+            border-color: var(--accent-cyan);
+            outline: none;
+        }
+        
+        .filter-select option {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+        }
+        
+        .filter-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-checkbox:hover {
+            border-color: var(--accent-cyan);
+        }
+        
+        .filter-checkbox.active {
+            border-color: var(--accent-green);
+            background: rgba(74, 222, 128, 0.1);
+        }
+        
+        .filter-checkbox input {
+            display: none;
+        }
+        
+        .checkbox-indicator {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-checkbox.active .checkbox-indicator {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+        
+        .checkbox-indicator::after {
+            content: '✓';
+            font-size: 0.7rem;
+            color: var(--bg-dark);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .filter-checkbox.active .checkbox-indicator::after {
+            opacity: 1;
+        }
+        
+        .checkbox-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .filter-checkbox.active .checkbox-label {
+            color: var(--accent-green);
+        }
+        
+        /* 战绩列表容器 */
+        .matches-list-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .matches-list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .matches-list-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        .matches-count {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        .matches-full-list {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 战绩列表项 - 全宽版 */
+        .match-record-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s ease;
+        }
+        
+        .match-record-item:last-child {
+            border-bottom: none;
+        }
+        
+        .match-record-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .match-record-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #2a3a4a 0%, #1a2a3a 100%);
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .match-record-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .match-record-status {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .match-status-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .match-status-tag.success {
+            background: rgba(74, 222, 128, 0.2);
+            color: var(--accent-green);
+        }
+        
+        .match-status-tag.fail {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+        }
+        
+        .match-status-tag.victory {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+        
+        .match-operator-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .match-record-map {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .match-record-time {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+        
+        .match-record-result {
+            text-align: right;
+            margin-right: 1rem;
+            min-width: 120px;
+        }
+        
+        .match-result-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .match-result-value.positive {
+            color: var(--accent-green);
+        }
+        
+        .match-result-value.negative {
+            color: var(--accent-red);
+        }
+        
+        .match-result-value.neutral {
+            color: var(--text-primary);
+        }
+        
+        .match-result-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+        
+        .match-record-kills {
+            text-align: center;
+            min-width: 60px;
+            margin-right: 1rem;
+        }
+        
+        .match-kills-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .match-kills-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+        
+        .match-record-arrow {
+            color: var(--text-muted);
+            font-size: 1.25rem;
+        }
+        
+        /* 全面战场战绩得分样式 */
+        .match-record-score {
+            text-align: right;
+            margin-right: 1rem;
+            min-width: 100px;
+        }
+        
+        .match-score-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+        
+        .match-score-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
     </style>
 </head>
 <body>
@@ -1433,13 +1735,15 @@
                 <div class="banner-decoration"></div>
                 <div class="character-silhouette"></div>
                 
-                <!-- Banner Stats -->
+                <!-- Banner Stats - 暂时隐藏 -->
+                <!--
                 <div class="banner-stats">
                     <div class="banner-stat-item">
                         <span class="banner-stat-value">52,670</span>
                         <span class="banner-stat-label">Views</span>
                     </div>
                 </div>
+                -->
             </div>
             
             <!-- Profile Info -->
@@ -1461,18 +1765,20 @@
                                 <span>等级 56</span>
                             </div>
                             <div class="meta-item">
-                                <span class="meta-icon">📅</span>
-                                <span>加入于 2024/09/15</span>
+                                <span class="meta-icon">⏱️</span>
+                                <span>总游戏时长 328h</span>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Social Links -->
+                    <!-- Social Links - 暂时隐藏 -->
+                    <!--
                     <div class="profile-social">
                         <button class="social-btn" title="Twitter">𝕏</button>
                         <button class="social-btn" title="Twitch">📺</button>
                         <button class="social-btn share" title="分享">↗</button>
                     </div>
+                    -->
                 </div>
             </div>
             
@@ -1680,9 +1986,212 @@
         
         <!-- 战绩 Tab -->
         <div class="tab-content" id="tab-matches">
-            <div class="placeholder-content">
-                <div class="placeholder-icon">⚔️</div>
-                <div class="placeholder-text">战绩数据加载中...</div>
+            <!-- 筛选器 -->
+            <div class="matches-filter-bar">
+                <div class="filter-left">
+                    <span class="filter-label">🗺️ 地图筛选</span>
+                    <select class="filter-select" id="fenghuo-map-filter">
+                        <option value="all">全部地图</option>
+                        <option value="dam">零号大坝</option>
+                        <option value="valley">长弓溪谷</option>
+                        <option value="bakshi">巴克什</option>
+                        <option value="space">航天基地</option>
+                        <option value="prison">潮汐监狱</option>
+                    </select>
+                </div>
+                <div class="filter-right">
+                    <label class="filter-checkbox" id="net-profit-toggle">
+                        <input type="checkbox">
+                        <span class="checkbox-indicator"></span>
+                        <span class="checkbox-label">显示净收益</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- 战绩列表 -->
+            <div class="matches-list-wrapper">
+                <div class="matches-list-header">
+                    <span class="matches-list-title">📋 对局记录</span>
+                    <span class="matches-count">共 1,932 场</span>
+                </div>
+                
+                <div class="matches-full-list" id="fenghuo-matches-list">
+                    <!-- 对局1 - 撤离失败 -->
+                    <div class="match-record-item" data-map="dam" data-profit="68304" data-loss="245000" data-net="-176696">
+                        <div class="match-record-avatar">🎖️</div>
+                        <div class="match-record-info">
+                            <div class="match-record-status">
+                                <span class="match-status-tag fail">撤离失败</span>
+                                <span class="match-operator-name">威龙</span>
+                            </div>
+                            <div class="match-record-map">烽火地带 | 零号大坝-机密</div>
+                            <div class="match-record-time">02-03 10:52</div>
+                        </div>
+                        <div class="match-record-result">
+                            <div class="match-result-value profit-value neutral">💰 68,304</div>
+                            <div class="match-result-label profit-label">带出价值</div>
+                        </div>
+                        <div class="match-record-kills">
+                            <div class="match-kills-value">4</div>
+                            <div class="match-kills-label">💀 击败</div>
+                        </div>
+                        <span class="match-record-arrow">›</span>
+                    </div>
+                    
+                    <!-- 对局2 - 撤离成功 -->
+                    <div class="match-record-item" data-map="valley" data-profit="520000" data-loss="85000" data-net="435000">
+                        <div class="match-record-avatar">⚔️</div>
+                        <div class="match-record-info">
+                            <div class="match-record-status">
+                                <span class="match-status-tag success">撤离成功</span>
+                                <span class="match-operator-name">骇爪</span>
+                            </div>
+                            <div class="match-record-map">烽火地带 | 长弓溪谷-普通</div>
+                            <div class="match-record-time">02-03 10:30</div>
+                        </div>
+                        <div class="match-record-result">
+                            <div class="match-result-value profit-value positive">💰 520,000</div>
+                            <div class="match-result-label profit-label">带出价值</div>
+                        </div>
+                        <div class="match-record-kills">
+                            <div class="match-kills-value">7</div>
+                            <div class="match-kills-label">💀 击败</div>
+                        </div>
+                        <span class="match-record-arrow">›</span>
+                    </div>
+                    
+                    <!-- 对局3 - 撤离失败 -->
+                    <div class="match-record-item" data-map="space" data-profit="32000" data-loss="380000" data-net="-348000">
+                        <div class="match-record-avatar">🛡️</div>
+                        <div class="match-record-info">
+                            <div class="match-record-status">
+                                <span class="match-status-tag fail">撤离失败</span>
+                                <span class="match-operator-name">威龙</span>
+                            </div>
+                            <div class="match-record-map">烽火地带 | 航天基地-机密</div>
+                            <div class="match-record-time">02-03 09:45</div>
+                        </div>
+                        <div class="match-record-result">
+                            <div class="match-result-value profit-value neutral">💰 32,000</div>
+                            <div class="match-result-label profit-label">带出价值</div>
+                        </div>
+                        <div class="match-record-kills">
+                            <div class="match-kills-value">2</div>
+                            <div class="match-kills-label">💀 击败</div>
+                        </div>
+                        <span class="match-record-arrow">›</span>
+                    </div>
+                    
+                    <!-- 对局4 - 撤离成功 -->
+                    <div class="match-record-item" data-map="bakshi" data-profit="890000" data-loss="120000" data-net="770000">
+                        <div class="match-record-avatar">🎯</div>
+                        <div class="match-record-info">
+                            <div class="match-record-status">
+                                <span class="match-status-tag success">撤离成功</span>
+                                <span class="match-operator-name">暗刃</span>
+                            </div>
+                            <div class="match-record-map">烽火地带 | 巴克什-普通</div>
+                            <div class="match-record-time">02-03 09:15</div>
+                        </div>
+                        <div class="match-record-result">
+                            <div class="match-result-value profit-value positive">💰 890,000</div>
+                            <div class="match-result-label profit-label">带出价值</div>
+                        </div>
+                        <div class="match-record-kills">
+                            <div class="match-kills-value">5</div>
+                            <div class="match-kills-label">💀 击败</div>
+                        </div>
+                        <span class="match-record-arrow">›</span>
+                    </div>
+                    
+                    <!-- 对局5 - 撤离失败 -->
+                    <div class="match-record-item" data-map="prison" data-profit="156000" data-loss="290000" data-net="-134000">
+                        <div class="match-record-avatar">⚔️</div>
+                        <div class="match-record-info">
+                            <div class="match-record-status">
+                                <span class="match-status-tag fail">撤离失败</span>
+                                <span class="match-operator-name">骇爪</span>
+                            </div>
+                            <div class="match-record-map">烽火地带 | 潮汐监狱-机密</div>
+                            <div class="match-record-time">02-03 08:40</div>
+                        </div>
+                        <div class="match-record-result">
+                            <div class="match-result-value profit-value neutral">💰 156,000</div>
+                            <div class="match-result-label profit-label">带出价值</div>
+                        </div>
+                        <div class="match-record-kills">
+                            <div class="match-kills-value">3</div>
+                            <div class="match-kills-label">💀 击败</div>
+                        </div>
+                        <span class="match-record-arrow">›</span>
+                    </div>
+                    
+                    <!-- 对局6 - 撤离成功 -->
+                    <div class="match-record-item" data-map="dam" data-profit="1250000" data-loss="95000" data-net="1155000">
+                        <div class="match-record-avatar">🏆</div>
+                        <div class="match-record-info">
+                            <div class="match-record-status">
+                                <span class="match-status-tag success">撤离成功</span>
+                                <span class="match-operator-name">威龙</span>
+                            </div>
+                            <div class="match-record-map">烽火地带 | 零号大坝-普通</div>
+                            <div class="match-record-time">02-03 08:05</div>
+                        </div>
+                        <div class="match-record-result">
+                            <div class="match-result-value profit-value positive">💰 1,250,000</div>
+                            <div class="match-result-label profit-label">带出价值</div>
+                        </div>
+                        <div class="match-record-kills">
+                            <div class="match-kills-value">9</div>
+                            <div class="match-kills-label">💀 击败</div>
+                        </div>
+                        <span class="match-record-arrow">›</span>
+                    </div>
+                    
+                    <!-- 对局7 - 撤离失败 (小额正收益) -->
+                    <div class="match-record-item" data-map="valley" data-profit="185000" data-loss="150000" data-net="35000">
+                        <div class="match-record-avatar">🎖️</div>
+                        <div class="match-record-info">
+                            <div class="match-record-status">
+                                <span class="match-status-tag fail">撤离失败</span>
+                                <span class="match-operator-name">暗刃</span>
+                            </div>
+                            <div class="match-record-map">烽火地带 | 长弓溪谷-机密</div>
+                            <div class="match-record-time">02-02 23:30</div>
+                        </div>
+                        <div class="match-record-result">
+                            <div class="match-result-value profit-value neutral">💰 185,000</div>
+                            <div class="match-result-label profit-label">带出价值</div>
+                        </div>
+                        <div class="match-record-kills">
+                            <div class="match-kills-value">6</div>
+                            <div class="match-kills-label">💀 击败</div>
+                        </div>
+                        <span class="match-record-arrow">›</span>
+                    </div>
+                    
+                    <!-- 对局8 - 撤离成功 -->
+                    <div class="match-record-item" data-map="space" data-profit="680000" data-loss="200000" data-net="480000">
+                        <div class="match-record-avatar">⚔️</div>
+                        <div class="match-record-info">
+                            <div class="match-record-status">
+                                <span class="match-status-tag success">撤离成功</span>
+                                <span class="match-operator-name">骇爪</span>
+                            </div>
+                            <div class="match-record-map">烽火地带 | 航天基地-普通</div>
+                            <div class="match-record-time">02-02 22:50</div>
+                        </div>
+                        <div class="match-record-result">
+                            <div class="match-result-value profit-value positive">💰 680,000</div>
+                            <div class="match-result-label profit-label">带出价值</div>
+                        </div>
+                        <div class="match-record-kills">
+                            <div class="match-kills-value">4</div>
+                            <div class="match-kills-label">💀 击败</div>
+                        </div>
+                        <span class="match-record-arrow">›</span>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -1722,13 +2231,15 @@
                     <div class="banner-decoration"></div>
                     <div class="character-silhouette"></div>
                     
-                    <!-- Banner Stats -->
+                    <!-- Banner Stats - 暂时隐藏 -->
+                    <!--
                     <div class="banner-stats">
                         <div class="banner-stat-item">
                             <span class="banner-stat-value">15,230</span>
                             <span class="banner-stat-label">Views</span>
                         </div>
                     </div>
+                    -->
                 </div>
                 
                 <!-- Profile Info -->
@@ -1750,18 +2261,20 @@
                                     <span>LV 58</span>
                                 </div>
                                 <div class="meta-item">
-                                    <span class="meta-icon">📅</span>
-                                    <span>加入于 2024/09/15</span>
+                                    <span class="meta-icon">⏱️</span>
+                                    <span>总游戏时长 328h</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Social Links -->
+                        <!-- Social Links - 暂时隐藏 -->
+                        <!--
                         <div class="profile-social">
                             <button class="social-btn" title="Twitter">𝕏</button>
                             <button class="social-btn" title="Twitch">📺</button>
                             <button class="social-btn share" title="分享">↗</button>
                         </div>
+                        -->
                     </div>
                 </div>
                 
@@ -1908,87 +2421,57 @@
                         <!-- 最近对局 - 全面战场 -->
                         <div class="recent-matches-card">
                             <div class="recent-matches-header">
-                                <span class="recent-matches-title">📋 最近对局</span>
-                                <a href="#" class="view-all-link">查看全部 ></a>
+                                <span class="recent-matches-title">⚔️ 最近对局</span>
+                                <a href="#" class="recent-matches-link">查看全部 ›</a>
                             </div>
                             
                             <div class="battle-record-list">
-                                <!-- 对局记录项 - 胜利 -->
-                                <div class="battle-record-item win">
-                                    <div class="record-result">
-                                        <span class="result-tag win">胜利</span>
-                                        <span class="result-mode">团队竞技</span>
-                                    </div>
-                                    <div class="record-stats">
-                                        <div class="record-stat">
-                                            <span class="stat-value">5</span>
-                                            <span class="stat-label">击杀</span>
+                                <div class="battle-record-item">
+                                    <div class="battle-record-avatar">🎖️</div>
+                                    <div class="battle-record-info">
+                                        <div class="battle-record-status">
+                                            <span class="battle-status-tag fail">失败</span>
+                                            <span class="battle-operator-name">威龙</span>
                                         </div>
-                                        <div class="record-stat">
-                                            <span class="stat-value">3</span>
-                                            <span class="stat-label">死亡</span>
-                                        </div>
-                                        <div class="record-stat">
-                                            <span class="stat-value">2</span>
-                                            <span class="stat-label">助攻</span>
-                                        </div>
+                                        <div class="battle-record-map">全面战场 | 临界点-攻防</div>
+                                        <div class="battle-record-time">02-03 10:52</div>
                                     </div>
-                                    <div class="record-meta">
-                                        <span class="record-map">🗺️ 沙漠战场</span>
-                                        <span class="record-time">35分钟前</span>
+                                    <div class="battle-record-result">
+                                        <div class="battle-result-profit">🏆 1,850</div>
                                     </div>
+                                    <span class="battle-record-arrow">›</span>
                                 </div>
                                 
-                                <!-- 对局记录项 - 失败 -->
-                                <div class="battle-record-item lose">
-                                    <div class="record-result">
-                                        <span class="result-tag lose">失败</span>
-                                        <span class="result-mode">据点争夺</span>
-                                    </div>
-                                    <div class="record-stats">
-                                        <div class="record-stat">
-                                            <span class="stat-value">2</span>
-                                            <span class="stat-label">击杀</span>
+                                <div class="battle-record-item">
+                                    <div class="battle-record-avatar">⚔️</div>
+                                    <div class="battle-record-info">
+                                        <div class="battle-record-status">
+                                            <span class="battle-status-tag victory">胜利</span>
+                                            <span class="battle-operator-name">骇爪</span>
                                         </div>
-                                        <div class="record-stat">
-                                            <span class="stat-value">4</span>
-                                            <span class="stat-label">死亡</span>
-                                        </div>
-                                        <div class="record-stat">
-                                            <span class="stat-value">1</span>
-                                            <span class="stat-label">助攻</span>
-                                        </div>
+                                        <div class="battle-record-map">全面战场 | 风暴眼-攻防</div>
+                                        <div class="battle-record-time">02-03 10:30</div>
                                     </div>
-                                    <div class="record-meta">
-                                        <span class="record-map">🗺️ 城市废墟</span>
-                                        <span class="record-time">2小时前</span>
+                                    <div class="battle-record-result">
+                                        <div class="battle-result-profit positive">🏆 3,520</div>
                                     </div>
+                                    <span class="battle-record-arrow">›</span>
                                 </div>
                                 
-                                <!-- 对局记录项 - 胜利 -->
-                                <div class="battle-record-item win">
-                                    <div class="record-result">
-                                        <span class="result-tag win">胜利</span>
-                                        <span class="result-mode">爆破模式</span>
-                                    </div>
-                                    <div class="record-stats">
-                                        <div class="record-stat">
-                                            <span class="stat-value">8</span>
-                                            <span class="stat-label">击杀</span>
+                                <div class="battle-record-item">
+                                    <div class="battle-record-avatar">🛡️</div>
+                                    <div class="battle-record-info">
+                                        <div class="battle-record-status">
+                                            <span class="battle-status-tag fail">失败</span>
+                                            <span class="battle-operator-name">威龙</span>
                                         </div>
-                                        <div class="record-stat">
-                                            <span class="stat-value">2</span>
-                                            <span class="stat-label">死亡</span>
-                                        </div>
-                                        <div class="record-stat">
-                                            <span class="stat-value">4</span>
-                                            <span class="stat-label">助攻</span>
-                                        </div>
+                                        <div class="battle-record-map">全面战场 | 幻影要塞-攻防</div>
+                                        <div class="battle-record-time">02-03 09:45</div>
                                     </div>
-                                    <div class="record-meta">
-                                        <span class="record-map">🗺️ 工业区</span>
-                                        <span class="record-time">昨天</span>
+                                    <div class="battle-record-result">
+                                        <div class="battle-result-profit">🏆 1,280</div>
                                     </div>
+                                    <span class="battle-record-arrow">›</span>
                                 </div>
                             </div>
                         </div>
@@ -1998,9 +2481,174 @@
             
             <!-- 战绩 Tab - 全面战场 -->
             <div class="tab-content zc-content" id="tab-zc-matches">
-                <div class="placeholder-content">
-                    <div class="placeholder-icon">⚔️</div>
-                    <div class="placeholder-text">战场战绩加载中...</div>
+                <!-- 筛选器 -->
+                <div class="matches-filter-bar">
+                    <div class="filter-left">
+                        <span class="filter-label">🗺️ 地图筛选</span>
+                        <select class="filter-select" id="zhanchang-map-filter">
+                            <option value="all">全部地图</option>
+                            <option value="pansheng">攀升</option>
+                            <option value="jinqu">烬区</option>
+                            <option value="linjiedian">临界点</option>
+                            <option value="guanchuan">贯穿</option>
+                            <option value="qianhaozhan">堑壕战</option>
+                            <option value="duangui">断轨</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- 战绩列表 -->
+                <div class="matches-list-wrapper">
+                    <div class="matches-list-header">
+                        <span class="matches-list-title">📋 对局记录</span>
+                        <span class="matches-count">共 526 场</span>
+                    </div>
+                    
+                    <div class="matches-full-list" id="zhanchang-matches-list">
+                        <!-- 对局1 - 失败 -->
+                        <div class="match-record-item" data-map="linjiedian">
+                            <div class="match-record-avatar">🎖️</div>
+                            <div class="match-record-info">
+                                <div class="match-record-status">
+                                    <span class="match-status-tag fail">失败</span>
+                                    <span class="match-operator-name">威龙</span>
+                                </div>
+                                <div class="match-record-map">全面战场 | 临界点-攻防</div>
+                                <div class="match-record-time">02-03 10:52</div>
+                            </div>
+                            <div class="match-record-score">
+                                <div class="match-score-value">🏆 1,850</div>
+                                <div class="match-score-label">得分</div>
+                            </div>
+                            <span class="match-record-arrow">›</span>
+                        </div>
+                        
+                        <!-- 对局2 - 胜利 -->
+                        <div class="match-record-item" data-map="pansheng">
+                            <div class="match-record-avatar">⚔️</div>
+                            <div class="match-record-info">
+                                <div class="match-record-status">
+                                    <span class="match-status-tag victory">胜利</span>
+                                    <span class="match-operator-name">骇爪</span>
+                                </div>
+                                <div class="match-record-map">全面战场 | 攀升-攻防</div>
+                                <div class="match-record-time">02-03 10:30</div>
+                            </div>
+                            <div class="match-record-score">
+                                <div class="match-score-value">🏆 3,520</div>
+                                <div class="match-score-label">得分</div>
+                            </div>
+                            <span class="match-record-arrow">›</span>
+                        </div>
+                        
+                        <!-- 对局3 - 失败 -->
+                        <div class="match-record-item" data-map="jinqu">
+                            <div class="match-record-avatar">🛡️</div>
+                            <div class="match-record-info">
+                                <div class="match-record-status">
+                                    <span class="match-status-tag fail">失败</span>
+                                    <span class="match-operator-name">威龙</span>
+                                </div>
+                                <div class="match-record-map">全面战场 | 烬区-攻防</div>
+                                <div class="match-record-time">02-03 09:45</div>
+                            </div>
+                            <div class="match-record-score">
+                                <div class="match-score-value">🏆 1,280</div>
+                                <div class="match-score-label">得分</div>
+                            </div>
+                            <span class="match-record-arrow">›</span>
+                        </div>
+                        
+                        <!-- 对局4 - 胜利 -->
+                        <div class="match-record-item" data-map="guanchuan">
+                            <div class="match-record-avatar">🎯</div>
+                            <div class="match-record-info">
+                                <div class="match-record-status">
+                                    <span class="match-status-tag victory">胜利</span>
+                                    <span class="match-operator-name">暗刃</span>
+                                </div>
+                                <div class="match-record-map">全面战场 | 贯穿-攻防</div>
+                                <div class="match-record-time">02-03 09:15</div>
+                            </div>
+                            <div class="match-record-score">
+                                <div class="match-score-value">🏆 4,120</div>
+                                <div class="match-score-label">得分</div>
+                            </div>
+                            <span class="match-record-arrow">›</span>
+                        </div>
+                        
+                        <!-- 对局5 - 胜利 -->
+                        <div class="match-record-item" data-map="qianhaozhan">
+                            <div class="match-record-avatar">⚔️</div>
+                            <div class="match-record-info">
+                                <div class="match-record-status">
+                                    <span class="match-status-tag victory">胜利</span>
+                                    <span class="match-operator-name">骇爪</span>
+                                </div>
+                                <div class="match-record-map">全面战场 | 堑壕战-攻防</div>
+                                <div class="match-record-time">02-03 08:40</div>
+                            </div>
+                            <div class="match-record-score">
+                                <div class="match-score-value">🏆 2,960</div>
+                                <div class="match-score-label">得分</div>
+                            </div>
+                            <span class="match-record-arrow">›</span>
+                        </div>
+                        
+                        <!-- 对局6 - 失败 -->
+                        <div class="match-record-item" data-map="duangui">
+                            <div class="match-record-avatar">🏆</div>
+                            <div class="match-record-info">
+                                <div class="match-record-status">
+                                    <span class="match-status-tag fail">失败</span>
+                                    <span class="match-operator-name">威龙</span>
+                                </div>
+                                <div class="match-record-map">全面战场 | 断轨-攻防</div>
+                                <div class="match-record-time">02-03 08:05</div>
+                            </div>
+                            <div class="match-record-score">
+                                <div class="match-score-value">🏆 1,540</div>
+                                <div class="match-score-label">得分</div>
+                            </div>
+                            <span class="match-record-arrow">›</span>
+                        </div>
+                        
+                        <!-- 对局7 - 胜利 -->
+                        <div class="match-record-item" data-map="linjiedian">
+                            <div class="match-record-avatar">🎖️</div>
+                            <div class="match-record-info">
+                                <div class="match-record-status">
+                                    <span class="match-status-tag victory">胜利</span>
+                                    <span class="match-operator-name">暗刃</span>
+                                </div>
+                                <div class="match-record-map">全面战场 | 临界点-攻防</div>
+                                <div class="match-record-time">02-02 23:30</div>
+                            </div>
+                            <div class="match-record-score">
+                                <div class="match-score-value">🏆 3,780</div>
+                                <div class="match-score-label">得分</div>
+                            </div>
+                            <span class="match-record-arrow">›</span>
+                        </div>
+                        
+                        <!-- 对局8 - 失败 -->
+                        <div class="match-record-item" data-map="pansheng">
+                            <div class="match-record-avatar">⚔️</div>
+                            <div class="match-record-info">
+                                <div class="match-record-status">
+                                    <span class="match-status-tag fail">失败</span>
+                                    <span class="match-operator-name">骇爪</span>
+                                </div>
+                                <div class="match-record-map">全面战场 | 攀升-攻防</div>
+                                <div class="match-record-time">02-02 22:50</div>
+                            </div>
+                            <div class="match-record-score">
+                                <div class="match-score-value">🏆 1,120</div>
+                                <div class="match-score-label">得分</div>
+                            </div>
+                            <span class="match-record-arrow">›</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -2178,6 +2826,8 @@
             initZhanchangTabs();
             generateAbilityRadar();
             generateZhanchangRadar();
+            initMatchesFilters();
+            initNetProfitToggle();
         });
         
         // 顶级模式切换 Tab
@@ -2204,6 +2854,112 @@
                     }
                 });
             });
+        }
+        
+        // 战绩页地图筛选器
+        function initMatchesFilters() {
+            // 烽火地带地图筛选
+            const fenghuoFilter = document.getElementById('fenghuo-map-filter');
+            const fenghuoList = document.getElementById('fenghuo-matches-list');
+            
+            if (fenghuoFilter && fenghuoList) {
+                fenghuoFilter.addEventListener('change', () => {
+                    const selectedMap = fenghuoFilter.value;
+                    const items = fenghuoList.querySelectorAll('.match-record-item');
+                    
+                    items.forEach(item => {
+                        if (selectedMap === 'all' || item.dataset.map === selectedMap) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            // 全面战场地图筛选
+            const zhanchangFilter = document.getElementById('zhanchang-map-filter');
+            const zhanchangList = document.getElementById('zhanchang-matches-list');
+            
+            if (zhanchangFilter && zhanchangList) {
+                zhanchangFilter.addEventListener('change', () => {
+                    const selectedMap = zhanchangFilter.value;
+                    const items = zhanchangList.querySelectorAll('.match-record-item');
+                    
+                    items.forEach(item => {
+                        if (selectedMap === 'all' || item.dataset.map === selectedMap) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        }
+        
+        // 净收益切换功能
+        function initNetProfitToggle() {
+            const toggle = document.getElementById('net-profit-toggle');
+            const matchesList = document.getElementById('fenghuo-matches-list');
+            
+            if (!toggle || !matchesList) return;
+            
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+                const isNetProfit = toggle.classList.contains('active');
+                
+                const items = matchesList.querySelectorAll('.match-record-item');
+                items.forEach(item => {
+                    const profitValue = item.querySelector('.profit-value');
+                    const profitLabel = item.querySelector('.profit-label');
+                    
+                    if (!profitValue || !profitLabel) return;
+                    
+                    if (isNetProfit) {
+                        // 显示净收益
+                        const net = parseInt(item.dataset.net);
+                        const formattedNet = formatNumber(net);
+                        
+                        profitValue.textContent = net >= 0 ? `💰 +${formattedNet}` : `💰 ${formattedNet}`;
+                        profitLabel.textContent = '净收益';
+                        
+                        // 更新颜色
+                        profitValue.classList.remove('positive', 'negative', 'neutral');
+                        if (net > 0) {
+                            profitValue.classList.add('positive');
+                        } else if (net < 0) {
+                            profitValue.classList.add('negative');
+                        } else {
+                            profitValue.classList.add('neutral');
+                        }
+                    } else {
+                        // 显示带出价值
+                        const profit = parseInt(item.dataset.profit);
+                        const formattedProfit = formatNumber(profit);
+                        
+                        profitValue.textContent = `💰 ${formattedProfit}`;
+                        profitLabel.textContent = '带出价值';
+                        
+                        // 更新颜色 - 带出价值根据是否撤离成功显示
+                        profitValue.classList.remove('positive', 'negative', 'neutral');
+                        const statusTag = item.querySelector('.match-status-tag');
+                        if (statusTag && statusTag.classList.contains('success')) {
+                            profitValue.classList.add('positive');
+                        } else {
+                            profitValue.classList.add('neutral');
+                        }
+                    }
+                });
+            });
+        }
+        
+        // 数字格式化函数
+        function formatNumber(num) {
+            if (num >= 0) {
+                return num.toLocaleString();
+            } else {
+                return num.toLocaleString();
+            }
         }
     </script>
 </body>
