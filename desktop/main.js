@@ -1993,3 +1993,344 @@ function generateMarketChartData(item) {
     
     return data;
 }
+
+/* ============================================
+   出红记录弹窗
+   ============================================ */
+
+// 记录数据
+const recordData = [
+    { name: '呼吸机', icon: '🐱', value: 439468, time: '2025-10-16', location: '零号大坝-常规' },
+    { name: '棘龙爪化石', icon: '🦴', value: 341618, time: '2025-12-16', location: '零号大坝-常规' },
+    { name: '赛伊德的怀表', icon: '⌚', value: 211760, time: '2025-12-16', location: '零号大坝-机密' },
+    { name: '动力电池组', icon: '🔋', value: 3242918, time: '2025-12-18', location: '零号大坝-机密' },
+    { name: '万足金条', icon: '🥇', value: 326040, time: '2025-12-21', location: '零号大坝-机密' },
+    { name: '名贵机械表', icon: '⌚', value: 207181, time: '2025-12-21', location: '零号大坝-机密' },
+    { name: '量子芯片', icon: '💎', value: 512300, time: '2025-12-25', location: '长弓溪谷-机密' },
+    { name: '钛合金框架', icon: '🔩', value: 189500, time: '2026-01-05', location: '巴克什-常规' }
+];
+
+let currentFilters = {
+    name: '',
+    location: '',
+    valueSort: 'none',
+    timeSort: 'none'
+};
+
+// 初始化出红记录弹窗
+function initRecordModal() {
+    const recordModalOverlay = document.getElementById('record-modal-overlay');
+    const recordModalClose = document.getElementById('record-modal-close');
+    const recordBtn = document.querySelector('.collection-action-btn');
+    
+    // 点击"出红记录"按钮打开弹窗
+    if (recordBtn) {
+        recordBtn.addEventListener('click', () => {
+            recordModalOverlay.classList.add('active');
+            renderRecordList();
+        });
+    }
+    
+    // 关闭弹窗
+    if (recordModalClose) {
+        recordModalClose.addEventListener('click', () => {
+            recordModalOverlay.classList.remove('active');
+        });
+    }
+    
+    // 点击遮罩层关闭
+    if (recordModalOverlay) {
+        recordModalOverlay.addEventListener('click', (e) => {
+            if (e.target === recordModalOverlay) {
+                recordModalOverlay.classList.remove('active');
+            }
+        });
+    }
+    
+    // 初始化筛选器
+    initRecordFilters();
+}
+
+// 初始化筛选器
+function initRecordFilters() {
+    // 藏品名称下拉
+    const nameDropdown = document.getElementById('filter-name-dropdown');
+    const nameBtn = document.getElementById('filter-name-btn');
+    const nameMenu = document.getElementById('filter-name-menu');
+    
+    if (nameBtn) {
+        nameBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            nameDropdown.classList.toggle('open');
+            // 关闭其他下拉
+            document.getElementById('filter-location-dropdown')?.classList.remove('open');
+        });
+    }
+    
+    if (nameMenu) {
+        nameMenu.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const value = option.dataset.value;
+                currentFilters.name = value;
+                
+                // 更新选中状态
+                nameMenu.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                
+                // 更新按钮文字
+                nameBtn.querySelector('.filter-label').textContent = value || '藏品名称';
+                nameBtn.classList.toggle('active', !!value);
+                
+                nameDropdown.classList.remove('open');
+                renderRecordList();
+            });
+        });
+    }
+    
+    // 解锁地点下拉
+    const locationDropdown = document.getElementById('filter-location-dropdown');
+    const locationBtn = document.getElementById('filter-location-btn');
+    const locationMenu = document.getElementById('filter-location-menu');
+    
+    if (locationBtn) {
+        locationBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            locationDropdown.classList.toggle('open');
+            // 关闭其他下拉
+            document.getElementById('filter-name-dropdown')?.classList.remove('open');
+        });
+    }
+    
+    if (locationMenu) {
+        locationMenu.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const value = option.dataset.value;
+                currentFilters.location = value;
+                
+                // 更新选中状态
+                locationMenu.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                
+                // 更新按钮文字
+                locationBtn.querySelector('.filter-label').textContent = value || '解锁地点';
+                locationBtn.classList.toggle('active', !!value);
+                
+                locationDropdown.classList.remove('open');
+                renderRecordList();
+            });
+        });
+    }
+    
+    // 价值排序
+    const valueBtn = document.getElementById('filter-value-btn');
+    if (valueBtn) {
+        valueBtn.addEventListener('click', () => {
+            const currentSort = currentFilters.valueSort;
+            if (currentSort === 'none') {
+                currentFilters.valueSort = 'desc';
+            } else if (currentSort === 'desc') {
+                currentFilters.valueSort = 'asc';
+            } else {
+                currentFilters.valueSort = 'none';
+            }
+            // 重置时间排序
+            currentFilters.timeSort = 'none';
+            updateSortButtons();
+            renderRecordList();
+        });
+    }
+    
+    // 解锁时间排序
+    const timeBtn = document.getElementById('filter-time-btn');
+    if (timeBtn) {
+        timeBtn.addEventListener('click', () => {
+            const currentSort = currentFilters.timeSort;
+            if (currentSort === 'none') {
+                currentFilters.timeSort = 'desc';
+            } else if (currentSort === 'desc') {
+                currentFilters.timeSort = 'asc';
+            } else {
+                currentFilters.timeSort = 'none';
+            }
+            // 重置价值排序
+            currentFilters.valueSort = 'none';
+            updateSortButtons();
+            renderRecordList();
+        });
+    }
+    
+    // 点击其他地方关闭下拉
+    document.addEventListener('click', () => {
+        document.getElementById('filter-name-dropdown')?.classList.remove('open');
+        document.getElementById('filter-location-dropdown')?.classList.remove('open');
+    });
+}
+
+// 更新排序按钮状态
+function updateSortButtons() {
+    const valueBtn = document.getElementById('filter-value-btn');
+    const timeBtn = document.getElementById('filter-time-btn');
+    
+    if (valueBtn) {
+        valueBtn.dataset.sort = currentFilters.valueSort;
+        const icon = valueBtn.querySelector('.sort-icon');
+        if (currentFilters.valueSort === 'asc') {
+            icon.textContent = '↑';
+            valueBtn.classList.add('active');
+        } else if (currentFilters.valueSort === 'desc') {
+            icon.textContent = '↓';
+            valueBtn.classList.add('active');
+        } else {
+            icon.textContent = '⇅';
+            valueBtn.classList.remove('active');
+        }
+    }
+    
+    if (timeBtn) {
+        timeBtn.dataset.sort = currentFilters.timeSort;
+        const icon = timeBtn.querySelector('.sort-icon');
+        if (currentFilters.timeSort === 'asc') {
+            icon.textContent = '↑';
+            timeBtn.classList.add('active');
+        } else if (currentFilters.timeSort === 'desc') {
+            icon.textContent = '↓';
+            timeBtn.classList.add('active');
+        } else {
+            icon.textContent = '⇅';
+            timeBtn.classList.remove('active');
+        }
+    }
+}
+
+// 渲染记录列表
+function renderRecordList() {
+    const recordList = document.getElementById('record-list');
+    if (!recordList) return;
+    
+    // 筛选数据
+    let filteredData = recordData.filter(item => {
+        if (currentFilters.name && item.name !== currentFilters.name) return false;
+        if (currentFilters.location && item.location !== currentFilters.location) return false;
+        return true;
+    });
+    
+    // 排序数据
+    if (currentFilters.valueSort !== 'none') {
+        filteredData.sort((a, b) => {
+            return currentFilters.valueSort === 'asc' ? a.value - b.value : b.value - a.value;
+        });
+    } else if (currentFilters.timeSort !== 'none') {
+        filteredData.sort((a, b) => {
+            const timeA = new Date(a.time).getTime();
+            const timeB = new Date(b.time).getTime();
+            return currentFilters.timeSort === 'asc' ? timeA - timeB : timeB - timeA;
+        });
+    }
+    
+    // 渲染HTML
+    recordList.innerHTML = filteredData.map(item => `
+        <div class="record-item">
+            <div class="record-item-image">
+                <div class="record-image-placeholder">${item.icon}</div>
+            </div>
+            <div class="record-item-name">${item.name}</div>
+            <div class="record-item-value">
+                <span class="value-icon">💰</span>
+                <span class="value-num">${item.value.toLocaleString()}</span>
+            </div>
+            <div class="record-item-time">${item.time}</div>
+            <div class="record-item-location">${item.location}</div>
+        </div>
+    `).join('');
+    
+    // 如果没有数据
+    if (filteredData.length === 0) {
+        recordList.innerHTML = '<div class="record-empty">暂无符合条件的记录</div>';
+    }
+}
+
+// 在DOMContentLoaded中初始化
+document.addEventListener('DOMContentLoaded', () => {
+    initRecordModal();
+    initPosterModal();
+});
+
+/* ============================================
+   生成海报弹窗
+   ============================================ */
+
+// 初始化海报弹窗
+function initPosterModal() {
+    const posterModalOverlay = document.getElementById('poster-modal-overlay');
+    const posterModalClose = document.getElementById('poster-modal-close');
+    
+    // 获取"生成海报"按钮（第二个按钮）
+    const posterBtn = document.querySelectorAll('.collection-action-btn')[1];
+    
+    // 点击"生成海报"按钮打开弹窗
+    if (posterBtn) {
+        posterBtn.addEventListener('click', () => {
+            posterModalOverlay.classList.add('active');
+        });
+    }
+    
+    // 关闭弹窗
+    if (posterModalClose) {
+        posterModalClose.addEventListener('click', () => {
+            posterModalOverlay.classList.remove('active');
+        });
+    }
+    
+    // 点击遮罩层关闭
+    if (posterModalOverlay) {
+        posterModalOverlay.addEventListener('click', (e) => {
+            if (e.target === posterModalOverlay) {
+                posterModalOverlay.classList.remove('active');
+            }
+        });
+    }
+    
+    // 初始化分享按钮
+    initPosterShareButtons();
+}
+
+// 初始化海报分享按钮
+function initPosterShareButtons() {
+    // 保存图片
+    const saveBtn = document.getElementById('poster-save-btn');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+            showToast('海报保存功能开发中...');
+            // 实际项目中可以使用 html2canvas 等库来实现截图保存
+        });
+    }
+    
+    // 分享到 X (Twitter)
+    const xBtn = document.getElementById('poster-x-btn');
+    if (xBtn) {
+        xBtn.addEventListener('click', () => {
+            const text = encodeURIComponent('我在 Delta Force 的大红藏馆收集了 67 种大红！🏆 #DeltaForce #Gaming');
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=400');
+        });
+    }
+    
+    // 分享到 Facebook
+    const facebookBtn = document.getElementById('poster-facebook-btn');
+    if (facebookBtn) {
+        facebookBtn.addEventListener('click', () => {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+        });
+    }
+    
+    // 分享到 Reddit
+    const redditBtn = document.getElementById('poster-reddit-btn');
+    if (redditBtn) {
+        redditBtn.addEventListener('click', () => {
+            const title = encodeURIComponent('My Delta Force Collection Progress - 67 Legendary Items!');
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.reddit.com/submit?url=${url}&title=${title}`, '_blank', 'width=600,height=600');
+        });
+    }
+}
