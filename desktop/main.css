@@ -3097,3 +3097,54 @@ body {
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
+
+/* ============================================
+   V1.0 版本 - 两栏布局（特勤处制造 + 大红展馆）
+   ============================================ */
+.bottom-modules.bottom-modules-v1 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.bottom-modules.bottom-modules-v1 .module-card {
+    min-height: auto;
+}
+
+/* ============================================
+   V1.0 版本 - 大红展馆滚动区域
+   ============================================ */
+.module-card.collection.collection-v1 {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+}
+
+/* 滚动容器 */
+.collection-scroll-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    margin-top: 0.5rem;
+    padding-right: 0.25rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-cyan) var(--bg-dark);
+}
+
+.collection-scroll-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.collection-scroll-wrapper::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+    border-radius: 3px;
+}
+
+.collection-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: var(--accent-cyan);
+    border-radius: 3px;
+}
+
+.collection-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-green);
+}

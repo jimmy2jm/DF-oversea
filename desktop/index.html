@@ -621,187 +621,12 @@
             </div>
         </section>
 
-        <!-- Gun Builds Section -->
+        <!-- Gun Builds Section - V1.0 隐藏 -->
+        <!-- 
         <section class="gun-builds-section">
-            <div class="section-header">
-                <span class="section-title">🔧 改枪码推荐</span>
-                <a href="gun-builds.html" class="view-link">查看更多 ></a>
-            </div>
-            
-            <!-- 烽火地带改枪推荐 -->
-            <div id="gun-builds-fenguo">
-                <!-- 枪械选择栏 - 烽火 -->
-                <div class="gun-selector" id="gun-selector-fh">
-                    <div class="gun-tab active" data-gun="mp5">
-                        <div class="gun-tab-image"></div>
-                        <span class="gun-tab-name">MP5</span>
-                    </div>
-                    <div class="gun-tab" data-gun="ak74">
-                        <div class="gun-tab-image"></div>
-                        <span class="gun-tab-name">AK-74M</span>
-                    </div>
-                    <div class="gun-tab" data-gun="m4a1">
-                        <div class="gun-tab-image"></div>
-                        <span class="gun-tab-name">M4A1</span>
-                    </div>
-                    <div class="gun-tab" data-gun="scar">
-                        <div class="gun-tab-image"></div>
-                        <span class="gun-tab-name">SCAR-H</span>
-                    </div>
-                    <div class="gun-tab" data-gun="vss">
-                        <div class="gun-tab-image"></div>
-                        <span class="gun-tab-name">VSS</span>
-                    </div>
-                </div>
-                
-                <!-- 改装方案区 - 烽火（两个方案） -->
-                <div class="gun-builds-content" id="gun-builds-content-fh-home">
-                    <!-- 性价比改法 -->
-                    <div class="build-card budget">
-                        <button class="copy-code-btn-float">复制</button>
-                        <div class="build-header">
-                            <span class="build-type budget-type">💰 85K 性价比改法</span>
-                            <div class="build-tags">
-                                <span class="build-tag">中近距离</span>
-                                <span class="build-tag">满腰射</span>
-                            </div>
-                        </div>
-                        <div class="build-gun-image"></div>
-                        <div class="build-details">
-                            <div class="build-radar">
-                                <canvas class="radar-chart" id="radar-budget-home"></canvas>
-                                <div class="radar-labels">
-                                    <span class="radar-label label-top">后坐力控制</span>
-                                    <span class="radar-label label-right-top">操控速度</span>
-                                    <span class="radar-label label-right-bottom">射程优势</span>
-                                    <span class="radar-label label-left-bottom">持枪稳定性</span>
-                                    <span class="radar-label label-left-top">射速</span>
-                                </div>
-                            </div>
-                            <div class="build-attachments">
-                                <div class="attachment-icon" title="枪口"></div>
-                                <div class="attachment-icon" title="瞄具"></div>
-                                <div class="attachment-icon" title="握把"></div>
-                                <div class="attachment-icon" title="弹匣"></div>
-                                <div class="attachment-icon" title="枪托"></div>
-                                <div class="attachment-icon" title="护木"></div>
-                                <div class="attachment-icon" title="激光"></div>
-                                <div class="attachment-icon" title="战术"></div>
-                            </div>
-                        </div>
-                        <div class="build-footer">
-                            <button class="view-detail-btn">查看改装详情</button>
-                        </div>
-                    </div>
-                    
-                    <!-- 满改方案 -->
-                    <div class="build-card premium">
-                        <button class="copy-code-btn-float">复制</button>
-                        <div class="build-header">
-                            <span class="build-type premium-type">💎 157K 满改方案</span>
-                            <div class="build-tags">
-                                <span class="build-tag">长距离</span>
-                                <span class="build-tag">高精准</span>
-                            </div>
-                        </div>
-                        <div class="build-gun-image"></div>
-                        <div class="build-details">
-                            <div class="build-radar">
-                                <canvas class="radar-chart" id="radar-premium-home"></canvas>
-                                <div class="radar-labels">
-                                    <span class="radar-label label-top">后坐力控制</span>
-                                    <span class="radar-label label-right-top">操控速度</span>
-                                    <span class="radar-label label-right-bottom">射程优势</span>
-                                    <span class="radar-label label-left-bottom">持枪稳定性</span>
-                                    <span class="radar-label label-left-top">射速</span>
-                                </div>
-                            </div>
-                            <div class="build-attachments">
-                                <div class="attachment-icon" title="枪口"></div>
-                                <div class="attachment-icon" title="瞄具"></div>
-                                <div class="attachment-icon" title="握把"></div>
-                                <div class="attachment-icon" title="弹匣"></div>
-                                <div class="attachment-icon" title="枪托"></div>
-                                <div class="attachment-icon" title="护木"></div>
-                                <div class="attachment-icon" title="激光"></div>
-                                <div class="attachment-icon" title="战术"></div>
-                            </div>
-                        </div>
-                        <div class="build-footer">
-                            <button class="view-detail-btn">查看改装详情</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 全面战场改枪推荐（默认隐藏） -->
-            <div id="gun-builds-zhanchang" style="display: none;">
-                <!-- 枪械选择栏 - 战场 -->
-                <div class="gun-selector" id="gun-selector-zc">
-                    <div class="gun-tab active" data-gun="m4a1">
-                        <div class="gun-tab-image"></div>
-                        <span class="gun-tab-name">M4A1</span>
-                    </div>
-                    <div class="gun-tab" data-gun="ak74">
-                        <div class="gun-tab-image"></div>
-                        <span class="gun-tab-name">AK-74M</span>
-                    </div>
-                    <div class="gun-tab" data-gun="hk416">
-                        <div class="gun-tab-image"></div>
-                        <span class="gun-tab-name">HK416</span>
-                    </div>
-                    <div class="gun-tab" data-gun="aug">
-                        <div class="gun-tab-image"></div>
-                        <span class="gun-tab-name">AUG</span>
-                    </div>
-                    <div class="gun-tab" data-gun="svd">
-                        <div class="gun-tab-image"></div>
-                        <span class="gun-tab-name">SVD</span>
-                    </div>
-                </div>
-                
-                <!-- 改装方案区 - 战场（单个方案） -->
-                <div class="gun-builds-content single-build" id="gun-builds-content-zc-home">
-                    <div class="build-card single">
-                        <button class="copy-code-btn-float">复制</button>
-                        <div class="build-header">
-                            <span class="build-type single-type">🎯 推荐改装方案</span>
-                            <div class="build-tags">
-                                <span class="build-tag">中远距离</span>
-                                <span class="build-tag">高稳定</span>
-                                <span class="build-tag">PVP优化</span>
-                            </div>
-                        </div>
-                        <div class="build-gun-image"></div>
-                        <div class="build-details">
-                            <div class="build-radar">
-                                <canvas class="radar-chart" id="radar-single-home"></canvas>
-                                <div class="radar-labels">
-                                    <span class="radar-label label-top">后坐力控制</span>
-                                    <span class="radar-label label-right-top">操控速度</span>
-                                    <span class="radar-label label-right-bottom">射程优势</span>
-                                    <span class="radar-label label-left-bottom">持枪稳定性</span>
-                                    <span class="radar-label label-left-top">射速</span>
-                                </div>
-                            </div>
-                            <div class="build-attachments">
-                                <div class="attachment-icon" title="枪口"></div>
-                                <div class="attachment-icon" title="瞄具"></div>
-                                <div class="attachment-icon" title="握把"></div>
-                                <div class="attachment-icon" title="弹匣"></div>
-                                <div class="attachment-icon" title="枪托"></div>
-                                <div class="attachment-icon" title="护木"></div>
-                                <div class="attachment-icon" title="激光"></div>
-                                <div class="attachment-icon" title="战术"></div>
-                            </div>
-                        </div>
-                        <div class="build-footer">
-                            <button class="view-detail-btn">查看改装详情</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            ... 改枪推荐区域已在V1.0版本中隐藏 ...
         </section>
+        -->
 
         <!-- Recent Matches Section (Hidden) -->
         <section class="matches-section" style="display: none;">
@@ -909,46 +734,21 @@
             </div>
         </section>
 
-        <!-- Bottom Modules - 三栏横排 -->
-        <section class="bottom-modules">
-            <!-- 交易物价 -->
+        <!-- Bottom Modules - V1.0 两栏横排（特勤处制造 + 大红展馆） -->
+        <section class="bottom-modules bottom-modules-v1">
+            <!-- 交易物价 - V1.0 隐藏 -->
+            <!--
             <div class="module-card market-price">
-                <div class="module-header">
-                    <span class="module-title">💹 交易物价</span>
-                    <a href="craft.html" class="view-link">查看更多 ></a>
-                </div>
-                <!-- 筛选栏 -->
-                <div class="market-filter-bar">
-                    <select class="market-category-select" id="market-category">
-                        <option value="all">全部分类</option>
-                        <option value="guns">枪械</option>
-                        <option value="armor">装备</option>
-                        <option value="parts">配件</option>
-                        <option value="collect">收集品</option>
-                        <option value="medical">医疗</option>
-                        <option value="ammo">弹药</option>
-                    </select>
-                    <div class="market-rank-tabs">
-                        <button class="rank-tab active" data-rank="rise">涨幅榜</button>
-                        <button class="rank-tab" data-rank="fall">跌幅榜</button>
-                    </div>
-                </div>
-                <!-- 物品列表 -->
-                <div class="market-list" id="market-list">
-                    <!-- 动态生成 -->
-                </div>
-                <!-- 迷你价格走势图 -->
-                <div class="market-mini-chart">
-                    <canvas id="market-price-chart"></canvas>
-                </div>
+                ... 交易物价模块已在V1.0版本中隐藏 ...
             </div>
+            -->
 
             <!-- 特勤处制造 -->
             <div class="module-card craft">
                 <div class="module-header">
                     <span class="module-title">🔨 特勤处制造</span>
                     <span class="header-date">2026/01/30</span>
-                    <a href="craft.html" class="view-link">查看更多 ></a>
+                    <!-- V1.0 移除查看更多 -->
                 </div>
                 <!-- 主Tab切换栏：制造详情 / 制造推荐 -->
                 <div class="craft-main-tabs">
@@ -1151,12 +951,12 @@
             </div>
 
             <!-- 大红展馆 -->
-            <div class="module-card collection">
+            <div class="module-card collection collection-v1">
                 <div class="module-header">
                     <span class="module-title">🏆 大红展馆</span>
-                    <a href="#" class="view-link">查看更多 ></a>
+                    <!-- V1.0 移除查看更多 -->
                 </div>
-                <!-- 数据统计 -->
+                <!-- 固定区域：数据统计 -->
                 <div class="collection-stats">
                     <div class="collection-stat-item">
                         <span class="stat-value">5</span>
@@ -1171,7 +971,7 @@
                         <span class="stat-label">大红数量</span>
                     </div>
                 </div>
-                <!-- 收藏进度 -->
+                <!-- 固定区域：收藏进度 -->
                 <div class="collection-progress-mini">
                     <div class="progress-text">收藏进度</div>
                     <div class="progress-bar">
@@ -1179,7 +979,7 @@
                     </div>
                     <div class="progress-count">67/100</div>
                 </div>
-                <!-- 最近收集高亮 -->
+                <!-- 固定区域：最近收集高亮 -->
                 <div class="collection-recent-highlight">
                     <div class="recent-highlight-image"></div>
                     <div class="recent-highlight-info">
@@ -1188,43 +988,70 @@
                         <span class="recent-highlight-time">2小时前 · 零号大坝</span>
                     </div>
                 </div>
-                <!-- 展示区域 3x3 -->
-                <div class="collection-grid-mini">
-                    <div class="collection-item-mini">
-                        <div class="collection-image-mini"></div>
-                        <span class="collection-name-mini">炫彩拉小宅</span>
-                    </div>
-                    <div class="collection-item-mini">
-                        <div class="collection-image-mini"></div>
-                        <span class="collection-name-mini">复苏呼吸机</span>
-                    </div>
-                    <div class="collection-item-mini">
-                        <div class="collection-image-mini"></div>
-                        <span class="collection-name-mini">动力电池组</span>
-                    </div>
-                    <div class="collection-item-mini">
-                        <div class="collection-image-mini"></div>
-                        <span class="collection-name-mini">金块</span>
-                    </div>
-                    <div class="collection-item-mini">
-                        <div class="collection-image-mini"></div>
-                        <span class="collection-name-mini">加密U盘</span>
-                    </div>
-                    <div class="collection-item-mini">
-                        <div class="collection-image-mini"></div>
-                        <span class="collection-name-mini">铱星电话</span>
-                    </div>
-                    <div class="collection-item-mini">
-                        <div class="collection-image-mini"></div>
-                        <span class="collection-name-mini">稀有芯片</span>
-                    </div>
-                    <div class="collection-item-mini">
-                        <div class="collection-image-mini"></div>
-                        <span class="collection-name-mini">黄金密匙</span>
-                    </div>
-                    <div class="collection-item-mini">
-                        <div class="collection-image-mini"></div>
-                        <span class="collection-name-mini">核心模块</span>
+                <!-- 滚动区域：大红列表 -->
+                <div class="collection-scroll-wrapper">
+                    <div class="collection-grid-mini">
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">炫彩拉小宅</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">复苏呼吸机</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">动力电池组</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">金块</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">加密U盘</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">铱星电话</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">稀有芯片</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">黄金密匙</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">核心模块</span>
+                        </div>
+                        <!-- 更多大红物品 -->
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">量子芯片</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">钛合金框架</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">军用处理器</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">加密硬盘</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">高能电池</span>
+                        </div>
+                        <div class="collection-item-mini">
+                            <div class="collection-image-mini"></div>
+                            <span class="collection-name-mini">精密仪器</span>
+                        </div>
                     </div>
                 </div>
             </div>

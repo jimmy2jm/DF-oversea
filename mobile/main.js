@@ -4,28 +4,191 @@
 const passwordModal = document.getElementById('password-modal-overlay');
 const passwordModalClose = document.getElementById('password-modal-close');
 
+// 密码数据
+const passwordGuideData = {
+    daba: {
+        name: '🏔️ 零号大坝',
+        code: '0740',
+        steps: [
+            '从主出生点出发，向东北方向前进约200米，找到一座废弃的仓库建筑。',
+            '进入仓库后，向左侧走廊前进，注意墙上的管道标识。',
+            '在走廊尽头找到配电室，密码门位于房间东侧。',
+            '输入今日密码后，进入密码房获取高价值物品。',
+            '撤离时注意周围敌人，建议从南侧安全通道离开。'
+        ]
+    },
+    xigu: {
+        name: '🌲 长弓溪谷',
+        code: '0968',
+        steps: [
+            '从西部山脚出发，沿着河流向上游前进。',
+            '在瀑布附近找到隐藏的洞穴入口。',
+            '穿过洞穴，在出口处可以看到密码房建筑。',
+            '密码门位于建筑二楼，需要从外部楼梯上去。',
+            '完成后从东侧林地撤离，避开主要交战区域。'
+        ]
+    },
+    bakeshi: {
+        name: '🏜️ 巴克什',
+        code: '0610',
+        steps: [
+            '从市场区域出发，向北穿过主街道。',
+            '在清真寺附近找到地下通道入口。',
+            '沿着通道前进，注意躲避巡逻敌人。',
+            '密码房位于通道尽头的储藏室内。',
+            '撤离推荐从西侧小巷返回，避开狙击位。'
+        ]
+    },
+    hangtian: {
+        name: '🚀 航天基地',
+        code: '0710',
+        steps: [
+            '从发射台区域向东前进，找到控制中心建筑。',
+            '从建筑北侧入口进入，注意电子门禁。',
+            '乘坐电梯到达B2层，密码房在实验室区域。',
+            '输入密码后，快速搜刮并标记撤离点。',
+            '建议从地下停车场撤离，有载具可以使用。'
+        ]
+    },
+    jianyu: {
+        name: '⛓️ 潮汐监狱',
+        code: '0654',
+        steps: [
+            '从监狱大门进入，向右转进入A区牢房。',
+            '穿过牢房区域，找到通往地下的楼梯。',
+            '地下室尽头有一个上锁的铁门，需要密码。',
+            '密码房内有大量医疗物资和收集品。',
+            '撤离时注意监控室方向可能有敌人埋伏。'
+        ]
+    }
+};
+
+let currentPasswordMap = 'daba';
+let currentCarouselIndex = 0;
+
 // 点击密码区域打开弹窗
 document.querySelectorAll('.password-code-box').forEach(box => {
     box.addEventListener('click', function() {
         const mapName = this.parentElement.querySelector('.password-map').textContent;
         const code = this.querySelector('.password-code').textContent;
-        openPasswordModal(mapName, code);
+        
+        // 根据地图名称找到对应的map key
+        const mapKeyMap = {
+            '零号大坝': 'daba',
+            '长弓溪谷': 'xigu',
+            '巴克什': 'bakeshi',
+            '航天基地': 'hangtian',
+            '潮汐监狱': 'jianyu'
+        };
+        
+        const mapKey = mapKeyMap[mapName] || 'daba';
+        openPasswordModal(mapKey);
     });
 });
 
 // 打开弹窗
-function openPasswordModal(mapName, code) {
-    const content = document.getElementById('password-modal-content');
-    // 可以根据 mapName 和 code 动态填充内容
-    content.innerHTML = `
-        <div style="text-align: center; color: var(--text-secondary); padding-top: 100px;">
-            <p>当前地图：${mapName}</p>
-            <p>密码：${code}</p>
-            <p style="margin-top: 20px;">（指引内容待填充）</p>
-        </div>
-    `;
+function openPasswordModal(mapKey) {
+    currentPasswordMap = mapKey;
+    currentCarouselIndex = 0;
+    
+    // 更新Tab激活状态
+    document.querySelectorAll('.password-guide-tab').forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.dataset.map === mapKey) {
+            tab.classList.add('active');
+        }
+    });
+    
+    // 更新内容
+    updatePasswordGuideContent();
+    
     passwordModal.classList.add('active');
 }
+
+// 更新密码指引内容
+function updatePasswordGuideContent() {
+    const data = passwordGuideData[currentPasswordMap];
+    if (!data) return;
+    
+    // 更新地图名称和密码
+    document.getElementById('guide-map-name').textContent = data.name;
+    document.getElementById('guide-map-code').textContent = data.code;
+    
+    // 更新轮播
+    updateCarousel();
+    
+    // 更新步骤文字
+    updateStepText();
+}
+
+// 更新轮播显示
+function updateCarousel() {
+    const slides = document.querySelectorAll('#carousel-container .carousel-slide');
+    const indicators = document.querySelectorAll('#carousel-indicators .indicator');
+    
+    slides.forEach((slide, index) => {
+        slide.classList.remove('active');
+        if (index === currentCarouselIndex) {
+            slide.classList.add('active');
+        }
+    });
+    
+    indicators.forEach((indicator, index) => {
+        indicator.classList.remove('active');
+        if (index === currentCarouselIndex) {
+            indicator.classList.add('active');
+        }
+    });
+}
+
+// 更新步骤文字
+function updateStepText() {
+    const data = passwordGuideData[currentPasswordMap];
+    if (!data) return;
+    
+    document.getElementById('guide-step-num').textContent = currentCarouselIndex + 1;
+    document.getElementById('guide-step-content').textContent = data.steps[currentCarouselIndex] || '';
+}
+
+// 轮播上一步
+document.getElementById('carousel-prev')?.addEventListener('click', function() {
+    if (currentCarouselIndex > 0) {
+        currentCarouselIndex--;
+        updateCarousel();
+        updateStepText();
+    }
+});
+
+// 轮播下一步
+document.getElementById('carousel-next')?.addEventListener('click', function() {
+    const data = passwordGuideData[currentPasswordMap];
+    if (data && currentCarouselIndex < data.steps.length - 1) {
+        currentCarouselIndex++;
+        updateCarousel();
+        updateStepText();
+    }
+});
+
+// 点击指示器跳转
+document.querySelectorAll('#carousel-indicators .indicator').forEach(indicator => {
+    indicator.addEventListener('click', function() {
+        currentCarouselIndex = parseInt(this.dataset.index);
+        updateCarousel();
+        updateStepText();
+    });
+});
+
+// Tab切换
+document.querySelectorAll('.password-guide-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        document.querySelectorAll('.password-guide-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        currentPasswordMap = this.dataset.map;
+        currentCarouselIndex = 0;
+        updatePasswordGuideContent();
+    });
+});
 
 // 关闭弹窗
 function closePasswordModal() {
