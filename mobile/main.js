@@ -1223,32 +1223,37 @@ let currentBattleMode = 'fenghuodiDai';
 // 烽火地带数据
 const fenghuoData = {
     stats: [
-        { value: '55.1M', label: '带出总价值' },
-        { value: '37.6%', label: '撤离率' },
-        { value: '333', label: '击败干员' },
-        { value: '535.0K', label: '赚损比' }
+        { value: '55.1M', labelKey: 'stats.totalValue' },
+        { value: '37.6%', labelKey: 'stats.extractionRate' },
+        { value: '333', labelKey: 'stats.defeatedOperator' },
+        { value: '535.0K', labelKey: 'stats.profitLossRatio' }
     ],
     records: [
-        { avatar: '🎖️', status: 'fail', statusText: '撤离失败', operator: '威龙', mode: '烽火地带', map: '零号大坝-机密', time: '02-01 10:52', profit: '68,304', kills: '4' },
-        { avatar: '⚔️', status: 'fail', statusText: '撤离失败', operator: '骇爪', mode: '烽火地带', map: '零号大坝-机密', time: '02-01 10:45', profit: '95,960', kills: '7' },
-        { avatar: '🛡️', status: 'fail', statusText: '撤离失败', operator: '威龙', mode: '烽火地带', map: '航天基地-机密', time: '02-01 10:30', profit: '0', kills: '2' }
+        { avatar: '🎖️', status: 'fail', statusKey: 'match.extractionFailed', operatorKey: 'operators.weilong', modeKey: 'gameMode.fenghuo', mapKey: 'maps.dam', subMapKey: 'maps.secret', time: '02-01 10:52', profit: '68,304', kills: '4' },
+        { avatar: '⚔️', status: 'fail', statusKey: 'match.extractionFailed', operatorKey: 'operators.haizhua', modeKey: 'gameMode.fenghuo', mapKey: 'maps.dam', subMapKey: 'maps.secret', time: '02-01 10:45', profit: '95,960', kills: '7' },
+        { avatar: '🛡️', status: 'fail', statusKey: 'match.extractionFailed', operatorKey: 'operators.weilong', modeKey: 'gameMode.fenghuo', mapKey: 'maps.space', subMapKey: 'maps.secret', time: '02-01 10:30', profit: '0', kills: '2' }
     ]
 };
 
 // 全面战场数据
 const zhancahngData = {
     stats: [
-        { value: '28', label: '胜场数' },
-        { value: '45.2%', label: '胜率' },
-        { value: '12162', label: '场均得分' },
-        { value: '2.8', label: '分均击杀' }
+        { value: '28', labelKey: 'stats.winCount' },
+        { value: '45.2%', labelKey: 'stats.winRate' },
+        { value: '12162', labelKey: 'stats.avgScore' },
+        { value: '2.8', labelKey: 'stats.killsPerMin' }
     ],
     records: [
-        { avatar: '⚔️', status: 'fail', statusText: '失败', operator: '威龙', mode: '全面战场', map: '余震-攻防', time: '02-01 10:55', score: '12607', kills: '39' },
-        { avatar: '🏆', status: 'success', statusText: '胜利', operator: '骇爪', mode: '全面战场', map: '余震-攻防', time: '02-01 09:30', score: '15320', kills: '45' },
-        { avatar: '⚔️', status: 'fail', statusText: '失败', operator: '威龙', mode: '全面战场', map: '余震-攻防', time: '02-01 08:15', score: '8650', kills: '22' }
+        { avatar: '⚔️', status: 'fail', statusKey: 'match.defeat', operatorKey: 'operators.weilong', modeKey: 'gameMode.zhanchang', mapKey: 'maps.aftershock', time: '02-01 10:55', score: '12607', kills: '39' },
+        { avatar: '🏆', status: 'success', statusKey: 'match.victory', operatorKey: 'operators.haizhua', modeKey: 'gameMode.zhanchang', mapKey: 'maps.aftershock', time: '02-01 09:30', score: '15320', kills: '45' },
+        { avatar: '⚔️', status: 'fail', statusKey: 'match.defeat', operatorKey: 'operators.weilong', modeKey: 'gameMode.zhanchang', mapKey: 'maps.aftershock', time: '02-01 08:15', score: '8650', kills: '22' }
     ]
 };
+
+// 获取翻译文本（封装）
+function t(key) {
+    return window.I18n ? window.I18n.t(key) : key;
+}
 
 // 更新战绩数据显示
 function updateBattleModeData(mode) {
@@ -1262,7 +1267,7 @@ function updateBattleModeData(mode) {
         statsGrid.innerHTML = data.stats.map(stat => `
             <div class="profile-stat-item">
                 <div class="profile-stat-value">${stat.value}</div>
-                <div class="profile-stat-label">${stat.label}</div>
+                <div class="profile-stat-label">${t(stat.labelKey)}</div>
             </div>
         `).join('');
     }
@@ -1275,10 +1280,10 @@ function updateBattleModeData(mode) {
                     <div class="battle-record-avatar">${record.avatar}</div>
                     <div class="battle-record-info">
                         <div class="battle-record-status">
-                            <span class="battle-status-tag ${record.status}">${record.statusText}</span>
-                            <span class="battle-operator-name">${record.operator}</span>
+                            <span class="battle-status-tag ${record.status}">${t(record.statusKey)}</span>
+                            <span class="battle-operator-name">${t(record.operatorKey)}</span>
                         </div>
-                        <div class="battle-record-map">${record.mode} | ${record.map}</div>
+                        <div class="battle-record-map">${t(record.modeKey)} | ${t(record.mapKey)}-${t(record.subMapKey)}</div>
                         <div class="battle-record-time">${record.time}</div>
                     </div>
                     <div class="battle-record-result">
@@ -1294,10 +1299,10 @@ function updateBattleModeData(mode) {
                     <div class="battle-record-avatar">${record.avatar}</div>
                     <div class="battle-record-info">
                         <div class="battle-record-status">
-                            <span class="battle-status-tag ${record.status}">${record.statusText}</span>
-                            <span class="battle-operator-name">${record.operator}</span>
+                            <span class="battle-status-tag ${record.status}">${t(record.statusKey)}</span>
+                            <span class="battle-operator-name">${t(record.operatorKey)}</span>
                         </div>
-                        <div class="battle-record-map">${record.mode} | ${record.map}</div>
+                        <div class="battle-record-map">${t(record.modeKey)} | ${t(record.mapKey)}</div>
                         <div class="battle-record-time">${record.time}</div>
                     </div>
                     <div class="battle-record-result">
@@ -1358,63 +1363,63 @@ function updateProfileStats(tabName) {
         statsGrid.innerHTML = `
             <div class="profile-stat-item">
                 <div class="profile-stat-value">55.1M</div>
-                <div class="profile-stat-label">带出总价值</div>
+                <div class="profile-stat-label">${t('stats.totalValue')}</div>
             </div>
             <div class="profile-stat-item">
                 <div class="profile-stat-value">37.6%</div>
-                <div class="profile-stat-label">撤离率</div>
+                <div class="profile-stat-label">${t('stats.extractionRate')}</div>
             </div>
             <div class="profile-stat-item">
                 <div class="profile-stat-value">333</div>
-                <div class="profile-stat-label">击败干员</div>
+                <div class="profile-stat-label">${t('stats.defeatedOperator')}</div>
             </div>
             <div class="profile-stat-item">
                 <div class="profile-stat-value">535.0K</div>
-                <div class="profile-stat-label">赚损比</div>
+                <div class="profile-stat-label">${t('stats.profitLossRatio')}</div>
             </div>
         `;
     } else if (tabName === 'collection') {
-        statsTitle.textContent = '大红藏馆总览';
+        statsTitle.textContent = t('collection.overview');
         statsTitle.style.display = 'block';
         statsLink.style.display = 'none';
         statsGrid.innerHTML = `
             <div class="profile-stat-item">
                 <div class="profile-stat-value">12</div>
-                <div class="profile-stat-label">大红总数</div>
+                <div class="profile-stat-label">${t('collection.totalTypes')}</div>
             </div>
             <div class="profile-stat-item">
                 <div class="profile-stat-value">20</div>
-                <div class="profile-stat-label">大红数量</div>
+                <div class="profile-stat-label">${t('collection.totalCount')}</div>
             </div>
             <div class="profile-stat-item">
                 <div class="profile-stat-value">8.5M</div>
-                <div class="profile-stat-label">大红累计价值</div>
+                <div class="profile-stat-label">${t('collection.totalValue')}</div>
             </div>
             <div class="profile-stat-item">
                 <div class="profile-stat-value">0</div>
-                <div class="profile-stat-label">本周收集数量</div>
+                <div class="profile-stat-label">${t('collection.weeklyCount')}</div>
             </div>
         `;
     } else if (tabName === 'asset') {
-        statsTitle.textContent = '游戏资产总览';
+        statsTitle.textContent = t('asset.overview');
         statsTitle.style.display = 'block';
         statsLink.style.display = 'inline-block';
         statsGrid.innerHTML = `
             <div class="profile-stat-item">
                 <div class="profile-stat-value">910</div>
-                <div class="profile-stat-label">三角币</div>
+                <div class="profile-stat-label">${t('asset.triangleCoins')}</div>
             </div>
             <div class="profile-stat-item">
                 <div class="profile-stat-value">72.1M</div>
-                <div class="profile-stat-label">总资产</div>
+                <div class="profile-stat-label">${t('asset.totalAssets')}</div>
             </div>
             <div class="profile-stat-item">
                 <div class="profile-stat-value">23.2M</div>
-                <div class="profile-stat-label">哈夫币</div>
+                <div class="profile-stat-label">${t('asset.havCoins')}</div>
             </div>
             <div class="profile-stat-item">
                 <div class="profile-stat-value">1</div>
-                <div class="profile-stat-label">典藏枪械外观</div>
+                <div class="profile-stat-label">${t('asset.gunSkins')}</div>
             </div>
         `;
     }
@@ -1878,4 +1883,243 @@ function handleSort(field, element) {
 // 页面加载完成后绑定事件
 document.addEventListener('DOMContentLoaded', function() {
     bindMarketDetailEvents();
+    initLoginSystem();
 });
+
+/* ============================================
+   登录系统
+   ============================================ */
+// 登录状态
+let isLoggedIn = false;
+
+// 初始化登录系统
+function initLoginSystem() {
+    const loginAvatarBtn = document.getElementById('login-avatar-btn');
+    const loginModal = document.getElementById('login-modal-overlay');
+    const loginModalClose = document.getElementById('login-modal-close');
+    const loginSubmitBtn = document.getElementById('login-submit-btn');
+    const logoutModal = document.getElementById('logout-modal-overlay');
+    const logoutCancelBtn = document.getElementById('logout-cancel-btn');
+    const logoutConfirmBtn = document.getElementById('logout-confirm-btn');
+    
+    // 社交登录按钮
+    const socialBtns = document.querySelectorAll('.social-btn');
+    
+    // 点击登录头像按钮
+    if (loginAvatarBtn) {
+        loginAvatarBtn.addEventListener('click', function() {
+            if (isLoggedIn) {
+                // 已登录，显示退出确认弹窗
+                openLogoutModal();
+            } else {
+                // 未登录，显示登录弹窗
+                openLoginModal();
+            }
+        });
+    }
+    
+    // 关闭登录弹窗
+    if (loginModalClose) {
+        loginModalClose.addEventListener('click', closeLoginModal);
+    }
+    
+    // 点击遮罩关闭登录弹窗
+    if (loginModal) {
+        loginModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLoginModal();
+            }
+        });
+    }
+    
+    // 登录/注册按钮 - 直接登录（原型版本）
+    if (loginSubmitBtn) {
+        loginSubmitBtn.addEventListener('click', function() {
+            performLogin();
+        });
+    }
+    
+    // 社交登录按钮 - 直接登录（原型版本）
+    socialBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            performLogin();
+        });
+    });
+    
+    // 密码登录链接 - 直接登录（原型版本）
+    const passwordLoginLink = document.querySelector('.password-login-link');
+    if (passwordLoginLink) {
+        passwordLoginLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            performLogin();
+        });
+    }
+    
+    // 获取验证码按钮 - 直接登录（原型版本）
+    const getCodeBtn = document.querySelector('.get-code-btn');
+    if (getCodeBtn) {
+        getCodeBtn.addEventListener('click', function() {
+            performLogin();
+        });
+    }
+    
+    // 退出登录取消按钮
+    if (logoutCancelBtn) {
+        logoutCancelBtn.addEventListener('click', closeLogoutModal);
+    }
+    
+    // 退出登录确认按钮
+    if (logoutConfirmBtn) {
+        logoutConfirmBtn.addEventListener('click', function() {
+            performLogout();
+        });
+    }
+    
+    // 点击遮罩关闭退出确认弹窗
+    if (logoutModal) {
+        logoutModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLogoutModal();
+            }
+        });
+    }
+}
+
+// 打开登录弹窗
+function openLoginModal() {
+    const loginModal = document.getElementById('login-modal-overlay');
+    if (loginModal) {
+        loginModal.classList.add('active');
+    }
+}
+
+// 关闭登录弹窗
+function closeLoginModal() {
+    const loginModal = document.getElementById('login-modal-overlay');
+    if (loginModal) {
+        loginModal.classList.remove('active');
+    }
+}
+
+// 打开退出登录确认弹窗
+function openLogoutModal() {
+    const logoutModal = document.getElementById('logout-modal-overlay');
+    if (logoutModal) {
+        logoutModal.classList.add('active');
+    }
+}
+
+// 关闭退出登录确认弹窗
+function closeLogoutModal() {
+    const logoutModal = document.getElementById('logout-modal-overlay');
+    if (logoutModal) {
+        logoutModal.classList.remove('active');
+    }
+}
+
+// 执行登录
+function performLogin() {
+    isLoggedIn = true;
+    
+    // 更新登录按钮状态
+    const loginAvatarBtn = document.getElementById('login-avatar-btn');
+    if (loginAvatarBtn) {
+        loginAvatarBtn.classList.add('logged-in');
+    }
+    
+    // 关闭登录弹窗
+    closeLoginModal();
+    
+    // 显示登录成功提示（可选）
+    console.log('登录成功');
+}
+
+// 执行退出登录
+function performLogout() {
+    isLoggedIn = false;
+    
+    // 更新登录按钮状态
+    const loginAvatarBtn = document.getElementById('login-avatar-btn');
+    if (loginAvatarBtn) {
+        loginAvatarBtn.classList.remove('logged-in');
+    }
+    
+    // 关闭退出确认弹窗
+    closeLogoutModal();
+    
+    // 显示退出成功提示（可选）
+    console.log('已退出登录');
+}
+
+/* ============================================
+   分享功能
+   ============================================ */
+// 初始化分享功能
+document.addEventListener('DOMContentLoaded', function() {
+    initShareFeature();
+});
+
+function initShareFeature() {
+    const shareBtn = document.getElementById('share-daily-btn');
+    
+    if (shareBtn) {
+        shareBtn.addEventListener('click', function() {
+            showShareOptions();
+        });
+    }
+}
+
+// 显示分享选项
+function showShareOptions() {
+    // 检查是否支持原生分享 API
+    if (navigator.share) {
+        navigator.share({
+            title: 'Delta Force 日报',
+            text: '查看今日游戏数据和密码！',
+            url: window.location.href
+        }).then(() => {
+            console.log('分享成功');
+        }).catch((error) => {
+            console.log('分享取消或失败:', error);
+            // 如果原生分享失败，显示自定义分享弹窗
+            showCustomShareModal();
+        });
+    } else {
+        // 不支持原生分享，显示自定义分享弹窗
+        showCustomShareModal();
+    }
+}
+
+// 显示自定义分享弹窗
+function showCustomShareModal() {
+    const shareModal = document.getElementById('share-modal-overlay');
+    if (shareModal) {
+        shareModal.classList.add('active');
+    }
+}
+
+// 关闭分享弹窗
+function closeShareModal() {
+    const shareModal = document.getElementById('share-modal-overlay');
+    if (shareModal) {
+        shareModal.classList.remove('active');
+    }
+}
+
+// 复制链接
+function copyShareLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+        // 显示复制成功提示
+        const copyBtn = document.querySelector('.share-option-copy');
+        if (copyBtn) {
+            const originalText = copyBtn.querySelector('.share-option-name').textContent;
+            copyBtn.querySelector('.share-option-name').textContent = '已复制!';
+            setTimeout(() => {
+                copyBtn.querySelector('.share-option-name').textContent = originalText;
+            }, 1500);
+        }
+    }).catch(err => {
+        console.error('复制失败:', err);
+    });
+}

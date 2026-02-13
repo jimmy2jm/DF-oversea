@@ -114,6 +114,16 @@ body {
     border: 2px solid var(--border-color);
 }
 
+.user-nickname {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .logout-btn {
     padding: 0.5rem 1rem;
     background: transparent;
@@ -226,9 +236,20 @@ body {
 
 .sub-card-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     margin-bottom: 0.75rem;
+    gap: 0.5rem;
+}
+
+.sub-card-header .header-date {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.sub-card-header .view-link {
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 .sub-card-title {
@@ -246,9 +267,8 @@ body {
 .header-date {
     font-size: 0.75rem;
     color: var(--text-muted);
-    flex: 1;
     text-align: left;
-    margin-left: 0.5rem;
+    margin-left: auto;
 }
 
 .stats-compact .date-display {
@@ -335,7 +355,7 @@ body {
     display: flex;
     gap: 0.5rem;
     flex: 1;
-    align-items: center;
+    align-items: stretch;
 }
 
 .items-card {
@@ -355,7 +375,7 @@ body {
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -370,6 +390,7 @@ body {
     border: 1px solid var(--border-color);
     border-radius: 4px;
     margin-bottom: 0.5rem;
+    flex-shrink: 0;
 }
 
 .items-card .item-image.red-tier {
@@ -380,6 +401,14 @@ body {
 .items-card .item-name {
     font-size: 0.75rem;
     color: var(--accent-cyan);
+    word-break: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
 }
 
 /* Codes Bar - Horizontal */
@@ -1011,13 +1040,17 @@ body {
 /* 查看更多链接 */
 .view-link {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--accent-cyan);
     text-decoration: none;
     transition: color 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
 }
 
 .view-link:hover {
-    color: var(--text-secondary);
+    color: var(--text-primary);
+    text-decoration: underline;
 }
 
 .matches-list {
@@ -1243,8 +1276,10 @@ body {
 
 .build-header {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding-right: 4rem; /* 为右上角复制按钮留空间 */
 }
 
 .build-type {
@@ -1264,6 +1299,7 @@ body {
 /* 标签区 */
 .build-tags {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.35rem;
 }
 
@@ -1414,6 +1450,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .module-header {
@@ -1593,15 +1631,19 @@ body {
 
 .craft-main-tab {
     flex: 1;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0.5rem;
     background: transparent;
     border: none;
     border-radius: 6px;
     color: var(--text-secondary);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 
 .craft-main-tab:hover {
@@ -1642,6 +1684,8 @@ body {
     gap: 0.35rem;
     cursor: pointer;
     transition: all 0.2s ease;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .craft-station-item:hover {
@@ -1656,6 +1700,8 @@ body {
     display: flex;
     align-items: center;
     gap: 0.35rem;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .station-icon {
@@ -1666,6 +1712,10 @@ body {
     font-size: 0.65rem;
     color: var(--text-primary);
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .station-badge {
@@ -1710,9 +1760,12 @@ body {
     font-size: 0.6rem;
     color: var(--accent-red);
     text-align: center;
-    white-space: nowrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+    min-height: 1.6em;
+    max-height: 2.6em;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .station-status {
@@ -1721,6 +1774,14 @@ body {
     justify-content: center;
     gap: 0.25rem;
     font-size: 0.6rem;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.station-status .status-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .station-status.idle .status-text {
@@ -1755,6 +1816,7 @@ body {
     color: var(--text-muted);
     padding: 0 0.5rem;
     background: var(--bg-card);
+    white-space: nowrap;
 }
 
 /* 最优制作推荐 */
@@ -1778,6 +1840,8 @@ body {
     gap: 0.35rem;
     cursor: pointer;
     transition: all 0.2s ease;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .best-recommend-item:hover {
@@ -1788,6 +1852,8 @@ body {
     display: flex;
     align-items: center;
     gap: 0.3rem;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .recommend-station-icon {
@@ -1797,6 +1863,10 @@ body {
 .recommend-station-name {
     font-size: 0.6rem;
     color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .recommend-item-preview {
@@ -1826,9 +1896,12 @@ body {
     font-size: 0.6rem;
     color: var(--text-primary);
     text-align: center;
-    white-space: nowrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+    min-height: 1.6em;
+    max-height: 2.6em;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .recommend-item-profit {
@@ -1851,7 +1924,7 @@ body {
 /* 底部说明文字 */
 .craft-footer-tip {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     gap: 0.4rem;
     padding: 0.6rem 0.75rem;
@@ -1863,12 +1936,14 @@ body {
 
 .craft-footer-tip .tip-icon {
     font-size: 0.8rem;
+    flex-shrink: 0;
 }
 
 .craft-footer-tip .tip-text {
     font-size: 0.7rem;
     color: var(--text-secondary);
     line-height: 1.4;
+    word-break: break-word;
 }
 
 /* Tab 切换栏 */
@@ -3671,4 +3746,135 @@ body {
 
 .poster-share-btn.reddit-btn .share-icon {
     color: #ff4500;
+}
+
+/* ============================================
+   LANGUAGE SELECTOR
+   ============================================ */
+.lang-selector {
+    position: relative;
+    z-index: 1001;
+}
+
+.lang-selector-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-secondary);
+}
+
+.lang-selector-btn:hover {
+    border-color: var(--accent-cyan);
+    color: var(--text-primary);
+}
+
+.lang-flag {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.lang-code {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.lang-arrow {
+    transition: transform 0.2s ease;
+}
+
+.lang-selector.open .lang-arrow {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    width: 180px;
+    max-height: 320px;
+    overflow-y: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+}
+
+.lang-selector.open .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lang-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.lang-dropdown::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.lang-option:hover {
+    background: var(--bg-input);
+}
+
+.lang-option.active {
+    background: rgba(0, 255, 204, 0.1);
+}
+
+.lang-option.active .lang-option-name {
+    color: var(--accent-cyan);
+    font-weight: 500;
+}
+
+.lang-option-flag {
+    font-size: 1.125rem;
+    line-height: 1;
+}
+
+.lang-option-name {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+}
+
+/* RTL Support */
+body.rtl {
+    direction: rtl;
+}
+
+body.rtl .nav-left {
+    flex-direction: row-reverse;
+}
+
+body.rtl .nav-links {
+    flex-direction: row-reverse;
+}
+
+body.rtl .lang-dropdown {
+    right: auto;
+    left: 0;
 }

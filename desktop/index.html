@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delta Force - Home</title>
-    <link rel="stylesheet" href="main.css?v=38">
+    <link rel="stylesheet" href="main.css?v=43">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <script src="i18n.js" defer></script>
 </head>
 <body>
     <!-- Top Navigation -->
@@ -16,10 +17,10 @@
                 <span class="logo-text">DELTA FORCE</span>
             </div>
             <div class="nav-links">
-                <a href="index.html" class="nav-link active">Home</a>
+                <a href="index.html" class="nav-link active" data-i18n="nav.home">Home</a>
                 <!-- V1.0 隐藏以下导航 -->
                 <!-- <a href="gun-builds.html" class="nav-link">改枪推荐</a> -->
-                <a href="my-data.html" class="nav-link">我的数据</a>
+                <a href="my-data.html" class="nav-link" data-i18n="nav.myData">我的数据</a>
                 <!-- <a href="collection.html" class="nav-link">大红藏馆</a> -->
                 <!-- <a href="craft.html" class="nav-link">交易制造</a> -->
                 <!-- <a href="guide.html" class="nav-link">实用攻略</a> -->
@@ -28,7 +29,8 @@
         </div>
         <div class="nav-right">
             <div class="user-icon"></div>
-            <button class="logout-btn">log out</button>
+            <span class="user-nickname">Grimlock#8888</span>
+            <button class="logout-btn" data-i18n="common.logOut">log out</button>
         </div>
     </nav>
 
@@ -39,8 +41,8 @@
             <div class="report-header">
                 <div class="report-tabs">
                     <div class="report-tabs-inner">
-                        <button class="tab-btn active" data-tab="fenguo">烽火日报</button>
-                        <button class="tab-btn" data-tab="zhanchang">战场日报</button>
+                        <button class="tab-btn active" data-tab="fenguo" data-i18n="gameMode.fenghuoDaily">烽火日报</button>
+                        <button class="tab-btn" data-tab="zhanchang" data-i18n="gameMode.zhanchangDaily">战场日报</button>
                     </div>
                 </div>
             </div>
@@ -52,32 +54,32 @@
                     <!-- Left: Core Stats -->
                     <div class="sub-card stats-card">
                         <div class="sub-card-header">
-                            <span class="sub-card-title">近日战况</span>
+                            <span class="sub-card-title" data-i18n="home.recentStatus">近日战况</span>
                             <span class="header-date">2026/01/29</span>
-                            <a href="#" class="view-link">查看收益周历 ></a>
+                            <span class="view-link" onclick="window.location.href='my-data.html?mode=fenghuo'" data-i18n="home.viewMoreStats">查看更多战绩 ></span>
                         </div>
                         <div class="stats-compact">
                             <div class="primary-stat">
-                                <span class="stat-label">收益</span>
+                                <span class="stat-label" data-i18n="stats.earnings">收益</span>
                                 <span class="stat-value highlight">13,141,314</span>
                                 <span class="stat-unit">HC</span>
                             </div>
                             <div class="secondary-stats-compact">
                                 <div class="stat-item">
                                     <span class="stat-number">33</span>
-                                    <span class="stat-name">击杀干员数</span>
+                                    <span class="stat-name" data-i18n="stats.operatorKills">击杀干员数</span>
                                 </div>
                                 <div class="stat-item">
                                     <span class="stat-number">27%</span>
-                                    <span class="stat-name">撤离率</span>
+                                    <span class="stat-name" data-i18n="stats.extractionRate">撤离率</span>
                                 </div>
                                 <div class="stat-item">
                                     <span class="stat-number">20</span>
-                                    <span class="stat-name">场数</span>
+                                    <span class="stat-name" data-i18n="stats.matches">场数</span>
                                 </div>
                                 <div class="stat-item">
                                     <span class="stat-number">2.1</span>
-                                    <span class="stat-name">K/D</span>
+                                    <span class="stat-name" data-i18n="stats.kd">K/D</span>
                                 </div>
                             </div>
                         </div>
@@ -86,20 +88,20 @@
                     <!-- Right: High Value Items -->
                     <div class="sub-card items-card">
                         <div class="sub-card-header">
-                            <span class="sub-card-title">🎁 近日高价值物品</span>
+                            <span class="sub-card-title"><span data-i18n="home.highValueItems">🎁 近日高价值物品</span></span>
                         </div>
                         <div class="items-grid-compact">
                             <div class="item-card">
                                 <div class="item-image red-tier"></div>
-                                <span class="item-name">动力电池组</span>
+                                <span class="item-name" data-i18n="items.powerBattery">动力电池组</span>
                             </div>
                             <div class="item-card">
                                 <div class="item-image red-tier"></div>
-                                <span class="item-name">金块</span>
+                                <span class="item-name" data-i18n="items.goldBar">金块</span>
                             </div>
                             <div class="item-card">
                                 <div class="item-image red-tier"></div>
-                                <span class="item-name">加密U盘</span>
+                                <span class="item-name" data-i18n="items.encryptedUSB">加密U盘</span>
                             </div>
                         </div>
                     </div>
@@ -107,34 +109,34 @@
 
                 <!-- Bottom Row: Daily Codes (Horizontal) -->
                 <div class="codes-bar">
-                    <span class="codes-bar-title">🔐 每日密码</span>
+                    <span class="codes-bar-title"><span data-i18n="home.dailyPassword">🔐 每日密码</span></span>
                     <div class="codes-inline">
                         <div class="code-inline-item">
-                            <span class="code-map">零号大坝</span>
+                            <span class="code-map" data-i18n="maps.dam">零号大坝</span>
                             <span class="code-value">2119</span>
                         </div>
                         <span class="code-divider">|</span>
                         <div class="code-inline-item">
-                            <span class="code-map">长弓溪谷</span>
+                            <span class="code-map" data-i18n="maps.valley">长弓溪谷</span>
                             <span class="code-value">0750</span>
                         </div>
                         <span class="code-divider">|</span>
                         <div class="code-inline-item">
-                            <span class="code-map">巴克什</span>
+                            <span class="code-map" data-i18n="maps.bakshi">巴克什</span>
                             <span class="code-value">1605</span>
                         </div>
                         <span class="code-divider">|</span>
                         <div class="code-inline-item">
-                            <span class="code-map">航天基地</span>
+                            <span class="code-map" data-i18n="maps.space">航天基地</span>
                             <span class="code-value">6009</span>
                         </div>
                         <span class="code-divider">|</span>
                         <div class="code-inline-item">
-                            <span class="code-map">潮汐监狱</span>
+                            <span class="code-map" data-i18n="maps.prison">潮汐监狱</span>
                             <span class="code-value">1029</span>
                         </div>
                     </div>
-                    <button class="password-guide-btn" id="password-guide-btn">密码房指引</button>
+                    <button class="password-guide-btn" id="password-guide-btn" data-i18n="home.passwordGuide">密码房指引</button>
                 </div>
             </div>
 
@@ -550,7 +552,7 @@
                         <div class="sub-card-header">
                             <span class="sub-card-title">近日战况</span>
                             <span class="header-date">2026/01/29</span>
-                            <a href="#" class="view-link">查看数据周历 ></a>
+                            <span class="view-link" onclick="window.location.href='my-data.html?mode=zhanchang'">查看更多战绩 ></span>
                         </div>
                         <div class="stats-compact">
                             <div class="primary-stat">
@@ -625,7 +627,7 @@
         <!-- Gun Builds Section -->
         <section class="gun-builds-section">
             <div class="section-header">
-                <span class="section-title">🔧 改枪码推荐</span>
+                <span class="section-title"><span data-i18n="gunBuilds.title">🔧 改枪码推荐</span></span>
                 <!-- V1.0 隐藏查看更多 -->
                 <!-- <a href="gun-builds.html" class="view-link">查看更多 ></a> -->
             </div>
@@ -660,12 +662,12 @@
                 <div class="gun-builds-content" id="gun-builds-content-fh-home">
                     <!-- 性价比改法 -->
                     <div class="build-card budget">
-                        <button class="copy-code-btn-float">复制</button>
+                        <button class="copy-code-btn-float" data-i18n="common.copy">复制</button>
                         <div class="build-header">
-                            <span class="build-type budget-type">💰 85K 性价比改法</span>
+                            <span class="build-type budget-type">💰 85K <span data-i18n="gunBuilds.budgetBuild">性价比改法</span></span>
                             <div class="build-tags">
-                                <span class="build-tag">中近距离</span>
-                                <span class="build-tag">满腰射</span>
+                                <span class="build-tag" data-i18n="gunBuilds.shortRange">中近距离</span>
+                                <span class="build-tag" data-i18n="gunBuilds.fullHipfire">满腰射</span>
                             </div>
                         </div>
                         <div class="build-gun-image"></div>
@@ -673,37 +675,37 @@
                             <div class="build-radar">
                                 <canvas class="radar-chart" id="radar-budget-home"></canvas>
                                 <div class="radar-labels">
-                                    <span class="radar-label label-top">后坐力控制</span>
-                                    <span class="radar-label label-right-top">操控速度</span>
-                                    <span class="radar-label label-right-bottom">射程优势</span>
-                                    <span class="radar-label label-left-bottom">持枪稳定性</span>
-                                    <span class="radar-label label-left-top">射速</span>
+                                    <span class="radar-label label-top" data-i18n="gunBuilds.recoilControl">后坐力控制</span>
+                                    <span class="radar-label label-right-top" data-i18n="gunBuilds.handlingSpeed">操控速度</span>
+                                    <span class="radar-label label-right-bottom" data-i18n="gunBuilds.rangeAdvantage">射程优势</span>
+                                    <span class="radar-label label-left-bottom" data-i18n="gunBuilds.gunStability">持枪稳定性</span>
+                                    <span class="radar-label label-left-top" data-i18n="gunBuilds.fireRate">射速</span>
                                 </div>
                             </div>
                             <div class="build-attachments">
-                                <div class="attachment-icon" title="枪口"></div>
-                                <div class="attachment-icon" title="瞄具"></div>
-                                <div class="attachment-icon" title="握把"></div>
-                                <div class="attachment-icon" title="弹匣"></div>
-                                <div class="attachment-icon" title="枪托"></div>
-                                <div class="attachment-icon" title="护木"></div>
-                                <div class="attachment-icon" title="激光"></div>
-                                <div class="attachment-icon" title="战术"></div>
+                                <div class="attachment-icon" title="枪口" data-i18n-attr="title" data-i18n="attachments.muzzle"></div>
+                                <div class="attachment-icon" title="瞄具" data-i18n-attr="title" data-i18n="attachments.optic"></div>
+                                <div class="attachment-icon" title="握把" data-i18n-attr="title" data-i18n="attachments.grip"></div>
+                                <div class="attachment-icon" title="弹匣" data-i18n-attr="title" data-i18n="attachments.magazine"></div>
+                                <div class="attachment-icon" title="枪托" data-i18n-attr="title" data-i18n="attachments.stock"></div>
+                                <div class="attachment-icon" title="护木" data-i18n-attr="title" data-i18n="attachments.handguard"></div>
+                                <div class="attachment-icon" title="激光" data-i18n-attr="title" data-i18n="attachments.laser"></div>
+                                <div class="attachment-icon" title="战术" data-i18n-attr="title" data-i18n="attachments.tactical"></div>
                             </div>
                         </div>
                         <div class="build-footer">
-                            <button class="view-detail-btn">查看改装详情</button>
+                            <button class="view-detail-btn" data-i18n="gunBuilds.viewDetail">查看改装详情</button>
                         </div>
                     </div>
                     
                     <!-- 满改方案 -->
                     <div class="build-card premium">
-                        <button class="copy-code-btn-float">复制</button>
+                        <button class="copy-code-btn-float" data-i18n="common.copy">复制</button>
                         <div class="build-header">
-                            <span class="build-type premium-type">💎 157K 满改方案</span>
+                            <span class="build-type premium-type">💎 157K <span data-i18n="gunBuilds.premiumBuild">满改方案</span></span>
                             <div class="build-tags">
-                                <span class="build-tag">长距离</span>
-                                <span class="build-tag">高精准</span>
+                                <span class="build-tag" data-i18n="gunBuilds.longRange">长距离</span>
+                                <span class="build-tag" data-i18n="gunBuilds.highAccuracy">高精准</span>
                             </div>
                         </div>
                         <div class="build-gun-image"></div>
@@ -711,11 +713,11 @@
                             <div class="build-radar">
                                 <canvas class="radar-chart" id="radar-premium-home"></canvas>
                                 <div class="radar-labels">
-                                    <span class="radar-label label-top">后坐力控制</span>
-                                    <span class="radar-label label-right-top">操控速度</span>
-                                    <span class="radar-label label-right-bottom">射程优势</span>
-                                    <span class="radar-label label-left-bottom">持枪稳定性</span>
-                                    <span class="radar-label label-left-top">射速</span>
+                                    <span class="radar-label label-top" data-i18n="gunBuilds.recoilControl">后坐力控制</span>
+                                    <span class="radar-label label-right-top" data-i18n="gunBuilds.handlingSpeed">操控速度</span>
+                                    <span class="radar-label label-right-bottom" data-i18n="gunBuilds.rangeAdvantage">射程优势</span>
+                                    <span class="radar-label label-left-bottom" data-i18n="gunBuilds.gunStability">持枪稳定性</span>
+                                    <span class="radar-label label-left-top" data-i18n="gunBuilds.fireRate">射速</span>
                                 </div>
                             </div>
                             <div class="build-attachments">
@@ -730,7 +732,7 @@
                             </div>
                         </div>
                         <div class="build-footer">
-                            <button class="view-detail-btn">查看改装详情</button>
+                            <button class="view-detail-btn" data-i18n="gunBuilds.viewDetail">查看改装详情</button>
                         </div>
                     </div>
                 </div>
@@ -923,14 +925,14 @@
             <!-- 特勤处制造 -->
             <div class="module-card craft">
                 <div class="module-header">
-                    <span class="module-title">🔨 特勤处制造</span>
+                    <span class="module-title"><span data-i18n="craft.title">🔨 特勤处制造</span></span>
                     <span class="header-date">2026/01/30</span>
                     <!-- V1.0 移除查看更多 -->
                 </div>
                 <!-- 主Tab切换栏：制造详情 / 制造推荐 -->
                 <div class="craft-main-tabs">
-                    <button class="craft-main-tab active" data-main-tab="detail">制造详情</button>
-                    <button class="craft-main-tab" data-main-tab="recommend">制造推荐</button>
+                    <button class="craft-main-tab active" data-main-tab="detail" data-i18n="craft.craftDetail">制造详情</button>
+                    <button class="craft-main-tab" data-main-tab="recommend" data-i18n="craft.craftRecommend">制造推荐</button>
                 </div>
                 
                 <!-- 制造详情内容 -->
@@ -940,52 +942,52 @@
                         <div class="craft-station-item" data-station="tech">
                             <div class="station-header">
                                 <span class="station-icon">🔧</span>
-                                <span class="station-name">技术中心</span>
+                                <span class="station-name" data-i18n="craft.techCenter">技术中心</span>
                             </div>
                             <div class="station-preview idle">
                                 <div class="station-preview-icon">◇</div>
                             </div>
                             <div class="station-status idle">
-                                <span class="status-text">+ 空闲中</span>
+                                <span class="status-text" data-i18n="craft.idle">+ 空闲中</span>
                                 <span class="status-indicator"></span>
                             </div>
                         </div>
                         <div class="craft-station-item" data-station="work">
                             <div class="station-header">
                                 <span class="station-icon">🔨</span>
-                                <span class="station-name">工作台</span>
+                                <span class="station-name" data-i18n="craft.workbench">工作台</span>
                             </div>
                             <div class="station-preview idle">
                                 <div class="station-preview-icon">◇</div>
                             </div>
                             <div class="station-status idle">
-                                <span class="status-text">+ 空闲中</span>
+                                <span class="status-text" data-i18n="craft.idle">+ 空闲中</span>
                                 <span class="status-indicator"></span>
                             </div>
                         </div>
                         <div class="craft-station-item" data-station="med">
                             <div class="station-header">
                                 <span class="station-icon">💊</span>
-                                <span class="station-name">制药台</span>
+                                <span class="station-name" data-i18n="craft.medBench">制药台</span>
                             </div>
                             <div class="station-preview idle">
                                 <div class="station-preview-icon">◇</div>
                             </div>
                             <div class="station-status idle">
-                                <span class="status-text">+ 空闲中</span>
+                                <span class="status-text" data-i18n="craft.idle">+ 空闲中</span>
                                 <span class="status-indicator"></span>
                             </div>
                         </div>
                         <div class="craft-station-item working" data-station="armor">
                             <div class="station-header">
                                 <span class="station-icon">🛡️</span>
-                                <span class="station-name">防具台</span>
+                                <span class="station-name" data-i18n="craft.armorBench">防具台</span>
                                 <span class="station-badge">🎒</span>
                             </div>
                             <div class="station-preview working">
                                 <div class="station-preview-image"></div>
                             </div>
-                            <div class="station-item-name">DAR突击手胸挂</div>
+                            <div class="station-item-name" data-i18n="items.darChestRig">DAR突击手胸挂</div>
                             <div class="station-status working">
                                 <span class="status-time">02:22:45</span>
                             </div>
@@ -994,7 +996,7 @@
                     
                     <!-- 过渡部分：推荐制作 -->
                     <div class="craft-recommend-divider">
-                        <span class="divider-text">推荐制作 ⬇️</span>
+                        <span class="divider-text" data-i18n="craft.recommendedCraft">推荐制作 ⬇️</span>
                     </div>
                     
                     <!-- 下半部分：最优制作推荐 -->
@@ -1003,10 +1005,10 @@
                             <div class="best-recommend-item" data-station="tech">
                                 <div class="recommend-station-header">
                                     <span class="recommend-station-icon">🔧</span>
-                                    <span class="recommend-station-name">技术中心</span>
+                                    <span class="recommend-station-name" data-i18n="craft.techCenter">技术中心</span>
                                 </div>
                                 <div class="recommend-item-preview green"></div>
-                                <div class="recommend-item-name">OLIGHT手电</div>
+                                <div class="recommend-item-name" data-i18n="items.olightFlashlight">OLIGHT手电</div>
                                 <div class="recommend-item-profit">
                                     <span class="profit-icon">💰</span>
                                     <span class="profit-value">1857/h</span>
@@ -1015,10 +1017,10 @@
                             <div class="best-recommend-item" data-station="work">
                                 <div class="recommend-station-header">
                                     <span class="recommend-station-icon">🔨</span>
-                                    <span class="recommend-station-name">工作台</span>
+                                    <span class="recommend-station-name" data-i18n="craft.workbench">工作台</span>
                                 </div>
                                 <div class="recommend-item-preview brown"></div>
-                                <div class="recommend-item-name">PMAG D-60弹鼓</div>
+                                <div class="recommend-item-name" data-i18n="items.drumMag">PMAG D-60弹鼓</div>
                                 <div class="recommend-item-profit">
                                     <span class="profit-icon">💰</span>
                                     <span class="profit-value">1523/h</span>
@@ -1027,10 +1029,10 @@
                             <div class="best-recommend-item" data-station="med">
                                 <div class="recommend-station-header">
                                     <span class="recommend-station-icon">💊</span>
-                                    <span class="recommend-station-name">制药台</span>
+                                    <span class="recommend-station-name" data-i18n="craft.medBench">制药台</span>
                                 </div>
                                 <div class="recommend-item-preview purple"></div>
-                                <div class="recommend-item-name">军用急救包</div>
+                                <div class="recommend-item-name" data-i18n="items.militaryFirstAid">军用急救包</div>
                                 <div class="recommend-item-profit">
                                     <span class="profit-icon">💰</span>
                                     <span class="profit-value">1245/h</span>
@@ -1039,10 +1041,10 @@
                             <div class="best-recommend-item" data-station="armor">
                                 <div class="recommend-station-header">
                                     <span class="recommend-station-icon">🛡️</span>
-                                    <span class="recommend-station-name">防具台</span>
+                                    <span class="recommend-station-name" data-i18n="craft.armorBench">防具台</span>
                                 </div>
                                 <div class="recommend-item-preview gray"></div>
-                                <div class="recommend-item-name">6级防弹插板</div>
+                                <div class="recommend-item-name" data-i18n="items.level6Plate">6级防弹插板</div>
                                 <div class="recommend-item-profit">
                                     <span class="profit-icon">💰</span>
                                     <span class="profit-value">2234/h</span>
@@ -1123,37 +1125,37 @@
                 <!-- 底部说明文字 -->
                 <div class="craft-footer-tip">
                     <span class="tip-icon">💡</span>
-                    <span class="tip-text">前往游戏内特勤处进行物品制作，可以获取收益或低成本获取物品</span>
+                    <span class="tip-text" data-i18n="craft.craftTip">前往游戏内特勤处进行物品制作，可以获取收益或低成本获取物品</span>
                 </div>
             </div>
 
             <!-- 大红展馆 -->
             <div class="module-card collection collection-v1">
                 <div class="module-header">
-                    <span class="module-title">🏆 大红展馆</span>
+                    <span class="module-title"><span data-i18n="collection.title">🏆 大红展馆</span></span>
                     <div class="module-header-actions">
-                        <button class="collection-action-btn">📋 出红记录</button>
-                        <button class="collection-action-btn">🖼️ 生成海报</button>
+                        <button class="collection-action-btn"><span data-i18n="collection.redRecord">📋 出红记录</span></button>
+                        <button class="collection-action-btn"><span data-i18n="collection.generatePoster">🖼️ 生成海报</span></button>
                     </div>
                 </div>
                 <!-- 固定区域：数据统计 -->
                 <div class="collection-stats">
                     <div class="collection-stat-item">
                         <span class="stat-value">5</span>
-                        <span class="stat-label">本周收集</span>
+                        <span class="stat-label" data-i18n="collection.thisWeekCollected">本周收集</span>
                     </div>
                     <div class="collection-stat-item">
                         <span class="stat-value">67</span>
-                        <span class="stat-label">大红种类</span>
+                        <span class="stat-label" data-i18n="collection.redTypes">大红种类</span>
                     </div>
                     <div class="collection-stat-item">
                         <span class="stat-value">142</span>
-                        <span class="stat-label">大红数量</span>
+                        <span class="stat-label" data-i18n="collection.redCount">大红数量</span>
                     </div>
                 </div>
                 <!-- 固定区域：收藏进度 -->
                 <div class="collection-progress-mini">
-                    <div class="progress-text">收藏进度</div>
+                    <div class="progress-text" data-i18n="collection.collectionProgress">收藏进度</div>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 67%"></div>
                     </div>
@@ -1163,8 +1165,8 @@
                 <div class="collection-recent-highlight">
                     <div class="recent-highlight-image"></div>
                     <div class="recent-highlight-info">
-                        <span class="recent-highlight-tag">🆕 最近获得</span>
-                        <span class="recent-highlight-name">动力电池组</span>
+                        <span class="recent-highlight-tag"><span data-i18n="collection.recentObtained">🆕 最近获得</span></span>
+                        <span class="recent-highlight-name" data-i18n="items.powerBattery">动力电池组</span>
                         <span class="recent-highlight-time">2小时前 · 零号大坝</span>
                     </div>
                 </div>
