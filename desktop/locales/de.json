@@ -163,7 +163,10 @@
   },
   "share": {
     "shareTo": "Teilen auf",
-    "copyLink": "Link kopieren"
+    "copyLink": "Link kopieren",
+    "dailyPosterTitle": "Bericht teilen",
+    "dailyReport": "Einsätze-Tagesbericht",
+    "saveImage": "Bild speichern"
   },
   "items": {
     "powerBattery": "Leistungsbatteriepaket",

@@ -163,7 +163,10 @@
   },
   "share": {
     "shareTo": "分享至",
-    "copyLink": "复制链接"
+    "copyLink": "复制链接",
+    "dailyPosterTitle": "分享日报",
+    "dailyReport": "烽火日报",
+    "saveImage": "保存图片"
   },
   "items": {
     "powerBattery": "动力电池组",

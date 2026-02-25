@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delta Force - Home</title>
-    <link rel="stylesheet" href="main.css?v=43">
+    <link rel="stylesheet" href="main.css?v=44">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <script src="i18n.js" defer></script>
 </head>
@@ -45,6 +45,14 @@
                         <button class="tab-btn" data-tab="zhanchang" data-i18n="gameMode.zhanchangDaily">战场日报</button>
                     </div>
                 </div>
+                <button class="report-share-btn" id="daily-share-btn">
+                    <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                        <polyline points="16,6 12,2 8,6"/>
+                        <line x1="12" y1="2" x2="12" y2="15"/>
+                    </svg>
+                    <span data-i18n="common.share">分享</span>
+                </button>
             </div>
 
             <!-- 烽火日报 Content -->
@@ -1480,7 +1488,211 @@
         </div>
     </div>
 
+    <!-- 日报分享海报弹窗 -->
+    <div class="daily-poster-modal-overlay" id="daily-poster-modal-overlay">
+        <div class="daily-poster-modal">
+            <div class="daily-poster-modal-header">
+                <span class="daily-poster-modal-title">📤 <span data-i18n="share.dailyPosterTitle">分享日报</span></span>
+                <span class="daily-poster-modal-close" id="daily-poster-modal-close">✕</span>
+            </div>
+            
+            <!-- 海报预览区域 -->
+            <div class="daily-poster-preview-area">
+                <div class="daily-poster-placeholder" id="daily-poster-content">
+                    <div class="daily-poster-inner">
+                        <!-- 顶部区域：左侧用户信息 + 右侧关键词 -->
+                        <div class="daily-poster-header-row">
+                            <!-- 左上：头像 + ID -->
+                            <div class="daily-poster-user-info">
+                                <div class="daily-poster-avatar"></div>
+                                <div class="daily-poster-user-detail">
+                                    <span class="daily-poster-username">Grimlock#8888</span>
+                                    <span class="daily-poster-mode-label" id="poster-mode-label">烽火地带</span>
+                                </div>
+                            </div>
+                            <!-- 右上：每日关键词 + 描述 -->
+                            <div class="daily-poster-keyword-area">
+                                <h2 class="daily-poster-keyword">大红扫荡者</h2>
+                                <p class="daily-poster-keyword-desc">昨日带出5件以上红色品质物品</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 主内容区：左右布局 -->
+                        <div class="daily-poster-content-row">
+                            <!-- 左侧：干员KV图（竖版） -->
+                            <div class="daily-poster-kv-area">
+                                <div class="daily-poster-kv-placeholder">
+                                    <span class="kv-text">干员KV</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 右侧：数据区 -->
+                            <div class="daily-poster-data-area">
+                                <!-- ===== 烽火地带内容 ===== -->
+                                <div class="poster-mode-content" id="poster-fenguo-data">
+                                    <!-- 近日战况 -->
+                                    <div class="daily-poster-stats-section">
+                                        <div class="daily-poster-section-header">
+                                            <span class="section-title" data-i18n="home.recentStatus">近日战况</span>
+                                            <span class="section-date">2026/01/29</span>
+                                        </div>
+                                        <div class="daily-poster-primary-stat">
+                                            <span class="stat-label" data-i18n="stats.earnings">收益</span>
+                                            <span class="stat-value">13,141,314</span>
+                                            <span class="stat-unit">HC</span>
+                                        </div>
+                                        <div class="daily-poster-secondary-stats">
+                                            <div class="poster-stat-item">
+                                                <span class="poster-stat-number">33</span>
+                                                <span class="poster-stat-name" data-i18n="stats.operatorKills">击杀干员数</span>
+                                            </div>
+                                            <div class="poster-stat-item">
+                                                <span class="poster-stat-number">27%</span>
+                                                <span class="poster-stat-name" data-i18n="stats.extractionRate">撤离率</span>
+                                            </div>
+                                            <div class="poster-stat-item">
+                                                <span class="poster-stat-number">20</span>
+                                                <span class="poster-stat-name" data-i18n="stats.matches">场数</span>
+                                            </div>
+                                            <div class="poster-stat-item">
+                                                <span class="poster-stat-number">2.1</span>
+                                                <span class="poster-stat-name" data-i18n="stats.kd">K/D</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 近日高价值物品 -->
+                                    <div class="daily-poster-items-section">
+                                        <div class="daily-poster-section-header">
+                                            <span class="section-title" data-i18n="home.highValueItems">近日高价值物品</span>
+                                        </div>
+                                        <div class="daily-poster-items-grid">
+                                            <div class="daily-poster-item">
+                                                <div class="daily-poster-item-img"></div>
+                                                <span class="daily-poster-item-name">动力电池组</span>
+                                            </div>
+                                            <div class="daily-poster-item">
+                                                <div class="daily-poster-item-img"></div>
+                                                <span class="daily-poster-item-name">金块</span>
+                                            </div>
+                                            <div class="daily-poster-item">
+                                                <div class="daily-poster-item-img"></div>
+                                                <span class="daily-poster-item-name">加密U盘</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ===== 全面战场内容 ===== -->
+                                <div class="poster-mode-content" id="poster-zhanchang-data" style="display: none;">
+                                    <!-- 近日战况 -->
+                                    <div class="daily-poster-stats-section">
+                                        <div class="daily-poster-section-header">
+                                            <span class="section-title">近日战况</span>
+                                            <span class="section-date">2026/01/29</span>
+                                        </div>
+                                        <div class="daily-poster-primary-stat">
+                                            <span class="stat-label">最高得分</span>
+                                            <span class="stat-value">38,888</span>
+                                            <span class="stat-unit">分</span>
+                                        </div>
+                                        <div class="daily-poster-secondary-stats">
+                                            <div class="poster-stat-item">
+                                                <span class="poster-stat-number">200</span>
+                                                <span class="poster-stat-name">击杀次数</span>
+                                            </div>
+                                            <div class="poster-stat-item">
+                                                <span class="poster-stat-number">42%</span>
+                                                <span class="poster-stat-name">胜率</span>
+                                            </div>
+                                            <div class="poster-stat-item">
+                                                <span class="poster-stat-number">6</span>
+                                                <span class="poster-stat-name">场数</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 阵地支援 + 载具数据（并排） -->
+                                    <div class="daily-poster-bottom-row">
+                                        <!-- 阵地支援 -->
+                                        <div class="daily-poster-support-section">
+                                            <div class="daily-poster-section-header">
+                                                <span class="section-title">🎯 阵地支援</span>
+                                            </div>
+                                            <div class="poster-support-grid">
+                                                <div class="poster-support-item">
+                                                    <div class="poster-support-icon mortar"></div>
+                                                    <span class="poster-support-name">制导导弹</span>
+                                                    <span class="poster-support-count">×1</span>
+                                                </div>
+                                                <div class="poster-support-item">
+                                                    <div class="poster-support-icon turret"></div>
+                                                    <span class="poster-support-name">信标</span>
+                                                    <span class="poster-support-count">×1</span>
+                                                </div>
+                                                <div class="poster-support-item">
+                                                    <div class="poster-support-icon drone"></div>
+                                                    <span class="poster-support-name">炮兵齐射</span>
+                                                    <span class="poster-support-count">×1</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 载具数据 -->
+                                        <div class="daily-poster-vehicle-section">
+                                            <div class="daily-poster-section-header">
+                                                <span class="section-title">🚁 载具数据</span>
+                                            </div>
+                                            <div class="poster-vehicle-list">
+                                                <div class="poster-vehicle-item">
+                                                    <span class="poster-vehicle-name">侦查直升机</span>
+                                                    <span class="poster-vehicle-stat">击败 <em>123</em></span>
+                                                    <span class="poster-vehicle-stat">驾驶 <em>10min</em></span>
+                                                </div>
+                                                <div class="poster-vehicle-item">
+                                                    <span class="poster-vehicle-name">主战坦克</span>
+                                                    <span class="poster-vehicle-stat">击败 <em>45</em></span>
+                                                    <span class="poster-vehicle-stat">驾驶 <em>8min</em></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 海报底部 -->
+                        <div class="daily-poster-footer">
+                            <span class="daily-poster-watermark">Delta Force Tracker</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 分享按钮区域 -->
+            <div class="daily-poster-share-actions">
+                <button class="daily-poster-share-btn save-btn" id="daily-poster-save-btn">
+                    <span class="share-icon">💾</span>
+                    <span class="share-text" data-i18n="share.saveImage">保存图片</span>
+                </button>
+                <button class="daily-poster-share-btn x-btn" id="daily-poster-x-btn">
+                    <span class="share-icon">𝕏</span>
+                    <span class="share-text">X</span>
+                </button>
+                <button class="daily-poster-share-btn discord-btn" id="daily-poster-discord-btn">
+                    <svg class="share-icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                    <span class="share-text">Discord</span>
+                </button>
+                <button class="daily-poster-share-btn facebook-btn" id="daily-poster-facebook-btn">
+                    <span class="share-icon">f</span>
+                    <span class="share-text">Facebook</span>
+                </button>
+                <button class="daily-poster-share-btn reddit-btn" id="daily-poster-reddit-btn">
+                    <span class="share-icon">🔴</span>
+                    <span class="share-text">Reddit</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="../shared/mock-data.js?v=1"></script>
-    <script src="main.js?v=19"></script>
+    <script src="main.js?v=20"></script>
 </body>
 </html>

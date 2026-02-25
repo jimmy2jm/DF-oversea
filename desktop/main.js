@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMatchItems();
     initCollectionItems();
     initGunModeTabs(); // 新增：改枪推荐页模式切换
+    initDailyPosterModal(); // 日报分享弹窗
 });
 
 /**
@@ -2333,4 +2334,130 @@ function initPosterShareButtons() {
             window.open(`https://www.reddit.com/submit?url=${url}&title=${title}`, '_blank', 'width=600,height=600');
         });
     }
+}
+
+/* ============================================
+   日报分享海报弹窗
+   ============================================ */
+// 初始化日报分享弹窗
+function initDailyPosterModal() {
+    const dailyPosterModalOverlay = document.getElementById('daily-poster-modal-overlay');
+    const dailyPosterModalClose = document.getElementById('daily-poster-modal-close');
+    const dailyShareBtn = document.getElementById('daily-share-btn');
+    
+    // 点击分享按钮打开弹窗
+    if (dailyShareBtn) {
+        dailyShareBtn.addEventListener('click', () => {
+            if (dailyPosterModalOverlay) {
+                // 根据当前tab更新模式名称和内容
+                const activeTab = document.querySelector('.report-tabs .tab-btn.active');
+                const posterModeLabel = document.getElementById('poster-mode-label');
+                const posterFenguoData = document.getElementById('poster-fenguo-data');
+                const posterZhanchangData = document.getElementById('poster-zhanchang-data');
+                if (activeTab) {
+                    const tabType = activeTab.dataset.tab;
+                    if (posterModeLabel) {
+                        posterModeLabel.textContent = tabType === 'fenguo' ? '烽火地带' : '全面战场';
+                    }
+                    if (posterFenguoData && posterZhanchangData) {
+                        if (tabType === 'fenguo') {
+                            posterFenguoData.style.display = '';
+                            posterZhanchangData.style.display = 'none';
+                        } else {
+                            posterFenguoData.style.display = 'none';
+                            posterZhanchangData.style.display = '';
+                        }
+                    }
+                }
+                dailyPosterModalOverlay.classList.add('active');
+            }
+        });
+    }
+    
+    // 关闭按钮
+    if (dailyPosterModalClose) {
+        dailyPosterModalClose.addEventListener('click', () => {
+            if (dailyPosterModalOverlay) {
+                dailyPosterModalOverlay.classList.remove('active');
+            }
+        });
+    }
+    
+    // 点击遮罩关闭
+    if (dailyPosterModalOverlay) {
+        dailyPosterModalOverlay.addEventListener('click', (e) => {
+            if (e.target === dailyPosterModalOverlay) {
+                dailyPosterModalOverlay.classList.remove('active');
+            }
+        });
+    }
+    
+    // 初始化分享按钮
+    initDailyPosterShareButtons();
+}
+
+// 初始化日报海报分享按钮
+function initDailyPosterShareButtons() {
+    // 保存图片按钮
+    const saveBtn = document.getElementById('daily-poster-save-btn');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+            showToast('海报保存功能开发中...');
+        });
+    }
+    
+    // 分享到 X
+    const xBtn = document.getElementById('daily-poster-x-btn');
+    if (xBtn) {
+        xBtn.addEventListener('click', () => {
+            const text = encodeURIComponent('Check out my Delta Force daily report! 🎮');
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=400');
+        });
+    }
+    
+    // 分享到 Discord（占位）
+    const discordBtn = document.getElementById('daily-poster-discord-btn');
+    if (discordBtn) {
+        discordBtn.addEventListener('click', () => {
+            showToast('Discord 分享功能开发中...');
+        });
+    }
+    
+    // 分享到 Facebook
+    const facebookBtn = document.getElementById('daily-poster-facebook-btn');
+    if (facebookBtn) {
+        facebookBtn.addEventListener('click', () => {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+        });
+    }
+    
+    // 分享到 Reddit
+    const redditBtn = document.getElementById('daily-poster-reddit-btn');
+    if (redditBtn) {
+        redditBtn.addEventListener('click', () => {
+            const title = encodeURIComponent('My Delta Force Daily Report - Amazing stats!');
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.reddit.com/submit?url=${url}&title=${title}`, '_blank', 'width=600,height=600');
+        });
+    }
+}
+
+// 显示 Toast 提示
+function showToast(message) {
+    // 检查是否已有 toast
+    let toast = document.querySelector('.toast-message');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'toast-message';
+        document.body.appendChild(toast);
+    }
+    
+    toast.textContent = message;
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2000);
 }
