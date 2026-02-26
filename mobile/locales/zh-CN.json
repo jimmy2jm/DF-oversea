@@ -50,12 +50,18 @@
     "yesterdayEarnings": "昨日收益",
     "openGameViewMore": "打开游戏查看更多",
     "recentData": "近日数据",
+    "recentStatus": "近日战况",
+    "highValueItems": "近日高价值物品",
     "history": "HISTORY",
     "frequentOperator": "常用干员",
     "highlightMatch": "高光对局",
     "highlights": "HIGHLIGHTS"
   },
   "stats": {
+    "earnings": "收益",
+    "operatorKills": "击杀干员数",
+    "matches": "场数",
+    "kd": "K/D",
     "killCount": "击杀数",
     "winRate": "胜率",
     "avgScore": "场均得分",

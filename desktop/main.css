@@ -4059,7 +4059,8 @@ body {
 
 .daily-poster-items-grid {
     display: flex;
-    gap: 0.6rem;
+    gap: 1.2rem;
+    justify-content: center;
 }
 
 .daily-poster-item {
@@ -4068,19 +4069,19 @@ body {
 }
 
 .daily-poster-item-img {
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
     background: linear-gradient(135deg, #c0392b, #e74c3c);
     border: 2px solid #e74c3c;
     border-radius: 6px;
-    margin-bottom: 0.25rem;
+    margin: 0 auto 0.3rem;
 }
 
 .daily-poster-item-name {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     color: var(--text-secondary);
     display: block;
-    max-width: 55px;
+    max-width: 70px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

@@ -760,23 +760,63 @@ function drawRadarCharts() {
 const gunStatsDataZC = {
     m4a1: {
         stats: { recoil: 75, handling: 68, range: 65, stability: 62, fireRate: 58 },
-        tags: ['中远距离', '高稳定', 'PVP优化']
+        tags: ['中远距离', '高稳定', 'PVP优化'],
+        attachments: [
+            { slot: '瞄准镜', name: '全息瞄准镜', icon: '🔭' },
+            { slot: '枪口', name: '消焰器', icon: '🔫' },
+            { slot: '握把', name: '垂直握把', icon: '✊' },
+            { slot: '枪托', name: '战术枪托', icon: '📐' },
+            { slot: '弹匣', name: '扩容弹匣', icon: '🎯' },
+            { slot: '战术', name: '激光指示器', icon: '⚙️' }
+        ]
     },
     ak74: {
         stats: { recoil: 58, handling: 52, range: 70, stability: 48, fireRate: 62 },
-        tags: ['中距离', '高伤害', '压枪要求高']
+        tags: ['中距离', '高伤害', '压枪要求高'],
+        attachments: [
+            { slot: '瞄准镜', name: '红点瞄准镜', icon: '🔭' },
+            { slot: '枪口', name: '补偿器', icon: '🔫' },
+            { slot: '握把', name: '拇指握把', icon: '✊' },
+            { slot: '枪托', name: '重型枪托', icon: '📐' },
+            { slot: '弹匣', name: '快速弹匣', icon: '🎯' },
+            { slot: '战术', name: '战术手电', icon: '⚙️' }
+        ]
     },
     hk416: {
         stats: { recoil: 72, handling: 65, range: 68, stability: 58, fireRate: 55 },
-        tags: ['全能型', '均衡', '新手友好']
+        tags: ['全能型', '均衡', '新手友好'],
+        attachments: [
+            { slot: '瞄准镜', name: '反射瞄准镜', icon: '🔭' },
+            { slot: '枪口', name: '消音器', icon: '🔫' },
+            { slot: '握把', name: '直角握把', icon: '✊' },
+            { slot: '枪托', name: '折叠枪托', icon: '📐' },
+            { slot: '弹匣', name: '扩容弹匣', icon: '🎯' },
+            { slot: '战术', name: '激光指示器', icon: '⚙️' }
+        ]
     },
     aug: {
         stats: { recoil: 80, handling: 60, range: 78, stability: 72, fireRate: 48 },
-        tags: ['远距离', '高精准', '自带瞄具']
+        tags: ['远距离', '高精准', '自带瞄具'],
+        attachments: [
+            { slot: '瞄准镜', name: '3倍镜', icon: '🔭' },
+            { slot: '枪口', name: '重型枪管', icon: '🔫' },
+            { slot: '握把', name: '垂直握把', icon: '✊' },
+            { slot: '枪托', name: '原厂枪托', icon: '📐' },
+            { slot: '弹匣', name: '42发弹匣', icon: '🎯' },
+            { slot: '战术', name: '战术手电', icon: '⚙️' }
+        ]
     },
     svd: {
         stats: { recoil: 65, handling: 45, range: 92, stability: 55, fireRate: 25 },
-        tags: ['狙击', '一击必杀', '远距离']
+        tags: ['狙击', '一击必杀', '远距离'],
+        attachments: [
+            { slot: '瞄准镜', name: '8倍镜', icon: '🔭' },
+            { slot: '枪口', name: '消音器', icon: '🔫' },
+            { slot: '握把', name: '人体工学握把', icon: '✊' },
+            { slot: '枪托', name: '骨架枪托', icon: '📐' },
+            { slot: '弹匣', name: '20发弹匣', icon: '🎯' },
+            { slot: '战术', name: '弹道计算器', icon: '⚙️' }
+        ]
     }
 };
 
@@ -795,6 +835,7 @@ function initZhanchangGunSelectorMobile() {
     if (firstGun && gunStatsDataZC[firstGun]) {
         drawRadarChart('radar-single', gunStatsDataZC[firstGun].stats, '#f39c12', 'rgba(243, 156, 18, 0.2)');
         updateZhanchangTagsMobile(gunStatsDataZC[firstGun].tags);
+        updateZhanchangAttachmentsMobile(gunStatsDataZC[firstGun].attachments);
     }
     
     // 绑定枪械切换事件
@@ -809,6 +850,7 @@ function initZhanchangGunSelectorMobile() {
             if (gunData) {
                 drawRadarChart('radar-single', gunData.stats, '#f39c12', 'rgba(243, 156, 18, 0.2)');
                 updateZhanchangTagsMobile(gunData.tags);
+                updateZhanchangAttachmentsMobile(gunData.attachments);
             }
         });
     });
@@ -821,6 +863,19 @@ function updateZhanchangTagsMobile(tags) {
     const tagsContainer = document.getElementById('build-tags-zc-mobile');
     if (tagsContainer && tags) {
         tagsContainer.innerHTML = tags.map(tag => `<span class="build-tag">${tag}</span>`).join('');
+    }
+}
+
+// 更新战场模式的配件展示
+function updateZhanchangAttachmentsMobile(attachments) {
+    const grid = document.getElementById('attachments-zc-mobile');
+    if (grid && attachments) {
+        grid.innerHTML = attachments.map(att => 
+            `<div class="attachment-item">
+                <div class="attachment-icon">${att.icon}</div>
+                <div class="attachment-name">${att.name}</div>
+            </div>`
+        ).join('');
     }
 }
 
@@ -2071,22 +2126,53 @@ function initShareFeature() {
 
 // 显示分享选项
 function showShareOptions() {
-    // 检查是否支持原生分享 API
-    if (navigator.share) {
-        navigator.share({
-            title: 'Delta Force 日报',
-            text: '查看今日游戏数据和密码！',
-            url: window.location.href
-        }).then(() => {
-            console.log('分享成功');
-        }).catch((error) => {
-            console.log('分享取消或失败:', error);
-            // 如果原生分享失败，显示自定义分享弹窗
-            showCustomShareModal();
-        });
+    // 先根据当前日报 Tab 更新海报内容
+    updatePosterByMode();
+    showCustomShareModal();
+}
+
+// 根据当前日报模式更新海报内容
+function updatePosterByMode() {
+    const activeTab = document.querySelector('.report-tab.active');
+    const mode = activeTab ? activeTab.getAttribute('data-report') : 'fh';
+    
+    const posterModeLabel = document.getElementById('poster-mode-label');
+    const posterReportTitle = document.getElementById('poster-report-title');
+    const posterFhData = document.getElementById('poster-fh-data');
+    const posterZcData = document.getElementById('poster-zc-data');
+    const posterKeywordTag = document.getElementById('poster-keyword-tag');
+    const posterKeywordDesc = document.getElementById('poster-keyword-desc');
+
+    // 使用 I18n.t() 获取翻译文本（如果 I18n 可用）
+    const t = (key, fallback) => {
+        if (window.I18n && typeof I18n.t === 'function') {
+            const val = I18n.t(key);
+            return val !== key ? val : fallback;
+        }
+        return fallback;
+    };
+    
+    if (mode === 'fh') {
+        // 烽火地带
+        if (posterModeLabel) posterModeLabel.textContent = t('gameMode.fenghuo', '烽火地带');
+        if (posterReportTitle) posterReportTitle.textContent = t('gameMode.fenghuoDaily', '烽火日报');
+        if (posterFhData) posterFhData.style.display = '';
+        if (posterZcData) posterZcData.style.display = 'none';
+        if (posterKeywordTag) posterKeywordTag.textContent = '大红扫荡者';
+        if (posterKeywordDesc) posterKeywordDesc.textContent = '昨日带出5件以上红色品质物品';
     } else {
-        // 不支持原生分享，显示自定义分享弹窗
-        showCustomShareModal();
+        // 全面战场
+        if (posterModeLabel) posterModeLabel.textContent = t('gameMode.zhanchang', '全面战场');
+        if (posterReportTitle) posterReportTitle.textContent = t('gameMode.zhanchangDaily', '战场日报');
+        if (posterFhData) posterFhData.style.display = 'none';
+        if (posterZcData) posterZcData.style.display = '';
+        if (posterKeywordTag) posterKeywordTag.textContent = '战场霸主';
+        if (posterKeywordDesc) posterKeywordDesc.textContent = '单场最高得分超过30,000分';
+    }
+
+    // 重新应用 i18n 翻译（确保带 data-i18n 属性的元素被正确翻译）
+    if (window.I18n && typeof I18n.applyTranslations === 'function') {
+        I18n.applyTranslations();
     }
 }
 
@@ -2111,12 +2197,12 @@ function copyShareLink() {
     const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
         // 显示复制成功提示
-        const copyBtn = document.querySelector('.share-option-copy');
+        const copyBtn = document.querySelector('.share-option-copy .platform-name');
         if (copyBtn) {
-            const originalText = copyBtn.querySelector('.share-option-name').textContent;
-            copyBtn.querySelector('.share-option-name').textContent = '已复制!';
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = '已复制!';
             setTimeout(() => {
-                copyBtn.querySelector('.share-option-name').textContent = originalText;
+                copyBtn.textContent = originalText;
             }, 1500);
         }
     }).catch(err => {

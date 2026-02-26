@@ -40,12 +40,18 @@
     "yesterdayEarnings": "Gestrige Einnahmen",
     "openGameViewMore": "Spiel öffnen für mehr Details",
     "recentData": "Aktuelle Daten",
+    "recentStatus": "Aktuelle Kampfsituation",
+    "highValueItems": "Wertvolle Gegenstände",
     "history": "VERLAUF",
     "frequentOperator": "Häufiger Operator",
     "highlightMatch": "Highlight-Spiel",
     "highlights": "HIGHLIGHTS"
   },
   "stats": {
+    "earnings": "Einnahmen",
+    "operatorKills": "Operator-Kills",
+    "matches": "Spiele",
+    "kd": "K/D",
     "killCount": "Eliminierungen",
     "winRate": "Siegesrate",
     "avgScore": "Ø Punkte",

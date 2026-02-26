@@ -141,19 +141,154 @@
                     <!-- 海报头部 -->
                     <div class="poster-head">
                         <div class="poster-logo-text">△ DELTA FORCE</div>
-                        <div class="poster-report-title" data-i18n="share.dailyReport">日报</div>
+                        <div class="poster-report-title" id="poster-report-title">烽火日报</div>
+                        <div class="poster-date" id="poster-date">2026/01/29</div>
                     </div>
                     
-                    <!-- 海报主体内容占位 -->
-                    <div class="poster-body-placeholder">
-                        <div class="poster-placeholder-icon">📊</div>
-                        <div class="poster-placeholder-text" data-i18n="share.posterPlaceholder">海报内容生成中...</div>
+                    <!-- 用户信息区域 -->
+                    <div class="poster-user-row">
+                        <div class="poster-avatar"></div>
+                        <div class="poster-user-detail">
+                            <span class="poster-username">Grimlock#8888</span>
+                            <span class="poster-mode-label" id="poster-mode-label">烽火地带</span>
+                        </div>
+                    </div>
+
+                    <!-- 每日关键词 -->
+                    <div class="poster-keyword-area">
+                        <div class="poster-keyword-tag" id="poster-keyword-tag">大红扫荡者</div>
+                        <div class="poster-keyword-desc" id="poster-keyword-desc">昨日带出5件以上红色品质物品</div>
+                    </div>
+
+                    <!-- ===== 烽火地带海报内容 ===== -->
+                    <div class="poster-mode-content" id="poster-fh-data">
+                        <!-- 近日战况 -->
+                        <div class="poster-stats-section">
+                            <div class="poster-section-header">
+                                <span class="poster-section-title" data-i18n="home.recentStatus">近日战况</span>
+                            </div>
+                            <div class="poster-primary-stat">
+                                <span class="poster-primary-label" data-i18n="stats.earnings">收益</span>
+                                <span class="poster-primary-value">13,141,314</span>
+                                <span class="poster-primary-unit">HC</span>
+                            </div>
+                            <div class="poster-secondary-stats">
+                                <div class="poster-stat-item">
+                                    <span class="poster-stat-number">33</span>
+                                    <span class="poster-stat-name" data-i18n="stats.operatorKills">击杀干员数</span>
+                                </div>
+                                <div class="poster-stat-item">
+                                    <span class="poster-stat-number">27%</span>
+                                    <span class="poster-stat-name" data-i18n="stats.extractionRate">撤离率</span>
+                                </div>
+                                <div class="poster-stat-item">
+                                    <span class="poster-stat-number">20</span>
+                                    <span class="poster-stat-name" data-i18n="stats.matches">场数</span>
+                                </div>
+                                <div class="poster-stat-item">
+                                    <span class="poster-stat-number">2.1</span>
+                                    <span class="poster-stat-name" data-i18n="stats.kd">K/D</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 近日高价值物品 -->
+                        <div class="poster-items-section">
+                            <div class="poster-section-header">
+                                <span class="poster-section-title" data-i18n="home.highValueItems">近日高价值物品</span>
+                            </div>
+                            <div class="poster-items-grid">
+                                <div class="poster-item-card">
+                                    <div class="poster-item-img"></div>
+                                    <span class="poster-item-name">动力电池组</span>
+                                </div>
+                                <div class="poster-item-card">
+                                    <div class="poster-item-img"></div>
+                                    <span class="poster-item-name">金块</span>
+                                </div>
+                                <div class="poster-item-card">
+                                    <div class="poster-item-img"></div>
+                                    <span class="poster-item-name">加密U盘</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== 全面战场海报内容 ===== -->
+                    <div class="poster-mode-content" id="poster-zc-data" style="display: none;">
+                        <!-- 近日战况 -->
+                        <div class="poster-stats-section">
+                            <div class="poster-section-header">
+                                <span class="poster-section-title">近日战况</span>
+                            </div>
+                            <div class="poster-primary-stat">
+                                <span class="poster-primary-label">最高得分</span>
+                                <span class="poster-primary-value">38,888</span>
+                                <span class="poster-primary-unit">分</span>
+                            </div>
+                            <div class="poster-secondary-stats">
+                                <div class="poster-stat-item">
+                                    <span class="poster-stat-number">200</span>
+                                    <span class="poster-stat-name">击杀次数</span>
+                                </div>
+                                <div class="poster-stat-item">
+                                    <span class="poster-stat-number">42%</span>
+                                    <span class="poster-stat-name">胜率</span>
+                                </div>
+                                <div class="poster-stat-item">
+                                    <span class="poster-stat-number">6</span>
+                                    <span class="poster-stat-name">场数</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 阵地支援 -->
+                        <div class="poster-support-section">
+                            <div class="poster-section-header">
+                                <span class="poster-section-title">🎯 阵地支援</span>
+                            </div>
+                            <div class="poster-support-grid">
+                                <div class="poster-support-item">
+                                    <div class="poster-support-icon mortar"></div>
+                                    <span class="poster-support-name">制导导弹</span>
+                                    <span class="poster-support-count">×1</span>
+                                </div>
+                                <div class="poster-support-item">
+                                    <div class="poster-support-icon turret"></div>
+                                    <span class="poster-support-name">信标</span>
+                                    <span class="poster-support-count">×1</span>
+                                </div>
+                                <div class="poster-support-item">
+                                    <div class="poster-support-icon drone"></div>
+                                    <span class="poster-support-name">炮兵齐射</span>
+                                    <span class="poster-support-count">×1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 载具数据 -->
+                        <div class="poster-vehicle-section">
+                            <div class="poster-section-header">
+                                <span class="poster-section-title">🚁 载具数据</span>
+                            </div>
+                            <div class="poster-vehicle-list">
+                                <div class="poster-vehicle-item">
+                                    <span class="poster-vehicle-name">侦查直升机</span>
+                                    <div class="poster-vehicle-stats">
+                                        <span class="poster-vehicle-stat">击败 <em>123</em></span>
+                                        <span class="poster-vehicle-stat">驾驶 <em>10min</em></span>
+                                    </div>
+                                </div>
+                                <div class="poster-vehicle-item">
+                                    <span class="poster-vehicle-name">主战坦克</span>
+                                    <div class="poster-vehicle-stats">
+                                        <span class="poster-vehicle-stat">击败 <em>45</em></span>
+                                        <span class="poster-vehicle-stat">驾驶 <em>8min</em></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- 海报底部 -->
                     <div class="poster-foot">
-                        <span class="poster-date-text">2026/02/13</span>
-                        <span class="poster-watermark-text">Delta Force Tracker</span>
                     </div>
                 </div>
             </div>
@@ -624,8 +759,36 @@
                         </div>
                     </div>
                     <div class="build-gun-preview"></div>
-                    <div class="radar-chart-container">
-                        <canvas id="radar-single"></canvas>
+                    <div class="radar-attachments-row">
+                        <div class="radar-chart-container">
+                            <canvas id="radar-single"></canvas>
+                        </div>
+                        <div class="build-attachments-grid" id="attachments-zc-mobile">
+                            <div class="attachment-item">
+                                <div class="attachment-icon">🔭</div>
+                                <div class="attachment-name">瞄准镜</div>
+                            </div>
+                            <div class="attachment-item">
+                                <div class="attachment-icon">🔫</div>
+                                <div class="attachment-name">枪口</div>
+                            </div>
+                            <div class="attachment-item">
+                                <div class="attachment-icon">✊</div>
+                                <div class="attachment-name">握把</div>
+                            </div>
+                            <div class="attachment-item">
+                                <div class="attachment-icon">📐</div>
+                                <div class="attachment-name">枪托</div>
+                            </div>
+                            <div class="attachment-item">
+                                <div class="attachment-icon">🎯</div>
+                                <div class="attachment-name">弹匣</div>
+                            </div>
+                            <div class="attachment-item">
+                                <div class="attachment-icon">⚙️</div>
+                                <div class="attachment-name">战术</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

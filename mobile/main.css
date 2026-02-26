@@ -473,56 +473,342 @@ body {
 
 .share-poster-content {
     width: 100%;
-    aspect-ratio: 9 / 14;
     background: linear-gradient(180deg, #1a2a3a 0%, #0d1520 100%);
     border-radius: 12px;
     border: 2px solid var(--accent-cyan);
     box-shadow: 0 4px 20px rgba(0, 212, 170, 0.2);
     display: flex;
     flex-direction: column;
-    padding: 16px;
+    padding: 14px;
     overflow: hidden;
 }
 
 /* 海报头部 */
 .poster-head {
     text-align: center;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
     border-bottom: 1px solid rgba(0, 212, 170, 0.3);
+    flex-shrink: 0;
 }
 
 .poster-logo-text {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--accent-cyan);
     letter-spacing: 2px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .poster-report-title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: 4px;
 }
 
-/* 海报主体占位 */
-.poster-body-placeholder {
+.poster-date {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    letter-spacing: 1px;
+}
+
+/* 用户信息区域 */
+.poster-user-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 6px;
+    flex-shrink: 0;
+}
+
+.poster-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 212, 170, 0.15);
+    border: 2px solid var(--accent-cyan);
+    flex-shrink: 0;
+}
+
+.poster-user-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.poster-username {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.poster-mode-label {
+    font-size: 10px;
+    color: var(--accent-cyan);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* 每日关键词 */
+.poster-keyword-area {
+    text-align: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.poster-keyword-tag {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+    letter-spacing: 1px;
+}
+
+.poster-keyword-desc {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+/* 海报模式内容 */
+.poster-mode-content {
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+    padding-top: 8px;
+}
+
+/* 海报数据区块 */
+.poster-stats-section {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+}
+
+.poster-section-header {
+    display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 8px;
+}
+
+.poster-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+}
+
+.poster-section-date {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+/* 主要数据指标 */
+.poster-primary-stat {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.poster-primary-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.poster-primary-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: #c8ff00;
+    text-shadow: 0 0 12px rgba(200, 255, 0, 0.4);
+    line-height: 1;
+}
+
+.poster-primary-unit {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* 次要数据 */
+.poster-secondary-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+}
+
+.poster-stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 2px;
+    background: rgba(0, 212, 170, 0.04);
+    border-radius: 6px;
+}
+
+.poster-stat-number {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+}
+
+.poster-stat-name {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* 烽火地带 - 高价值物品 */
+.poster-items-section {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.poster-items-grid {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.poster-item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    max-width: 80px;
+}
+
+.poster-item-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: rgba(200, 200, 200, 0.1);
+    border: 2px solid;
+    border-image: linear-gradient(135deg, #ff4444, #ff8800) 1;
+}
+
+.poster-item-name {
+    font-size: 9px;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* 全面战场 - 阵地支援 */
+.poster-support-section {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.poster-support-grid {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.poster-support-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    flex: 1;
+}
+
+.poster-support-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(200, 200, 200, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.poster-support-icon.mortar {
+    background: rgba(255, 80, 80, 0.15);
+    border-color: rgba(255, 80, 80, 0.3);
+}
+
+.poster-support-icon.turret {
+    background: rgba(0, 212, 170, 0.15);
+    border-color: rgba(0, 212, 170, 0.3);
+}
+
+.poster-support-icon.drone {
+    background: rgba(255, 165, 0, 0.15);
+    border-color: rgba(255, 165, 0, 0.3);
+}
+
+.poster-support-name {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.poster-support-count {
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+}
+
+/* 全面战场 - 载具数据 */
+.poster-vehicle-section {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.poster-vehicle-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.poster-vehicle-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    background: rgba(0, 212, 170, 0.04);
+    border-radius: 6px;
+}
+
+.poster-vehicle-name {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.poster-vehicle-stats {
+    display: flex;
     gap: 12px;
 }
 
-.poster-placeholder-icon {
-    font-size: 48px;
-    opacity: 0.5;
+.poster-vehicle-stat {
+    font-size: 10px;
+    color: var(--text-muted);
 }
 
-.poster-placeholder-text {
-    font-size: 13px;
-    color: var(--text-muted);
+.poster-vehicle-stat em {
+    font-style: normal;
+    font-family: 'Orbitron', monospace;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    font-size: 11px;
 }
 
 /* 海报底部 */
@@ -2136,6 +2422,59 @@ body {
 .radar-chart-container canvas {
     width: 100%;
     height: 100%;
+}
+
+/* 战场模式 - 雷达图+配件并排布局 */
+.radar-attachments-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+.radar-attachments-row .radar-chart-container {
+    width: 45%;
+    height: 100px;
+    flex-shrink: 0;
+    margin-top: 0;
+}
+
+.build-attachments-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 4px;
+}
+
+.attachment-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 4px 2px;
+    min-height: 44px;
+}
+
+.attachment-icon {
+    font-size: 16px;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.attachment-name {
+    font-size: 9px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    text-align: center;
 }
 
 /* 最新热点 */
