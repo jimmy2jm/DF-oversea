@@ -266,8 +266,8 @@ const craftWorkingData = {
         itemIcon: '🎽',
         sellPrice: 125000,
         craftCost: 78500,
-        fee: 6250,      // 手续费 5%
-        deposit: 12500, // 保证金 10%
+        fee: 6250,      // 手续费 
+        deposit: 12500, // 保证金 
         totalTime: '08:45:00',
         remainTime: '02:22:45',
         totalProfit: 27750,
@@ -324,11 +324,11 @@ function openCraftModal(stationName, status, itemName, time) {
                                 <span class="profit-row-value"><span class="coin-icon">💰</span>-${workingItem.craftCost.toLocaleString()}</span>
                             </div>
                             <div class="profit-row">
-                                <span class="profit-row-label">手续费(5%)</span>
+                                <span class="profit-row-label">手续费</span>
                                 <span class="profit-row-value"><span class="coin-icon">💰</span>-${workingItem.fee.toLocaleString()}</span>
                             </div>
                             <div class="profit-row">
-                                <span class="profit-row-label">保证金(10%)</span>
+                                <span class="profit-row-label">保证金</span>
                                 <span class="profit-row-value"><span class="coin-icon">💰</span>-${workingItem.deposit.toLocaleString()}</span>
                             </div>
                             <div class="profit-row">
@@ -1960,16 +1960,49 @@ function initLoginSystem() {
     // 社交登录按钮
     const socialBtns = document.querySelectorAll('.social-btn');
     
+    // 登录方式选择弹窗
+    const loginMethodOverlay = document.getElementById('login-method-overlay');
+    const loginMethodClose = document.getElementById('login-method-close');
+    const loginMethodLI = document.getElementById('login-method-li');
+    const loginMethodGarena = document.getElementById('login-method-garena');
+
     // 点击登录头像按钮
     if (loginAvatarBtn) {
         loginAvatarBtn.addEventListener('click', function() {
             if (isLoggedIn) {
-                // 已登录，显示退出确认弹窗
                 openLogoutModal();
             } else {
-                // 未登录，显示登录弹窗
-                openLoginModal();
+                // 先打开方式选择弹窗
+                if (loginMethodOverlay) loginMethodOverlay.classList.add('active');
             }
+        });
+    }
+
+    // 关闭登录方式选择弹窗
+    if (loginMethodClose) {
+        loginMethodClose.addEventListener('click', function() {
+            if (loginMethodOverlay) loginMethodOverlay.classList.remove('active');
+        });
+    }
+    if (loginMethodOverlay) {
+        loginMethodOverlay.addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
+        });
+    }
+
+    // 选择 Level Infinite → 关闭方式弹窗，打开原登录弹窗
+    if (loginMethodLI) {
+        loginMethodLI.addEventListener('click', function() {
+            if (loginMethodOverlay) loginMethodOverlay.classList.remove('active');
+            openLoginModal();
+        });
+    }
+
+    // 选择 Garena → 直接完成登录
+    if (loginMethodGarena) {
+        loginMethodGarena.addEventListener('click', function() {
+            if (loginMethodOverlay) loginMethodOverlay.classList.remove('active');
+            performLogin('garena');
         });
     }
     
@@ -1987,34 +2020,35 @@ function initLoginSystem() {
         });
     }
     
-    // 登录/注册按钮 - 直接登录（原型版本）
+    // 登录/注册按钮 - 邮箱登录
     if (loginSubmitBtn) {
         loginSubmitBtn.addEventListener('click', function() {
-            performLogin();
+            performLogin('email');
         });
     }
     
-    // 社交登录按钮 - 直接登录（原型版本）
+    // 社交登录按钮 - 传入来源
     socialBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            performLogin();
+            const source = this.id.replace('social-', ''); // 'google', 'facebook', etc.
+            performLogin(source);
         });
     });
     
-    // 密码登录链接 - 直接登录（原型版本）
+    // 密码登录链接
     const passwordLoginLink = document.querySelector('.password-login-link');
     if (passwordLoginLink) {
         passwordLoginLink.addEventListener('click', function(e) {
             e.preventDefault();
-            performLogin();
+            performLogin('email');
         });
     }
     
-    // 获取验证码按钮 - 直接登录（原型版本）
+    // 获取验证码按钮
     const getCodeBtn = document.querySelector('.get-code-btn');
     if (getCodeBtn) {
         getCodeBtn.addEventListener('click', function() {
-            performLogin();
+            performLogin('email');
         });
     }
     
@@ -2038,6 +2072,50 @@ function initLoginSystem() {
             }
         });
     }
+    
+    // 点击已登录区域切换下拉菜单
+    const userLoggedArea = document.getElementById('mobile-user-logged');
+    const dropdownMenu = document.getElementById('user-dropdown-menu');
+    if (userLoggedArea && dropdownMenu) {
+        userLoggedArea.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (isLoggedIn) {
+                dropdownMenu.classList.toggle('active');
+            }
+        });
+
+        // 点击页面其他区域关闭下拉菜单
+        document.addEventListener('click', function() {
+            dropdownMenu.classList.remove('active');
+        });
+
+        // 防止点击菜单本身关闭
+        dropdownMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+
+    // 下拉菜单 - 意见反馈
+    const dropdownFeedback = document.getElementById('dropdown-feedback');
+    if (dropdownFeedback) {
+        dropdownFeedback.addEventListener('click', function() {
+            dropdownMenu.classList.remove('active');
+            var overlay = document.getElementById('feedback-modal-overlay');
+            if (overlay) overlay.classList.add('active');
+        });
+    }
+
+    // 下拉菜单 - 退出登录
+    const dropdownLogout = document.getElementById('dropdown-logout');
+    if (dropdownLogout) {
+        dropdownLogout.addEventListener('click', function() {
+            dropdownMenu.classList.remove('active');
+            openLogoutModal();
+        });
+    }
+    
+    // 页面加载时检查登录状态
+    checkMobileLoginState();
 }
 
 // 打开登录弹窗
@@ -2073,37 +2151,99 @@ function closeLogoutModal() {
 }
 
 // 执行登录
-function performLogin() {
+function performLogin(source) {
+    // 获取邮箱输入
+    const emailInput = document.querySelector('.login-modal .login-input[type="email"]');
+    let email = emailInput ? emailInput.value.trim() : '';
+    if (!email) email = 'user@example.com';
+    
+    // 判断是否Google登录（有头像）
+    const isGoogle = (source === 'google');
+    const hasAvatar = isGoogle;
+    const avatarUrl = isGoogle ? 'https://lh3.googleusercontent.com/a/default-user=s96-c' : '';
+    
     isLoggedIn = true;
     
-    // 更新登录按钮状态
-    const loginAvatarBtn = document.getElementById('login-avatar-btn');
-    if (loginAvatarBtn) {
-        loginAvatarBtn.classList.add('logged-in');
-    }
+    // 保存到 localStorage
+    const loginData = { email, hasAvatar, avatarUrl, loggedIn: true };
+    localStorage.setItem('df_login', JSON.stringify(loginData));
+    
+    // 更新UI
+    updateLoginUI(loginData);
     
     // 关闭登录弹窗
     closeLoginModal();
+}
+
+// 更新登录UI
+function updateLoginUI(data) {
+    const loginAvatarBtn = document.getElementById('login-avatar-btn');
+    const userLogged = document.getElementById('mobile-user-logged');
+    const userAvatar = document.getElementById('mobile-user-avatar');
+    const userEmail = document.getElementById('mobile-user-email');
     
-    // 显示登录成功提示（可选）
-    console.log('登录成功');
+    if (data && data.loggedIn) {
+        // 隐藏默认登录按钮，显示已登录信息
+        if (loginAvatarBtn) loginAvatarBtn.style.display = 'none';
+        if (userLogged) userLogged.style.display = 'flex';
+        
+        // 设置邮箱
+        if (userEmail) userEmail.textContent = data.email || '';
+        
+        // 设置头像
+        if (data.hasAvatar && data.avatarUrl) {
+            if (userAvatar) {
+                userAvatar.src = data.avatarUrl;
+                userAvatar.style.display = 'block';
+            }
+        } else {
+            if (userAvatar) userAvatar.style.display = 'none';
+        }
+    } else {
+        // 显示默认登录按钮，隐藏已登录信息
+        if (loginAvatarBtn) {
+            loginAvatarBtn.style.display = 'flex';
+            loginAvatarBtn.classList.remove('logged-in');
+        }
+        if (userLogged) userLogged.style.display = 'none';
+    }
+}
+
+// 检查登录状态（页面加载时调用）
+function checkMobileLoginState() {
+    try {
+        const stored = localStorage.getItem('df_login');
+        if (stored) {
+            const data = JSON.parse(stored);
+            if (data && data.loggedIn) {
+                isLoggedIn = true;
+                updateLoginUI(data);
+                return;
+            }
+        }
+    } catch (e) {
+        console.warn('读取登录状态失败', e);
+    }
+    isLoggedIn = false;
+    updateLoginUI(null);
 }
 
 // 执行退出登录
 function performLogout() {
     isLoggedIn = false;
     
-    // 更新登录按钮状态
-    const loginAvatarBtn = document.getElementById('login-avatar-btn');
-    if (loginAvatarBtn) {
-        loginAvatarBtn.classList.remove('logged-in');
-    }
+    // 清除 localStorage
+    localStorage.removeItem('df_login');
+    
+    // 更新UI
+    updateLoginUI(null);
+    
+    // 关闭下拉菜单
+    var dm = document.getElementById('user-dropdown-menu');
+    if (dm) dm.classList.remove('active');
     
     // 关闭退出确认弹窗
     closeLogoutModal();
-    
-    // 显示退出成功提示（可选）
-    console.log('已退出登录');
 }
 
 /* ============================================
@@ -2209,3 +2349,158 @@ function copyShareLink() {
         console.error('复制失败:', err);
     });
 }
+
+/* ============================================
+   意见反馈功能
+   ============================================ */
+(function() {
+    let feedbackImages = []; // 存储已上传的图片 base64
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initFeedbackSystem();
+    });
+
+    function initFeedbackSystem() {
+        const closeBtn = document.getElementById('feedback-modal-close');
+        const overlay = document.getElementById('feedback-modal-overlay');
+        const submitBtn = document.getElementById('feedback-submit-btn');
+        const textarea = document.getElementById('feedback-textarea');
+        const charCount = document.getElementById('feedback-char-count');
+        const imageAddBtn = document.getElementById('feedback-image-add');
+        const imageInput = document.getElementById('feedback-image-input');
+        // 关闭反馈弹窗
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeFeedbackModal);
+        }
+
+        // 点击遮罩关闭
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeFeedbackModal();
+                }
+            });
+        }
+
+        // 字数统计
+        if (textarea && charCount) {
+            textarea.addEventListener('input', function() {
+                charCount.textContent = this.value.length;
+            });
+        }
+
+        // 图片上传按钮
+        if (imageAddBtn && imageInput) {
+            imageAddBtn.addEventListener('click', function() {
+                if (feedbackImages.length >= 3) return;
+                imageInput.click();
+            });
+
+            imageInput.addEventListener('change', function() {
+                handleFeedbackImageUpload(this.files);
+                this.value = ''; // 重置以允许再次选择同文件
+            });
+        }
+
+        // 提交反馈
+        if (submitBtn) {
+            submitBtn.addEventListener('click', submitFeedback);
+        }
+    }
+
+    function openFeedbackModal() {
+        const overlay = document.getElementById('feedback-modal-overlay');
+        if (overlay) overlay.classList.add('active');
+    }
+
+    function closeFeedbackModal() {
+        const overlay = document.getElementById('feedback-modal-overlay');
+        if (overlay) overlay.classList.remove('active');
+    }
+
+    function handleFeedbackImageUpload(files) {
+        if (!files || files.length === 0) return;
+
+        var remaining = 3 - feedbackImages.length;
+        var toProcess = Math.min(files.length, remaining);
+
+        for (var i = 0; i < toProcess; i++) {
+            (function(file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('图片大小不能超过5MB');
+                    return;
+                }
+                if (!file.type.startsWith('image/')) return;
+
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    feedbackImages.push(e.target.result);
+                    renderFeedbackImages();
+                };
+                reader.readAsDataURL(file);
+            })(files[i]);
+        }
+    }
+
+    function renderFeedbackImages() {
+        var grid = document.getElementById('feedback-image-grid');
+        var addBtn = document.getElementById('feedback-image-add');
+        if (!grid || !addBtn) return;
+
+        // 清除已有预览（保留添加按钮）
+        var previews = grid.querySelectorAll('.feedback-image-preview');
+        previews.forEach(function(p) { p.remove(); });
+
+        // 重新渲染
+        feedbackImages.forEach(function(src, idx) {
+            var div = document.createElement('div');
+            div.className = 'feedback-image-preview';
+            div.innerHTML = '<img src="' + src + '" alt="">' +
+                '<button class="feedback-image-remove" data-idx="' + idx + '">✕</button>';
+            grid.insertBefore(div, addBtn);
+        });
+
+        // 隐藏/显示添加按钮
+        addBtn.style.display = feedbackImages.length >= 3 ? 'none' : 'flex';
+
+        // 绑定删除事件
+        grid.querySelectorAll('.feedback-image-remove').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var idx = parseInt(this.dataset.idx);
+                feedbackImages.splice(idx, 1);
+                renderFeedbackImages();
+            });
+        });
+    }
+
+    function submitFeedback() {
+        var textarea = document.getElementById('feedback-textarea');
+        var content = textarea ? textarea.value.trim() : '';
+
+        if (!content) {
+            alert('请输入反馈内容');
+            return;
+        }
+
+        var feedbackData = {
+            content: content,
+            images: feedbackImages,
+            timestamp: new Date().toISOString()
+        };
+
+        console.log('反馈数据:', feedbackData);
+
+        // 模拟提交成功
+        alert('感谢您的反馈！');
+
+        // 重置表单
+        if (textarea) textarea.value = '';
+        var charCount = document.getElementById('feedback-char-count');
+        if (charCount) charCount.textContent = '0';
+        feedbackImages = [];
+        renderFeedbackImages();
+
+        closeFeedbackModal();
+    }
+})();

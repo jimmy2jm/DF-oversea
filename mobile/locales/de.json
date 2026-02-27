@@ -152,7 +152,8 @@
     "peakRank": "Höchster Rang",
     "server": "Server",
     "statsData": "Spielstatistiken",
-    "collectionRanking": "Sammler-Wochenrangliste"
+    "collectionRanking": "Sammler-Wochenrangliste",
+    "feedback": "Feedback"
   },
   "ranks": {
     "gold": "Gold"
@@ -227,5 +228,17 @@
   "operators": {
     "weilong": "Weilong",
     "haizhua": "Haizhua"
+  },
+  "feedback": {
+    "title": "Feedback",
+    "bug": "Bug",
+    "suggestion": "Vorschlag",
+    "other": "Sonstiges",
+    "placeholder": "Bitte beschreiben Sie Ihr Problem oder Ihren Vorschlag...",
+    "uploadImage": "Screenshot hochladen (max. 3)",
+    "addImage": "Bild hinzufügen",
+    "imageHint": "Max. 3 Bilder, je max. 5 MB",
+    "contactPlaceholder": "Kontakt (optional)",
+    "submit": "Feedback senden"
   }
 }

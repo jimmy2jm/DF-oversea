@@ -275,5 +275,16 @@
     "matches": "Spiele",
     "minutes": "Min.",
     "killed": "Gefallen"
+  },
+  "feedback": {
+    "title": "Feedback",
+    "bug": "Bug",
+    "suggestion": "Vorschlag",
+    "other": "Sonstiges",
+    "placeholder": "Bitte beschreiben Sie Ihr Feedback ausführlich...",
+    "addImage": "Bild hinzufügen",
+    "imageHint": "Max. 3 Bilder, je max. 5 MB",
+    "contactPlaceholder": "Kontakt (optional, z.B. E-Mail/Discord)",
+    "submit": "Feedback senden"
   }
 }

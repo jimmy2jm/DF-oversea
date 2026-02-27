@@ -13,27 +13,26 @@
         <!-- 左侧：语言切换 -->
         <div class="lang-selector">
             <button class="lang-selector-btn" id="lang-btn">
-                <span class="lang-flag" id="current-lang-flag">🇨🇳</span>
+                <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M2 12h20"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/>
+                </svg>
             </button>
             <div class="lang-dropdown" id="lang-dropdown">
                 <div class="lang-option active" data-lang="zh-CN">
-                    <span class="lang-option-flag">🇨🇳</span>
                     <span class="lang-option-name">简体中文</span>
                 </div>
                 <div class="lang-option" data-lang="en">
-                    <span class="lang-option-flag">🇺🇸</span>
                     <span class="lang-option-name">English</span>
                 </div>
                 <div class="lang-option" data-lang="ja">
-                    <span class="lang-option-flag">🇯🇵</span>
                     <span class="lang-option-name">日本語</span>
                 </div>
                 <div class="lang-option" data-lang="ko">
-                    <span class="lang-option-flag">🇰🇷</span>
                     <span class="lang-option-name">한국어</span>
                 </div>
                 <div class="lang-option" data-lang="de">
-                    <span class="lang-option-flag">🇩🇪</span>
                     <span class="lang-option-name">Deutsch</span>
                 </div>
             </div>
@@ -49,9 +48,57 @@
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
             </button>
+            <div class="mobile-user-logged" id="mobile-user-logged" style="display: none;">
+                <img class="mobile-user-avatar" id="mobile-user-avatar" src="" alt="" style="display: none;">
+                <span class="mobile-user-email" id="mobile-user-email"></span>
+                <span class="user-dropdown-arrow">▾</span>
+            </div>
+            <!-- 用户下拉菜单 -->
+            <div class="user-dropdown-menu" id="user-dropdown-menu">
+                <div class="user-dropdown-item" id="dropdown-feedback">
+                    <span class="user-dropdown-icon">💬</span>
+                    <span data-i18n="profile.feedback">意见反馈</span>
+                </div>
+                <div class="user-dropdown-item logout" id="dropdown-logout">
+                    <span class="user-dropdown-icon">🚪</span>
+                    <span data-i18n="login.logout">退出登录</span>
+                </div>
+            </div>
         </div>
     </header>
     
+    <!-- 登录方式选择弹窗 -->
+    <div class="login-method-overlay" id="login-method-overlay">
+        <div class="login-method-modal">
+            <div class="login-method-header">
+                <span class="login-method-title" data-i18n="login.selectMethod">Log in with:</span>
+                <span class="login-method-close" id="login-method-close">&times;</span>
+            </div>
+            <div class="login-method-cards">
+                <div class="login-method-card" id="login-method-li">
+                    <div class="method-card-icon method-li-icon">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="100" rx="16" fill="#1a0a2e"/>
+                            <polygon points="30,25 30,75 55,75" fill="#7c3aed"/>
+                            <polygon points="45,25 70,75 70,25" fill="#a78bfa"/>
+                        </svg>
+                    </div>
+                    <span class="method-card-name">Level Infinite</span>
+                </div>
+                <div class="login-method-card" id="login-method-garena">
+                    <div class="method-card-icon method-garena-icon">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="100" rx="16" fill="#1a0a0a"/>
+                            <circle cx="50" cy="50" r="30" fill="#e53935"/>
+                            <text x="50" y="58" text-anchor="middle" font-size="28" font-weight="bold" fill="#fff">G</text>
+                        </svg>
+                    </div>
+                    <span class="method-card-name">Garena</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 登录弹窗 -->
     <div class="login-modal-overlay" id="login-modal-overlay">
         <div class="login-modal">
@@ -66,29 +113,29 @@
             
             <!-- 弹窗内容 -->
             <div class="login-modal-content">
-                <p class="login-hint" data-i18n="login.autoCreateHint">Account will be created automatically for new emails.</p>
+                <p class="login-hint" data-i18n="login.autoCreateHint">新邮箱将自动创建账号</p>
                 
                 <!-- 邮箱输入 -->
                 <div class="login-input-group">
-                    <input type="email" class="login-input" placeholder="Email address" data-i18n-placeholder="login.emailPlaceholder">
+                    <input type="email" class="login-input" placeholder="请输入邮箱地址" data-i18n-placeholder="login.emailPlaceholder">
                 </div>
                 
                 <!-- 验证码输入 -->
                 <div class="login-input-group verification-group">
-                    <input type="text" class="login-input verification-input" placeholder="Verification code" data-i18n-placeholder="login.verificationPlaceholder">
-                    <button class="get-code-btn" data-i18n="login.getCode">Get code</button>
+                    <input type="text" class="login-input verification-input" placeholder="请输入验证码" data-i18n-placeholder="login.verificationPlaceholder">
+                    <button class="get-code-btn" data-i18n="login.getCode">获取验证码</button>
                 </div>
                 
                 <!-- 登录/注册按钮 -->
-                <button class="login-submit-btn" id="login-submit-btn" data-i18n="login.registerLogin">Register / Log in</button>
+                <button class="login-submit-btn" id="login-submit-btn" data-i18n="login.registerLogin">注册 / 登录</button>
                 
                 <!-- 密码登录链接 -->
-                <a href="#" class="password-login-link" data-i18n="login.passwordLogin">Password login</a>
+                <a href="#" class="password-login-link" data-i18n="login.passwordLogin">密码登录</a>
                 
                 <!-- 分隔线 -->
                 <div class="login-divider">
                     <span class="divider-line"></span>
-                    <span class="divider-text" data-i18n="login.signInWith">Sign in with</span>
+                    <span class="divider-text" data-i18n="login.signInWith">其他方式登录</span>
                     <span class="divider-line"></span>
                 </div>
                 
@@ -1217,8 +1264,37 @@
                 </div>
                 -->
             </div>
+            
+
         </section>
     </div><!-- 我的页面结束 -->
+    
+    <!-- 意见反馈弹窗 -->
+    <div class="feedback-modal-overlay" id="feedback-modal-overlay">
+        <div class="feedback-modal">
+            <div class="feedback-modal-header">
+                <span class="feedback-modal-title" data-i18n="feedback.title">意见反馈</span>
+                <span class="feedback-modal-close" id="feedback-modal-close">✕</span>
+            </div>
+            <div class="feedback-modal-body">
+                <!-- 描述输入 -->
+                <textarea class="feedback-textarea" id="feedback-textarea" placeholder="请描述您的问题或建议..." data-i18n-placeholder="feedback.placeholder" maxlength="500"></textarea>
+                <div class="feedback-textarea-count"><span id="feedback-char-count">0</span>/500</div>
+                <!-- 图片上传 -->
+                <div class="feedback-image-section">
+                    <div class="feedback-image-label" data-i18n="feedback.uploadImage">上传截图（最多3张）</div>
+                    <div class="feedback-image-grid" id="feedback-image-grid">
+                        <div class="feedback-image-add" id="feedback-image-add">
+                            <span>+</span>
+                            <input type="file" accept="image/*" multiple style="display:none;" id="feedback-image-input">
+                        </div>
+                    </div>
+                </div>
+                <!-- 提交按钮 -->
+                <button class="feedback-submit-btn" id="feedback-submit-btn" data-i18n="feedback.submit">提交反馈</button>
+            </div>
+        </div>
+    </div>
     
     <!-- 底部导航 -->
     <nav class="bottom-nav">
