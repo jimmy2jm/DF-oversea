@@ -2162,6 +2162,16 @@ function performLogin(source) {
     const hasAvatar = isGoogle;
     const avatarUrl = isGoogle ? 'https://lh3.googleusercontent.com/a/default-user=s96-c' : '';
     
+    // Facebook 登录必定无游戏账号（方便测试），其他渠道正常登录
+    const hasGameAccount = (source === 'facebook') ? false : true;
+    
+    if (!hasGameAccount) {
+        // 关闭登录弹窗，弹出引导（传入登录信息供游客模式使用）
+        closeLoginModal();
+        showMobileNoAccountModal(email, hasAvatar, avatarUrl);
+        return;
+    }
+    
     isLoggedIn = true;
     
     // 保存到 localStorage
@@ -2173,6 +2183,49 @@ function performLogin(source) {
     
     // 关闭登录弹窗
     closeLoginModal();
+}
+
+function showMobileNoAccountModal(email, hasAvatar, avatarUrl) {
+    const overlay = document.getElementById('mobile-no-account-overlay');
+    if (!overlay) return;
+    overlay.classList.add('active');
+    
+    // 游客模式登录：保存登录状态并更新UI
+    function guestLogin() {
+        overlay.classList.remove('active');
+        isLoggedIn = true;
+        const loginData = { email, hasAvatar, avatarUrl, loggedIn: true };
+        localStorage.setItem('df_login', JSON.stringify(loginData));
+        updateLoginUI(loginData);
+    }
+    
+    // 点击遮罩 → 游客模式登录
+    overlay.onclick = function(e) {
+        if (e.target === overlay) guestLogin();
+    };
+    
+    // 切换账号
+    const switchBtn = document.getElementById('mobile-no-account-switch');
+    if (switchBtn) {
+        switchBtn.onclick = function(e) {
+            e.preventDefault();
+            overlay.classList.remove('active');
+            localStorage.removeItem('df_login');
+            isLoggedIn = false;
+            updateLoginUI(null);
+            const methodOverlay = document.getElementById('login-method-overlay');
+            if (methodOverlay) methodOverlay.classList.add('active');
+        };
+    }
+    
+    // 游客模式按钮
+    const guestBtn = document.getElementById('mobile-no-account-guest');
+    if (guestBtn) {
+        guestBtn.onclick = function(e) {
+            e.preventDefault();
+            guestLogin();
+        };
+    }
 }
 
 // 更新登录UI

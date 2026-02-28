@@ -2753,7 +2753,7 @@ function initDesktopLoginSystem() {
         submitBtn.addEventListener('click', () => {
             const emailInput = document.getElementById('desktop-email-input');
             const email = emailInput ? emailInput.value.trim() : '';
-            desktopPerformLogin(email || 'user@example.com', null, false);
+            desktopPerformLogin(email || 'user@example.com', null, false, 'email');
         });
     }
     
@@ -2762,7 +2762,7 @@ function initDesktopLoginSystem() {
         getCodeBtn.addEventListener('click', () => {
             const emailInput = document.getElementById('desktop-email-input');
             const email = emailInput ? emailInput.value.trim() : '';
-            desktopPerformLogin(email || 'user@example.com', null, false);
+            desktopPerformLogin(email || 'user@example.com', null, false, 'email');
         });
     }
     
@@ -2772,7 +2772,7 @@ function initDesktopLoginSystem() {
             e.preventDefault();
             const emailInput = document.getElementById('desktop-email-input');
             const email = emailInput ? emailInput.value.trim() : '';
-            desktopPerformLogin(email || 'user@example.com', null, false);
+            desktopPerformLogin(email || 'user@example.com', null, false, 'email');
         });
     }
     
@@ -2782,7 +2782,7 @@ function initDesktopLoginSystem() {
             const provider = btn.dataset.provider;
             if (provider === 'google') {
                 // Google 登录 - 模拟有头像
-                desktopPerformLogin('player@gmail.com', 'https://lh3.googleusercontent.com/a/default-user=s96-c', true);
+                desktopPerformLogin('player@gmail.com', 'https://lh3.googleusercontent.com/a/default-user=s96-c', true, provider);
             } else {
                 // 其他渠道 - 无头像
                 const emails = {
@@ -2791,13 +2791,24 @@ function initDesktopLoginSystem() {
                     line: 'player@line.me',
                     discord: 'player@discord.com'
                 };
-                desktopPerformLogin(emails[provider] || 'user@example.com', null, false);
+                desktopPerformLogin(emails[provider] || 'user@example.com', null, false, provider);
             }
         });
     });
 }
 
-function desktopPerformLogin(email, avatarUrl, hasAvatar) {
+function desktopPerformLogin(email, avatarUrl, hasAvatar, provider) {
+    // Facebook 登录必定无游戏账号（方便测试），其他渠道正常登录
+    const hasGameAccount = (provider === 'facebook') ? false : true;
+    
+    if (!hasGameAccount) {
+        // 无游戏账号 → 弹出引导弹窗
+        const overlay = document.getElementById('desktop-login-overlay');
+        if (overlay) overlay.classList.remove('active');
+        showDesktopNoAccountModal(email, avatarUrl, hasAvatar);
+        return;
+    }
+    
     localStorage.setItem('df_login', JSON.stringify({
         email: email,
         avatar: avatarUrl,
@@ -2809,6 +2820,58 @@ function desktopPerformLogin(email, avatarUrl, hasAvatar) {
     // 关闭弹窗
     const overlay = document.getElementById('desktop-login-overlay');
     if (overlay) overlay.classList.remove('active');
+}
+
+function showDesktopNoAccountModal(email, avatarUrl, hasAvatar) {
+    const overlay = document.getElementById('desktop-no-account-overlay');
+    if (!overlay) return;
+    overlay.classList.add('active');
+    
+    // 游客模式登录：保存登录状态并更新UI
+    function guestLogin() {
+        overlay.classList.remove('active');
+        localStorage.setItem('df_login', JSON.stringify({
+            email: email,
+            avatar: avatarUrl,
+            hasAvatar: hasAvatar,
+            loggedIn: true
+        }));
+        updateDesktopLoginUI(email, avatarUrl, hasAvatar);
+    }
+    
+    // 关闭按钮 → 游客模式登录
+    const closeBtn = document.getElementById('desktop-no-account-close');
+    if (closeBtn) {
+        closeBtn.onclick = function() {
+            guestLogin();
+        };
+    }
+    
+    // 点击遮罩 → 游客模式登录
+    overlay.onclick = function(e) {
+        if (e.target === overlay) guestLogin();
+    };
+    
+    // 切换账号
+    const switchBtn = document.getElementById('desktop-no-account-switch');
+    if (switchBtn) {
+        switchBtn.onclick = function(e) {
+            e.preventDefault();
+            overlay.classList.remove('active');
+            localStorage.removeItem('df_login');
+            const methodOverlay = document.getElementById('desktop-login-method-overlay');
+            if (methodOverlay) methodOverlay.classList.add('active');
+        };
+    }
+    
+    // 游客模式按钮
+    const guestBtn = document.getElementById('desktop-no-account-guest');
+    if (guestBtn) {
+        guestBtn.onclick = function(e) {
+            e.preventDefault();
+            guestLogin();
+        };
+    }
 }
 
 function desktopPerformLogout() {

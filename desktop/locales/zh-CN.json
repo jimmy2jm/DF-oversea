@@ -34,6 +34,16 @@
     "logoutConfirm": "确定要退出登录吗？",
     "logout": "退出登录"
   },
+  "noAccount": {
+    "title": "未找到游戏角色",
+    "desc": "账号登录成功，但未找到关联的 Delta Force 游戏角色",
+    "solution1": "下载游戏并创建角色",
+    "solution1Desc": "请前往官网下载游戏，并使用当前登录的相同账号登录游戏、创建角色，完成后返回本工具重新登录即可正常使用",
+    "downloadBtn": "📥 前往官网下载游戏",
+    "orText": "或者",
+    "switchAccount": "使用其他账号登录",
+    "guestMode": "以游客模式浏览"
+  },
   "gameMode": {
     "fenghuo": "烽火地带",
     "zhanchang": "全面战场",
